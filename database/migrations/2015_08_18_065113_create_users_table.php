@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('blog_url');
             // $table->integer('avatar_id'); - modify at next migration
             $table->string('report');
+            $table->timestamps();
         });
 
         // Create article table

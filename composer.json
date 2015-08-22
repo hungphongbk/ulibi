@@ -46,7 +46,11 @@
         ],
         "pre-init-db":[
             "php artisan migrate:reset",
-            "php artisan migrate"
+            "php artisan migrate",
+            "php artisan db:seed"
+        ],
+        "compile-res":[
+            "gulp --production"
         ]
     },
     "config": {

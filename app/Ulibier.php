@@ -17,7 +17,8 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
      *
      * @var string
      */
-    protected $table = 'ulibier';
+    protected $table = 'Ulibier';
+    protected $primaryKey = 'user_id';
 
     /**
      * The attributes that are mass assignable.
