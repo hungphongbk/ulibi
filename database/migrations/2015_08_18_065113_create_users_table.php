@@ -134,6 +134,23 @@ class CreateUsersTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
+        // Create table will map Article and Photo
+        Schema::create('ArticlePhotoMapping', function (Blueprint $table){
+            $table->integer('article_id')->unsigned();
+            $table->integer('photo_id')->unsigned();
+
+            $table->primary(array('article_id','photo_id'));
+            $table->foreign('article_id')
+                ->references('article_id')
+                ->on('Article')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('photo_id')
+                ->references('photo_id')
+                ->on('Photo')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
 
         // Create destination table
         Schema::create('Destination', function(Blueprint $table) {
@@ -148,12 +165,18 @@ class CreateUsersTable extends Migration
             // $table->integer('prop_id')->unsigned();
         });
         DB::statement('ALTER TABLE Destination ADD coordinate POINT' );
-        // update table Article: add destination column
-        Schema::table('Article', function(Blueprint $table) {
+        // Create table will map Article and Destination
+        Schema::create('ArticleDestinationMapping', function(Blueprint $table) {
+            $table->integer('article_id')->unsigned();
             $table->integer('des_id')
-                ->after('user_id')
                 ->unsigned();
-            // [VN] Mỗi bài viết chỉ viết về một địa điểm
+
+            $table->primary(array('article_id','des_id'));
+            $table->foreign('article_id')
+                ->references('article_id')
+                ->on('Article')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->foreign('des_id')
                 ->references('des_id')
                 ->on('Destination')
@@ -191,8 +214,8 @@ class CreateUsersTable extends Migration
     public function down()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        $tables=['Ulibier','Article','Comment','Blog','BlogArticleMapping','BlogPhotoMapping',
-            'Photo','Destination','Rate'];
+        $tables=['Ulibier','Article','ArticlePhotoMapping','ArticleDestinationMapping','Comment','Blog',
+            'BlogArticleMapping','BlogPhotoMapping', 'Photo','Destination','Rate'];
         foreach ($tables as $table) {
             Schema::dropIfExists($table);
         }
