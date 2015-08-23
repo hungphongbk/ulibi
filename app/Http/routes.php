@@ -18,6 +18,6 @@ Route::get('/', function () {
 Route::group(['prefix' => 'api'], function(){
     Route::controllers([
         'auth' => 'Auth\AuthController',
-        'test' => 'Test\TestController'
+        'article' => 'Api\ArticleController',
     ]);
 });
