@@ -11,12 +11,13 @@
 |
 */
 
-Route::controllers([
-    'auth' => 'Auth\AuthController',
-    'password' => 'Auth\PasswordController',
-    'test' => 'Test\TestController'
-]);
-
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::group(['prefix' => 'api'], function(){
+    Route::controllers([
+        'auth' => 'Auth\AuthController',
+        'test' => 'Test\TestController'
+    ]);
 });
