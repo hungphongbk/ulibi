@@ -15,5 +15,6 @@ elixir(function(mix) {
     mix.less([
         '../../../node_modules/bootstrap/less/bootstrap.less',
         'app.less'
-    ],'css/styles.css').version('css/styles.css');
+    ]);
+    mix.version('public/css/app.css');
 });
