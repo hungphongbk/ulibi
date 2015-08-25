@@ -12,25 +12,16 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
 {
     use Authenticatable, CanResetPassword;
 
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
     protected $table = 'Ulibier';
     protected $primaryKey = 'user_id';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['username', 'email', 'password'];
+    protected $hidden = ['password'];
 
     /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
+     * Get all articles this user wrote
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    protected $hidden = ['password'];
+    public function articles() {
+        return $this->hasMany(Models\Article::class ,'user_id','user_id');
+    }
 }
