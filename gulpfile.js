@@ -15,6 +15,10 @@ elixir(function(mix) {
     mix.less([
         '../../../node_modules/bootstrap/less/bootstrap.less',
         'app.less'
-    ]);
-    mix.version('public/css/app.css');
+    ],'public/css/app.css');
+    mix.scripts([
+        '../../../bower_components/jquery/dist/jquery.min.js',
+        '../../../bower_components/angularjs/angular.min.js',
+        'app.js'
+    ],'public/js/app.js');
 });

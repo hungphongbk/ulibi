@@ -17,6 +17,7 @@
     "tests"
   ],
   "devDependencies": {
-    "angularjs": "~1.4.4"
+    "angularjs": "~1.4.4",
+    "jquery": "~2.1.4"
   }
 }
