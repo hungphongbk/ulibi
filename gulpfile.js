@@ -6,7 +6,7 @@ var $ = elixir.Plugins;
 
 elixir.config.sourcemaps = false;
 
-elixir.extend('angular', function (src, output, outputFilename) {
+elixir.extend('angular', function (src, output, outputFilename)  {
     var fs = require('fs');
     var streamqueue = require('streamqueue');
     var concat = require('gulp-concat');
