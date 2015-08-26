@@ -11,24 +11,36 @@ Ngôn ngữ và framework được sử dụng để thiết kế trang web:
 
 XAMPP, NodeJS
 
+## Khởi tạo cơ sở dữ liệu
+
+Chạy chương trình XAMPP, đảm bảo rằng MySql đã khởi chạy thành công.
+
+Truy cập vào [http://localhost/phpmyadmin](http://localhost/phpmyadmin) > tab Databases, tạo một CSDL mới với tên Ulibi và collation là UTF8_bin
+
 ## Cài đặt
 
 Tải bộ cài framework Composer cho windows tại [đây](https://getcomposer.org/Composer-Setup.exe). Trước khi cài đặt đảm bảo rằng bạn đã tắt tất cả các cửa sổ Command prompt hiện đang mở.
 
 Kiểm tra việc cài đặt đã thành công hay chưa bằng cách mở Command Prompt (nên mở với quyền Administrator để cài đặt một số thứ sau này) và chạy lệnh:
 ```dos
->composer -V
+> composer -V
 Composer version 27d8904
 ```
 
 Cài đặt gói thư viện bower
 ```dos
->npm install -g bower
+> npm install -g bower
 ```
 
-Chạy lần lượt các lệnh sau để khởi tạo toàn bộ project
+CD đến thư mục này (Ulibi). Chạy lần lượt các lệnh sau để khởi tạo toàn bộ project
 ```dos
->npm update
->bower update
->composer update
+> npm update
+> bower update
+> composer update
+```
 
+Mở file .env ngay trong thư mục gốc Ulibi, để ý thấy có hai dòng *DB_USERNAME* và *DB_PASSWORD*, nên để username là root (để có toàn quyền truy cập vào database Ulibi, hoặc một user khác đã được cấp full quyền cũng được) và password là password tương ứng với username đó.
+Chạy lệnh sau để tạo các bảng và một số dữ liệu mẫu cần thiết:
+```dos
+> composer run-script pre-init-db
+```
