@@ -1,0 +1,22 @@
+{
+  "name": "ulibi",
+  "version": "1.0.0",
+  "homepage": "https://github.com/hungphongbk/ulibi",
+  "authors": [
+    "Trương Phong <programmingd32@gmail.com>"
+  ],
+  "keywords": [
+    "ulibi"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angularjs": "~1.4.4"
+  }
+}
