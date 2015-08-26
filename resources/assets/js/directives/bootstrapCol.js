@@ -1,5 +1,4 @@
-var app = angular.module('Ulibi',[]);
-
+var app=angular.module('Ulibi');
 app.directive('bootstrapCol',function(){
     return {
         restrict: 'A',

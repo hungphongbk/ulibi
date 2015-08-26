@@ -5,4 +5,4 @@
 <title>Ulibi - @yield('title')</title>
 
 <link rel="stylesheet" type="text/css" href="css/app.css" >
-<script src="js/app.js"></script>
+<script src="js/all.js"></script>

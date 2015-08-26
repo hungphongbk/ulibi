@@ -16,8 +16,11 @@
     "test",
     "tests"
   ],
-  "devDependencies": {
+  "dependencies": {
+    "angular-ui-router": "~0.2.15",
     "angularjs": "~1.4.4",
-    "jquery": "~2.1.4"
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4",
+    "satellizer": "~0.12.2"
   }
 }
