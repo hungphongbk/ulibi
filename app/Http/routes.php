@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('pages.index');
+    return redirect()->to('index.html');
 });
 
 Route::group(['prefix' => 'api'], function(){
