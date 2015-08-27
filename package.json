@@ -1,9 +1,10 @@
 {
   "private": true,
+  "config": {
+    "unsafe-perm": true
+  },
   "scripts": {
-    "preinstall": [
-      "npm link gulp laravel-elixir"
-    ]
+    "postinstall": "npm link gulp laravel-elixir"
   },
   "devDependencies": {
     "gulp-angular-filesort": "^1.1.1",
