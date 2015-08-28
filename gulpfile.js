@@ -33,19 +33,27 @@ elixir.extend('angular', function (src, output, outputFilename)  {
             .pipe($.if(config.sourcemaps, $.sourcemaps.init()))
             .pipe(ngtools.annotate())
             .pipe(ngtools.filesort());
-        if (append) ng = streamqueue({objectMode: true},
+        /*if (append) ng = streamqueue({objectMode: true},
             gulp.src(out+outFile),
             ng
-        );
+        );*/
         return ng
             .pipe($.concat(outFile))
-            .pipe($.if(config.production, $.uglify()))
+            .pipe($.uglify())
             .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
             .pipe(gulp.dest(out))
             .pipe(new elixir.Notification('Angular compiled!'));
     });
 });
-
+elixir.extend('html', function(out) {
+    var output = out || 'public';
+    var inline = require('gulp-inline-source');
+    new Task('html', function(){
+        return gulp.src(output+'/index.html')
+            .pipe(inline())
+            .pipe(gulp.dest(output, {overwrite: true}));
+    });
+});
 
 elixir(function(mix) {
     mix
@@ -55,10 +63,14 @@ elixir(function(mix) {
         ],'public/css/app.css')
         .scripts([
             '../../../bower_components/jquery/dist/jquery.js',
+            '../../../bower_components/bootstrap/dist/js/bootstrap.js',
             '../../../bower_components/angularjs/angular.js',
             '../../../bower_components/satellizer/satellizer.js',
             '../../../bower_components/angular-ui-router/release/angular-ui-router.js'
-        ])
-        .angular('resources/assets/js/','public/js/','all.js')
-        .copy('resources/assets/ng-templates','public/views');
+        ],'public/js/external.js')
+        .angular('resources/assets/js/','public/js/','app.js')
+        .copy('resources/assets/index.html','public/index.html')
+        .html()
+        .copy('resources/assets/ng-templates','public/views')
+        .copy('resources/assets/images','public/images');
 });

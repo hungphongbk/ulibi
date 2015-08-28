@@ -8,81 +8,89 @@
     <title>Ulibi - Home</title>
 
     <link rel="stylesheet" type="text/css" href="css/app.css" >
-    <script src="js/all.js"></script>
+    <script src="js/external.js"></script>
+    <script>var app=angular.module("Ulibi",["satellizer","ui.router"]);app.config(["$stateProvider","$urlRouterProvider","$authProvider",function(r,t,e){e.loginUrl="/auth/authenticate",t.otherwise("/auth"),r.state("auth",{url:"/auth",templateUrl:"../views/authView.html",controller:"AuthController as auth"}).state("users",{url:"/users",templateUrl:"../views/userView.html",controller:"UserController as user"})}]),app.controller("UserController",["$http",function(r){}]);var app=angular.module("Ulibi");app.directive("bootstrapCol",function(){return{restrict:"A",link:function(r,t,e){var l=["xs","sm","md","lg"],o=e.bootstrapCol.split(" ").map(function(r,t){return"-"===r?null:"col-"+l[t]+"-"+r}).join(" ");t.addClass(o)}}});var app=angular.module("Ulibi");app.controller("AuthController",["$auth","$state",function(r,t){var e=this;e.login=function(){var l={username:e.username,password:e.password};r.login(l).then(function(r){t.go("users",{})})}}]);</script>
+    <script>
+        $('.dropdown-toggle').dropdown();
+    </script>
 </head>
 <body ng-app="Ulibi">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Ulibi</a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-left">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin">Login</a>
-                        <div class="dropdown-menu" style="padding:17px;">
-                            <form class="form" id="formLogin">
-                                <input name="username" id="username" type="text" placeholder="Username">
-                                <input name="password" id="password" type="password" placeholder="Password"><br>
-                                <button type="button" id="btnLogin" class="btn">Login</button>
-                            </form>
-                        </div>
-                    </li>
-                </ul>
-            </div><!--/.nav-collapse -->
-        </div>
-    </nav>
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
-        <style>
-            .section {
-                padding: 40px 15px;
-                text-align: center;
-            }
-            #main {
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Ulibi</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin">Login</a>
+                    <div class="dropdown-menu" style="padding:17px;">
+                        <form class="form" id="formLogin">
+                            <input name="username" id="username" type="text" placeholder="Username">
+                            <input name="password" id="password" type="password" placeholder="Password"><br>
+                            <button type="button" id="btnLogin" class="btn">Login</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+<div class="container">
+    <style>
+        .section {
+            padding: 40px 15px;
+            text-align: center;
+        }
+        #main {
 
-            }
-        </style>
-        <div class="row section" id="main">
-            <h1>Ulibi</h1>
-            <h3>Trang thông tin dành cho các bạn trẻ mê phượt</h3>
-            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-            <a class="btn btn-success" href="#reason">Bắt đầu</a>
+        }
+    </style>
+    <div class="row section" id="main">
+        <h3>Phượt, Viết lách, Chụp ảnh</h3>
+        <h3>Ulibi là nơi dành cho cả 3</h3>
+        <a class="btn btn-lg btn-success" href="#reason">Tham gia ngay</a>
+    </div>
+    <div class="row section" id="reason">
+        <h4 style="text-align: center">
+            Làm phượt thủ, nhiếp ảnh gia và blogger đều rất tuyệt...<br />
+            Nhưng chẳng phải nó sẽ tuyệt vời hơn nữa nếu làm tất cả những điều đó cùng nhau sao???<br />
+            Ở Ulibi, chúng tôi không gọi bạn là phượt thủ, nhiếp ảnh gia hay blogger<br />
+            Chúng tôi gọi bạn là một Ulibier
+        </h4>
+        <div bootstrap-col="12 4 4 4">
+            <img src="images/home/why0.png" alt="Generic placeholder image" width="140" height="140">
+            <h4>Làm một phượt thủ với bản đồ phượt toàn Việt Nam</h4>
         </div>
-        <div class="row section" id="reason">
-            <h3>Chia sẻ những khoảnh khắc và cảm nhận của bạn trong từng chuyến đi</h3>
-            <div bootstrap-col="12 4 4 4">
-                <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-                <h2>Blog</h2>
-            </div>
-            <div bootstrap-col="12 4 4 4">
-                <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-                <h2>Photo</h2>
-            </div>
-            <div bootstrap-col="12 4 4 4">
-                <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-                <h2>Share</h2>
-            </div>
+        <div bootstrap-col="12 4 4 4">
+            <img src="images/home/why1.png" alt="Generic placeholder image" width="140" height="140">
+            <h4>Làm một nhiếp ảnh gia với công cụ lưu trữ và chia sẻ ảnh</h4>
         </div>
-        <div class="row section" id="how">
-            <div bootstrap-col="12 7 7 7">
-                <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-            </div>
-            <div bootstrap-col="12 5 5 5">
-                <img class="img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-            </div>
+        <div bootstrap-col="12 4 4 4">
+            <img src="images/home/why2.png" alt="Generic placeholder image" width="140" height="140">
+            <h4>Làm một nhà văn với trang blog của riêng mình viết về những trải nghiệm và cảm xúc trên đường đi</h4>
         </div>
     </div>
+    <div class="row section" id="how">
+        <div bootstrap-col="12 7 7 7">
+            <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div bootstrap-col="12 5 5 5">
+            <img class="img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        </div>
+    </div>
+</div>
 </body>
 </html>
