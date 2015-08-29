@@ -11,12 +11,20 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ApiController extends Controller
 {
-
+    protected $tableName;
     /**
      * ApiController constructor.
      */
     public function __construct()
     {
-        $this->middleware('jwt.auth');
+        $this->middleware('jwt.auth', ['except' => 'getAll']);
+    }
+
+    /**
+     * Display all
+     * @return Response
+     */
+    public function getAll(){
+        return call_user_func(array('App\\Models\\'.$this->tableName, 'all'));
     }
 }

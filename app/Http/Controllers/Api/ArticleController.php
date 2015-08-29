@@ -11,6 +11,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ArticleController extends ApiController
 {
+    protected $tableName = 'Article';
     /**
      * Display a listing of the resource.
      *

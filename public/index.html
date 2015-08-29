@@ -7,9 +7,10 @@
 
     <title>Ulibi - Home</title>
 
-    <link rel="stylesheet" type="text/css" href="css/app.css" >
-    <script src="js/external.js"></script>
-    <script>var app=angular.module("Ulibi",["satellizer","ui.router"]);app.config(["$stateProvider","$urlRouterProvider","$authProvider",function(r,t,e){e.loginUrl="/auth/authenticate",t.otherwise("/auth"),r.state("auth",{url:"/auth",templateUrl:"../views/authView.html",controller:"AuthController as auth"}).state("users",{url:"/users",templateUrl:"../views/userView.html",controller:"UserController as user"})}]),app.controller("UserController",["$http",function(r){}]);var app=angular.module("Ulibi");app.directive("bootstrapCol",function(){return{restrict:"A",link:function(r,t,e){var l=["xs","sm","md","lg"],o=e.bootstrapCol.split(" ").map(function(r,t){return"-"===r?null:"col-"+l[t]+"-"+r}).join(" ");t.addClass(o)}}});var app=angular.module("Ulibi");app.controller("AuthController",["$auth","$state",function(r,t){var e=this;e.login=function(){var l={username:e.username,password:e.password};r.login(l).then(function(r){t.go("users",{})})}}]);</script>
+    <link rel="stylesheet" type="text/css" href="css/external.css">
+    <style type="text/css">body{padding-top:50px}</style>
+    <script src="js/external.min.js"></script>
+    <script>var app=angular.module("Ulibi",["satellizer","ui.router"]);app.factory("UlibiAuth",function(){return{currentUser:""}}),app.config(["$stateProvider","$urlRouterProvider","$authProvider","$provide",function(t,e,o,l){o.loginUrl="ulibi/api/auth/authenticate",t.state("home",{url:"/home",views:{auth:{templateUrl:"ng-templates/auth-view.html",controller:["$state","$auth",function(t,e){console.log("Current user: "+e.isAuthenticated()),t.go(e.isAuthenticated()?"home.loggedin":"home.public")}]},topArticles:{templateUrl:"ng-templates/top-articles.html",controller:"topArticlesController"}}}).state("home.public",{url:"/public",templateUrl:"ng-templates/login-view.html",controller:"AuthController"}).state("home.loggedin",{url:"/loggedin",templateUrl:"ng-templates/user-view.html",controller:"UserController"}),e.otherwise("/home")}]),app.run(["$rootScope","$state","UlibiAuth",function(t,e,o){t.$on("$stateChangeStart",function(t,e,o,l,r){console.log(l.name+" -> "+e.name)})}]);var app=angular.module("Ulibi");app.controller("UserController",["$scope","$state","$auth","UlibiAuth",function(t,e,o,l){t.user=l.currentUser,t.logout=function(){o.logout().then(function(t){l.currentUser="",e.go("^",null,{reload:!0})})}}]);var app=angular.module("Ulibi");app.controller("AuthController",["$scope","$auth","$state","UlibiAuth",function(t,e,o,l){var r=t;r.login=function(){var t={username:r.username,password:r.password};console.log(t),e.login(t).then(function(t){console.log(t),l.currentUser=t.data.user[0],o.go("^",null,{reload:!0})})}}]);var app=angular.module("Ulibi");app.directive("bootstrapCol",function(){return{restrict:"A",link:function(t,e,o){var l=["xs","sm","md","lg"],r=o.bootstrapCol.split(" ").map(function(t,e){return"-"===t?null:"col-"+l[e]+"-"+t}).join(" ");e.addClass(r)}}});var app=angular.module("Ulibi");app.controller("topArticlesController",["$scope",function(t){}]);</script>
     <script>
         $('.dropdown-toggle').dropdown();
     </script>
@@ -33,15 +34,7 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin">Login</a>
-                    <div class="dropdown-menu" style="padding:17px;">
-                        <form class="form" id="formLogin">
-                            <input name="username" id="username" type="text" placeholder="Username">
-                            <input name="password" id="password" type="password" placeholder="Password"><br>
-                            <button type="button" id="btnLogin" class="btn">Login</button>
-                        </form>
-                    </div>
+                <li class="dropdown" ui-view="auth">
                 </li>
             </ul>
         </div><!--/.nav-collapse -->
@@ -83,13 +76,7 @@
         </div>
     </div>
     <div class="row section" id="how">
-        <div bootstrap-col="12 7 7 7">
-            <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
-        <div bootstrap-col="12 5 5 5">
-            <img class="img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-        </div>
+        <div ui-view="topArticles"></div>
     </div>
 </div>
 </body>

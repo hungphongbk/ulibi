@@ -38,9 +38,9 @@ class AuthController extends Controller
             // something went wrong
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-
+        $user = Ulibier::where('username', $credentials['username'])->get();
         // if no errors are encountered we can return a JWT
-        return response()->json(compact('token'));
+        return response()->json(compact('token','user'));
     }
 
     public function postSignup(Request $request){

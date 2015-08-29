@@ -6,10 +6,34 @@ var $ = elixir.Plugins;
 
 elixir.config.sourcemaps = false;
 
+elixir.extend('uglifyAll', function(src, output, options){
+    var gulpFilter = require('gulp-filter');
+
+    var filter  = gulpFilter(['**/*', '!**/*.min.js']);
+
+    options = options === undefined ? {} : options;
+    output = output || 'public/js';
+    src = output + '/**/*.js';
+
+    new Task('uglifyAll', function() {
+
+        var onError = function(err) {
+            new Notification().error(err, 'Error on line : <%= error.lineNumber %>\n');
+            this.emit('end');
+        };
+
+        return gulp.src(src)
+            .pipe(filter)
+            .pipe($.uglify(options)).on('error', onError)
+            .pipe($.rename({extname: '.min.js'}))
+            .pipe(gulp.dest(output))
+            .pipe(new elixir.Notification('Javascript uglified!'));
+
+    });
+});
 elixir.extend('angular', function (src, output, outputFilename)  {
     var fs = require('fs');
     var streamqueue = require('streamqueue');
-    var concat = require('gulp-concat');
     var ngtools={
         annotate: require('gulp-ng-annotate'),
         filesort: require('gulp-angular-filesort')
@@ -19,12 +43,8 @@ elixir.extend('angular', function (src, output, outputFilename)  {
     var baseDir = src || config.assetsPath + '/angular';
     var out = output || config.get('public.js.outputFolder') + '/app/';
     var outFile = outputFilename || 'application.js';
-    var append = false;
 
     new Task('angular', function () {
-        if (fs.existsSync(out+outFile))
-            append=true;
-
         var ng = gulp.src([
             baseDir + '/*.module.js',
             baseDir + '/**/*.module.js',
@@ -33,13 +53,9 @@ elixir.extend('angular', function (src, output, outputFilename)  {
             .pipe($.if(config.sourcemaps, $.sourcemaps.init()))
             .pipe(ngtools.annotate())
             .pipe(ngtools.filesort());
-        /*if (append) ng = streamqueue({objectMode: true},
-            gulp.src(out+outFile),
-            ng
-        );*/
+
         return ng
             .pipe($.concat(outFile))
-            .pipe($.uglify())
             .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
             .pipe(gulp.dest(out))
             .pipe(new elixir.Notification('Angular compiled!'));
@@ -48,19 +64,31 @@ elixir.extend('angular', function (src, output, outputFilename)  {
 elixir.extend('html', function(out) {
     var output = out || 'public';
     var inline = require('gulp-inline-source');
-    new Task('html', function(){
+    var nginclude = require('gulp-nginclude');
+    var runseq = require('run-sequence');
+
+    gulp.task('html:inline', function(){
         return gulp.src(output+'/index.html')
             .pipe(inline())
             .pipe(gulp.dest(output, {overwrite: true}));
+    });
+    gulp.task('html:nginclude', function(){
+        return gulp.src([output+'/index.html', 'ng-templates/**/*.html'])
+            .pipe(nginclude())
+            .pipe(gulp.dest(output, {overwrite: true}));
+    });
+
+    new Task('html', function(){
+        return runseq('html:inline');
     });
 });
 
 elixir(function(mix) {
     mix
-        .less([
-            '../../../bower_components/bootstrap/less/bootstrap.less',
-            'app.less'
-        ],'public/css/app.css')
+        .less([ 'app.less' ],'public/css/app.css')
+        .styles([
+            '../../../bower_components/bootstrap/dist/css/bootstrap.css'
+        ],'public/css/external.css')
         .scripts([
             '../../../bower_components/jquery/dist/jquery.js',
             '../../../bower_components/bootstrap/dist/js/bootstrap.js',
@@ -69,8 +97,9 @@ elixir(function(mix) {
             '../../../bower_components/angular-ui-router/release/angular-ui-router.js'
         ],'public/js/external.js')
         .angular('resources/assets/js/','public/js/','app.js')
+        .uglifyAll()
         .copy('resources/assets/index.html','public/index.html')
-        .html()
-        .copy('resources/assets/ng-templates','public/views')
-        .copy('resources/assets/images','public/images');
+        .copy('resources/assets/ng-templates','public/ng-templates')
+        .copy('resources/assets/images','public/images')
+        .html();
 });
