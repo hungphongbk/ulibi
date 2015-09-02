@@ -1,0 +1,37 @@
+<script>
+    $(document).ready(function(){
+        var h=window.innerHeight;
+        $('.index-page').css({'height':h+'px'});
+        $('.index-page#main').css({'height':(h-64)+'px'})
+    });
+</script>
+<section layout="column" class="index-page" id="main">
+    <h3>Phượt, Viết lách, Chụp ảnh</h3>
+    <h3>Ulibi là nơi dành cho cả 3</h3>
+    <md-button class="md-raised md-primary">Tham gia ngay</md-button>
+</section>
+<section layout="row" layout-wrap class="index-page" id="welcome">
+    <div flex="100">
+        <h4 style="text-align: center">
+            Làm phượt thủ, nhiếp ảnh gia và blogger đều rất tuyệt...<br />
+            Nhưng chẳng phải nó sẽ tuyệt vời hơn nữa nếu làm tất cả những điều đó cùng nhau sao???<br />
+            Ở Ulibi, chúng tôi không gọi bạn là phượt thủ, nhiếp ảnh gia hay blogger<br />
+            Chúng tôi gọi bạn là một Ulibier
+        </h4>
+    </div>
+    <div flex="33">
+        <img src="images/home/why0.png" alt="Generic placeholder image" width="140" height="140">
+        <h4>Làm một phượt thủ với bản đồ phượt toàn Việt Nam</h4>
+    </div>
+    <div flex="33">
+        <img src="images/home/why1.png" alt="Generic placeholder image" width="140" height="140">
+        <h4>Làm một nhiếp ảnh gia với công cụ lưu trữ và chia sẻ ảnh</h4>
+    </div>
+    <div flex>
+        <img src="images/home/why2.png" alt="Generic placeholder image" width="140" height="140">
+        <h4>Làm một nhà văn với trang blog của riêng mình viết về những trải nghiệm và cảm xúc trên đường đi</h4>
+    </div>
+</section>
+<section class="index-page" id="top-articles">
+    <div ui-view="topArticles"></div>
+</section>

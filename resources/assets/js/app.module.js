@@ -1,4 +1,8 @@
-var app = angular.module('Ulibi',['satellizer','ui.router']);
+var app = angular.module('Ulibi',[
+    'satellizer',
+    'ui.router',
+    'ngMaterial'
+]);
 app.factory('UlibiAuth', function(){
     return {currentUser: ''};
 });
@@ -7,32 +11,24 @@ app.config(function($stateProvider,$urlRouterProvider,$authProvider,$provide){
     $stateProvider
         .state('home', {
             url: '/home',
+            templateUrl: 'ng-templates/index-view.html',
+            controller: function($state){
+                $state.go('home.trending');
+            }
+        })
+        .state('home.trending', {
+            url: '/top',
             views: {
-                'auth': {
-                    templateUrl: 'ng-templates/auth-view.html',
-                    controller: function($state,$auth){
-                        console.log('Current user: '+$auth.isAuthenticated());
-                        if($auth.isAuthenticated())
-                            $state.go('home.loggedin');
-                        else
-                            $state.go('home.public');
-                    }
-                },
                 'topArticles': {
                     templateUrl: 'ng-templates/top-articles.html',
-                    controller: 'topArticlesController'
+                    controller: 'ArticlesController'
                 }
             }
         })
-        .state('home.public', {
-            url: '/public',
+        .state('login', {
+            url: '/login',
             templateUrl: 'ng-templates/login-view.html',
             controller: 'AuthController'
-        })
-        .state('home.loggedin', {
-            url: '/loggedin',
-            templateUrl: 'ng-templates/user-view.html',
-            controller: 'UserController'
         });
     $urlRouterProvider.otherwise('/home');
 });

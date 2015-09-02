@@ -4,80 +4,31 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Scotch">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 
     <title>Ulibi - Home</title>
 
     <link rel="stylesheet" type="text/css" href="css/external.css">
     <link inline rel="stylesheet" type="text/css" href="css/app.css" >
-    <script src="js/external.min.js"></script>
-    <script inline src="js/app.min.js"></script>
+    <script src="js/external.js"></script>
+    <script inline src="js/app.js"></script>
     <script>
         $('.dropdown-toggle').dropdown();
     </script>
 </head>
 <body ng-app="Ulibi">
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Ulibi</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-left">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown" ui-view="auth">
-                </li>
-            </ul>
-        </div><!--/.nav-collapse -->
+    <div layout="column">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <span>Ulibi</span>
+                <span flex></span>
+                <md-button ng-href="#/login">
+                    Đăng nhập
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-content ui-view>
+        </md-content>
     </div>
-</nav>
-<div class="container">
-    <style>
-        .section {
-            padding: 40px 15px;
-            text-align: center;
-        }
-        #main {
-
-        }
-    </style>
-    <div class="row section" id="main">
-        <h3>Phượt, Viết lách, Chụp ảnh</h3>
-        <h3>Ulibi là nơi dành cho cả 3</h3>
-        <a class="btn btn-lg btn-success" href="#reason">Tham gia ngay</a>
-    </div>
-    <div class="row section" id="reason">
-        <h4 style="text-align: center">
-            Làm phượt thủ, nhiếp ảnh gia và blogger đều rất tuyệt...<br />
-            Nhưng chẳng phải nó sẽ tuyệt vời hơn nữa nếu làm tất cả những điều đó cùng nhau sao???<br />
-            Ở Ulibi, chúng tôi không gọi bạn là phượt thủ, nhiếp ảnh gia hay blogger<br />
-            Chúng tôi gọi bạn là một Ulibier
-        </h4>
-        <div bootstrap-col="12 4 4 4">
-            <img src="images/home/why0.png" alt="Generic placeholder image" width="140" height="140">
-            <h4>Làm một phượt thủ với bản đồ phượt toàn Việt Nam</h4>
-        </div>
-        <div bootstrap-col="12 4 4 4">
-            <img src="images/home/why1.png" alt="Generic placeholder image" width="140" height="140">
-            <h4>Làm một nhiếp ảnh gia với công cụ lưu trữ và chia sẻ ảnh</h4>
-        </div>
-        <div bootstrap-col="12 4 4 4">
-            <img src="images/home/why2.png" alt="Generic placeholder image" width="140" height="140">
-            <h4>Làm một nhà văn với trang blog của riêng mình viết về những trải nghiệm và cảm xúc trên đường đi</h4>
-        </div>
-    </div>
-    <div class="row section" id="how">
-        <div ui-view="topArticles"></div>
-    </div>
-</div>
 </body>
 </html>

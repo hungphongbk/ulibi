@@ -4,80 +4,31 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Scotch">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 
     <title>Ulibi - Home</title>
 
     <link rel="stylesheet" type="text/css" href="css/external.css">
-    <style type="text/css">body{padding-top:50px}</style>
-    <script src="js/external.min.js"></script>
-    <script>var app=angular.module("Ulibi",["satellizer","ui.router"]);app.factory("UlibiAuth",function(){return{currentUser:""}}),app.config(["$stateProvider","$urlRouterProvider","$authProvider","$provide",function(t,e,o,l){o.loginUrl="ulibi/api/auth/authenticate",t.state("home",{url:"/home",views:{auth:{templateUrl:"ng-templates/auth-view.html",controller:["$state","$auth",function(t,e){console.log("Current user: "+e.isAuthenticated()),t.go(e.isAuthenticated()?"home.loggedin":"home.public")}]},topArticles:{templateUrl:"ng-templates/top-articles.html",controller:"topArticlesController"}}}).state("home.public",{url:"/public",templateUrl:"ng-templates/login-view.html",controller:"AuthController"}).state("home.loggedin",{url:"/loggedin",templateUrl:"ng-templates/user-view.html",controller:"UserController"}),e.otherwise("/home")}]),app.run(["$rootScope","$state","UlibiAuth",function(t,e,o){t.$on("$stateChangeStart",function(t,e,o,l,r){console.log(l.name+" -> "+e.name)})}]);var app=angular.module("Ulibi");app.controller("UserController",["$scope","$state","$auth","UlibiAuth",function(t,e,o,l){t.user=l.currentUser,t.logout=function(){o.logout().then(function(t){l.currentUser="",e.go("^",null,{reload:!0})})}}]);var app=angular.module("Ulibi");app.controller("AuthController",["$scope","$auth","$state","UlibiAuth",function(t,e,o,l){var r=t;r.login=function(){var t={username:r.username,password:r.password};console.log(t),e.login(t).then(function(t){console.log(t),l.currentUser=t.data.user[0],o.go("^",null,{reload:!0})})}}]);var app=angular.module("Ulibi");app.directive("bootstrapCol",function(){return{restrict:"A",link:function(t,e,o){var l=["xs","sm","md","lg"],r=o.bootstrapCol.split(" ").map(function(t,e){return"-"===t?null:"col-"+l[e]+"-"+t}).join(" ");e.addClass(r)}}});var app=angular.module("Ulibi");app.controller("topArticlesController",["$scope",function(t){}]);</script>
+    <style type="text/css">body,html{height:100%;overflow:scroll}.index-page#main{height:100%;background:url(images/home/intro.png);background-size:cover;text-align:center}.index-page#top-articles .item{height:25pc;background-color:#98fb98}</style>
+    <script src="js/external.js"></script>
+    <script>var app=angular.module("Ulibi",["satellizer","ui.router","ngMaterial"]);app.factory("UlibiAuth",function(){return{currentUser:""}}),app.config(["$stateProvider","$urlRouterProvider","$authProvider","$provide",function(t,e,r,l){r.loginUrl="ulibi/api/auth/authenticate",t.state("home",{url:"/home",templateUrl:"ng-templates/index-view.html",controller:["$state",function(t){t.go("home.trending")}]}).state("home.trending",{url:"/top",views:{topArticles:{templateUrl:"ng-templates/top-articles.html",controller:"ArticlesController"}}}).state("login",{url:"/login",templateUrl:"ng-templates/login-view.html",controller:"AuthController"}),e.otherwise("/home")}]),app.run(["$rootScope","$state","UlibiAuth",function(t,e,r){t.$on("$stateChangeStart",function(t,e,r,l,o){console.log(l.name+" -> "+e.name)})}]);var app=angular.module("Ulibi");app.controller("UserController",["$scope","$state","$auth","UlibiAuth",function(t,e,r,l){t.user=l.currentUser,t.logout=function(){r.logout().then(function(t){l.currentUser="",e.go("^",null,{reload:!0})})}}]);var app=angular.module("Ulibi");app.controller("AuthController",["$scope","$auth","$state","UlibiAuth",function(t,e,r,l){var o=t;o.login=function(){var t={username:o.username,password:o.password};console.log(t),e.login(t).then(function(t){console.log(t),l.currentUser=t.data.user[0],r.go("home",null,{reload:!0})})}}]);var app=angular.module("Ulibi");app.directive("bootstrapCol",function(){return{restrict:"A",link:function(t,e,r){var l=["xs","sm","md","lg"],o=r.bootstrapCol.split(" ").map(function(t,e){return"-"===t?null:"col-"+l[e]+"-"+t}).join(" ");e.addClass(o)}}});var app=angular.module("Ulibi");app.controller("ArticlesController",["$scope","UlibiApi",function(t,e){var r=e,l=t;l.dataSource=[],l.getTop=function(){r.article.getAll().success(function(t){l.dataSource=t.slice(0,3)})}}]);var app=angular.module("Ulibi");app.factory("UlibiApi",["$http",function(t){var e="/ulibi/api/",r=t,l={article:{postfix:"article"}};return l.article.getAll=function(){return r.get(e+this.postfix+"/all")},l}]);</script>
     <script>
         $('.dropdown-toggle').dropdown();
     </script>
 </head>
 <body ng-app="Ulibi">
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Ulibi</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-left">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown" ui-view="auth">
-                </li>
-            </ul>
-        </div><!--/.nav-collapse -->
+    <div layout="column">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <span>Ulibi</span>
+                <span flex></span>
+                <md-button ng-href="#/login">
+                    Đăng nhập
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-content ui-view>
+        </md-content>
     </div>
-</nav>
-<div class="container">
-    <style>
-        .section {
-            padding: 40px 15px;
-            text-align: center;
-        }
-        #main {
-
-        }
-    </style>
-    <div class="row section" id="main">
-        <h3>Phượt, Viết lách, Chụp ảnh</h3>
-        <h3>Ulibi là nơi dành cho cả 3</h3>
-        <a class="btn btn-lg btn-success" href="#reason">Tham gia ngay</a>
-    </div>
-    <div class="row section" id="reason">
-        <h4 style="text-align: center">
-            Làm phượt thủ, nhiếp ảnh gia và blogger đều rất tuyệt...<br />
-            Nhưng chẳng phải nó sẽ tuyệt vời hơn nữa nếu làm tất cả những điều đó cùng nhau sao???<br />
-            Ở Ulibi, chúng tôi không gọi bạn là phượt thủ, nhiếp ảnh gia hay blogger<br />
-            Chúng tôi gọi bạn là một Ulibier
-        </h4>
-        <div bootstrap-col="12 4 4 4">
-            <img src="images/home/why0.png" alt="Generic placeholder image" width="140" height="140">
-            <h4>Làm một phượt thủ với bản đồ phượt toàn Việt Nam</h4>
-        </div>
-        <div bootstrap-col="12 4 4 4">
-            <img src="images/home/why1.png" alt="Generic placeholder image" width="140" height="140">
-            <h4>Làm một nhiếp ảnh gia với công cụ lưu trữ và chia sẻ ảnh</h4>
-        </div>
-        <div bootstrap-col="12 4 4 4">
-            <img src="images/home/why2.png" alt="Generic placeholder image" width="140" height="140">
-            <h4>Làm một nhà văn với trang blog của riêng mình viết về những trải nghiệm và cảm xúc trên đường đi</h4>
-        </div>
-    </div>
-    <div class="row section" id="how">
-        <div ui-view="topArticles"></div>
-    </div>
-</div>
 </body>
 </html>

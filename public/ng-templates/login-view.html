@@ -1,10 +1,17 @@
-<form>
-    <h3>Login</h3>
-    <div class="form-group">
-        <input type="username" class="form-control" placeholder="Username" ng-model="username">
-    </div>
-    <div class="form-group">
-        <input type="password" class="form-control" placeholder="Password" ng-model="password">
-    </div>
-    <button class="btn btn-primary" ng-click="login()">Submit</button>
-</form>
+<div layout="column">
+<md-content layout-padding>
+    <form>
+        <div layout="column">
+            <md-input-container flex>
+                <label>Tên đăng nhập</label>
+                <input type="username" class="form-control" placeholder="Username" ng-model="username">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Mật khẩu</label>
+                <input type="password" class="form-control" placeholder="Password" ng-model="password">
+            </md-input-container>
+            <md-button md-no-ink class="md-primary"  ng-click="login()">Sign in</md-button>
+        </div>
+    </form>
+</md-content>
+</div>

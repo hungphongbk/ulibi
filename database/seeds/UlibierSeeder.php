@@ -34,5 +34,15 @@ class UlibierSeeder extends Seeder
             'username'      => 'trungluom',
             'password'      => Hash::make('123456')
         ));
+        Ulibier::create(array(
+            'firstname'     => 'Chau',
+            'lastname'      => 'Tran Ngoc Thuy',
+            'sex'           => 'female',
+            'birthday'      => new DateTime('1993-2-10'),
+            'email'         => 'tranthithuychau1993@gmail.com',
+            'phonenumber'   => '+84969734705',
+            'username'      => 'tranchau',
+            'password'      => Hash::make('123456')
+        ));
     }
 }
