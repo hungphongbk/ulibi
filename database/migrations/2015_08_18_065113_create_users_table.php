@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Storage;
 
 class CreateUsersTable extends Migration
 {
@@ -112,6 +113,10 @@ class CreateUsersTable extends Migration
             // $table->integer('des_id')->unsigned();
             // [VN] mỗi tấm ảnh chỉ thuộc về 1 địa điểm, 1 địa điểm có thể có nhiều ảnh :)
             $table->dateTime('photo_uptime');
+            $table->string('photo_hash');
+            $table->string('photo_extensions');
+            // [VN] sử dụng dịch vụ Amazon S3 để lưu trữ ảnh, do đó thêm url
+            $table->string('photo_awss3_url');
 
             $table->foreign('user_id')
                 ->references('user_id')
@@ -157,16 +162,20 @@ class CreateUsersTable extends Migration
         // Create destination table
         Schema::create('Destination', function(Blueprint $table) {
             $table->increments('des_id');
+            $table->string('des_name');
             $table->string('des_instruction');
-            $table->integer('budget');
-            $table->integer('avg_budget');
-            $table->integer('visit_time');
-            $table->integer('avg_time');
-            $table->string('vehicle');
-            $table->string('pref_vehicle');
             // $table->integer('prop_id')->unsigned();
         });
-        DB::statement('ALTER TABLE Destination ADD coordinate POINT' );
+        DB::statement('ALTER TABLE Destination ADD coordinate GEOMETRY' );
+        Schema::table('Photo', function($table){
+            $table->integer('des_id')->unsigned();
+            $table->foreign('des_id')
+                ->references('des_id')
+                ->on('Destination')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
+
         // Create table will map Article and Destination
         Schema::create('ArticleDestinationMapping', function(Blueprint $table) {
             $table->integer('article_id')->unsigned();
@@ -185,7 +194,6 @@ class CreateUsersTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
-
         // Create user's rate information table
         Schema::create('Rate', function (Blueprint $table) {
             $table->integer('des_id')->unsigned();
@@ -215,9 +223,12 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        //First, delete folder 'photo' in S3 bucket
+        $s3 = Storage::disk('s3');
+        $s3->deleteDirectory('/photos');
+
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        $tables=['Ulibier','Article','ArticlePhotoMapping','ArticleDestinationMapping','Comment','Blog',
-            'BlogArticleMapping','BlogPhotoMapping', 'Photo','Destination','Rate'];
+        $tables=['Ulibier','Article','ArticlePhotoMapping','ArticleDestinationMapping','Comment','Blog','BlogArticleMapping','BlogPhotoMapping', 'Photo','Destination','Rate'];
         foreach ($tables as $table) {
             Schema::dropIfExists($table);
         }

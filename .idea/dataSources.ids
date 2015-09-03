@@ -11,6 +11,7 @@
       <column name="article_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="user_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="article_like" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="article_title" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="article_content" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="article_date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="view" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
@@ -84,16 +85,12 @@
     </table>
     <table name="Destination" schema="" catalog="ulibi" type="TABLE">
       <column name="des_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="des_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="des_instruction" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="budget" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="avg_budget" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="visit_time" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="avg_time" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="vehicle" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="pref_vehicle" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="coordinate" sqlType="POINT" precision="0" scale="0" nullable="true" jdbcType="1111"/>
+      <column name="coordinate" sqlType="GEOMETRY" precision="0" scale="0" nullable="true" jdbcType="-2"/>
       <primary-key name="PRIMARY" columns="des_id"/>
       <exported-key name="articledestinationmapping_des_id_foreign" table="ArticleDestinationMapping" schema="" catalog="ulibi" columns="des_id"/>
+      <exported-key name="photo_des_id_foreign" table="Photo" schema="" catalog="ulibi" columns="des_id"/>
       <exported-key name="rate_des_id_foreign" table="Rate" schema="" catalog="ulibi" columns="des_id"/>
     </table>
     <table name="Photo" schema="" catalog="ulibi" type="TABLE">
@@ -101,10 +98,13 @@
       <column name="photo_like" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="user_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="photo_uptime" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="des_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="photo_id"/>
+      <foreign-key name="photo_des_id_foreign" columns="des_id" ref-table="Destination" ref-schema="" ref-catalog="ulibi" ref-columns="des_id" update-rule="0" delete-rule="0" deferrability="2"/>
       <foreign-key name="photo_user_id_foreign" columns="user_id" ref-table="Ulibier" ref-schema="" ref-catalog="ulibi" ref-columns="user_id" update-rule="0" delete-rule="0" deferrability="2"/>
       <exported-key name="articlephotomapping_photo_id_foreign" table="ArticlePhotoMapping" schema="" catalog="ulibi" columns="photo_id"/>
       <exported-key name="blogphotomapping_photo_id_foreign" table="BlogPhotoMapping" schema="" catalog="ulibi" columns="photo_id"/>
+      <index name="photo_des_id_foreign" unique="false" columns="des_id"/>
       <index name="photo_user_id_foreign" unique="false" columns="user_id"/>
     </table>
     <table name="Rate" schema="" catalog="ulibi" type="TABLE">

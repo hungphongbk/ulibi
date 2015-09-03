@@ -11,17 +11,16 @@ app.config(function($stateProvider,$urlRouterProvider,$authProvider,$provide){
     $stateProvider
         .state('home', {
             url: '/home',
-            templateUrl: 'ng-templates/index-view.html',
-            controller: function($state){
-                $state.go('home.trending');
-            }
-        })
-        .state('home.trending', {
-            url: '/top',
             views: {
-                'topArticles': {
+                '': {
+                    templateUrl: 'ng-templates/index-view.html'
+                },
+                'topArticles@home': {
                     templateUrl: 'ng-templates/top-articles.html',
                     controller: 'ArticlesController'
+                },
+                'topDes@home': {
+                    'template': 'Hey, this is a page will show top destinations'
                 }
             }
         })
