@@ -24,7 +24,7 @@ class ApiController extends Controller
      * Display all
      * @return Response
      */
-    public function getAll(){
+    public function getAll(Request $request){
         return call_user_func(array('App\\Models\\'.$this->tableName, 'all'));
     }
 }

@@ -19,6 +19,7 @@ Route::group(['prefix' => 'api'], function(){
     Route::controllers([
         'auth' => 'Auth\AuthController',
         'article' => 'Api\ArticleController',
-        'photo' => 'APi\PhotoController'
+        'photo' => 'Api\PhotoController',
+        'dest' => 'Api\DestinationController'
     ]);
 });

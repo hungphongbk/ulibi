@@ -12,13 +12,16 @@ class Photo extends Model
     protected $primaryKey = 'photo_id';
     public $timestamps = false;
 
-    protected $fillable = ['user_id','photo_like','photo_uptime','photo_hash','photo_extensions','photo_awss3_url','des_id'];
+    protected $fillable = ['user_id'];
     protected $hidden = ['photo_hash','photo_extensions'];
 
     protected static function boot(){
         parent::boot();
 
         static::creating(function($photo){
+            // Set default value for 'like' field
+            $photo->photo_like = 0;
+
             // Upload photo to S3
             $s3=Storage::disk('s3');
             $local=Storage::disk('local');

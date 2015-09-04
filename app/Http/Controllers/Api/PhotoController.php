@@ -15,17 +15,6 @@ class PhotoController extends ApiController
 {
     protected $tableName = 'Photo';
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function getIndex()
-    {
-        $user = JWTAuth::parseToken()->authenticate();
-        return $user->articles;
-    }
-
     /*
      * Upload a photo to Amazon S3 bucket
      */
@@ -38,14 +27,20 @@ class PhotoController extends ApiController
         $imageFilename = $hash.'.'.$image->getClientOriginalExtension();
         Storage::put('/imgtemp/'.$imageFilename,file_get_contents($image), 'public');
 
-        $photo = Photo::create(array(
+        /*$photo = Photo::create(array(
             'user_id'           => $user['user_id'],
             'photo_uptime'      => $photo_uptime,
             'photo_hash'        => $hash,
             'photo_extensions'  => $image->getClientOriginalExtension(),
             'photo_like'        => 0,
             'des_id'            => $request->input('des_id')
-        ));
+        ));*/
+        $photo=Photo::create(array('user_id' => $user['user_id']));
+        $photo->photo_uptime = $photo_uptime;
+        $photo->photo_hash = $hash;
+        $photo->photo_extensions = $image->getClientOriginalExtension();
+        $photo->des_id = $request->input('des_id');
+
         return $photo;
     }
 }
