@@ -1,0 +1,19 @@
++--------+--------------------------------+--------------------------------------------------------------+------+--------------------------------------------------------------+------------+
+|[32m Domain [39m|[32m Method                         [39m|[32m URI                                                          [39m|[32m Name [39m|[32m Action                                                       [39m|[32m Middleware [39m|
++--------+--------------------------------+--------------------------------------------------------------+------+--------------------------------------------------------------+------------+
+|        | GET|HEAD                       | /                                                            |      | Closure                                                      |            |
+|        | GET|HEAD                       | api/article                                                  |      | App\Http\Controllers\Api\ArticleController@getIndex          | jwt.auth   |
+|        | GET|HEAD                       | api/article/all/{one?}/{two?}/{three?}/{four?}/{five?}       |      | App\Http\Controllers\Api\ArticleController@getAll            |            |
+|        | GET|HEAD                       | api/article/index/{one?}/{two?}/{three?}/{four?}/{five?}     |      | App\Http\Controllers\Api\ArticleController@getIndex          | jwt.auth   |
+|        | GET|HEAD|POST|PUT|PATCH|DELETE | api/article/{_missing}                                       |      | App\Http\Controllers\Api\ArticleController@missingMethod     | jwt.auth   |
+|        | GET|HEAD                       | api/auth                                                     |      | App\Http\Controllers\Auth\AuthController@getIndex            | jwt.auth   |
+|        | POST                           | api/auth/authenticate/{one?}/{two?}/{three?}/{four?}/{five?} |      | App\Http\Controllers\Auth\AuthController@postAuthenticate    |            |
+|        | GET|HEAD                       | api/auth/index/{one?}/{two?}/{three?}/{four?}/{five?}        |      | App\Http\Controllers\Auth\AuthController@getIndex            | jwt.auth   |
+|        | POST                           | api/auth/signup/{one?}/{two?}/{three?}/{four?}/{five?}       |      | App\Http\Controllers\Auth\AuthController@postSignup          | jwt.auth   |
+|        | GET|HEAD|POST|PUT|PATCH|DELETE | api/auth/{_missing}                                          |      | App\Http\Controllers\Auth\AuthController@missingMethod       | jwt.auth   |
+|        | GET|HEAD                       | api/dest/all/{one?}/{two?}/{three?}/{four?}/{five?}          |      | App\Http\Controllers\Api\DestinationController@getAll        |            |
+|        | GET|HEAD|POST|PUT|PATCH|DELETE | api/dest/{_missing}                                          |      | App\Http\Controllers\Api\DestinationController@missingMethod | jwt.auth   |
+|        | GET|HEAD                       | api/photo/all/{one?}/{two?}/{three?}/{four?}/{five?}         |      | App\Http\Controllers\Api\PhotoController@getAll              |            |
+|        | POST                           | api/photo/upload/{one?}/{two?}/{three?}/{four?}/{five?}      |      | App\Http\Controllers\Api\PhotoController@postUpload          | jwt.auth   |
+|        | GET|HEAD|POST|PUT|PATCH|DELETE | api/photo/{_missing}                                         |      | App\Http\Controllers\Api\PhotoController@missingMethod       | jwt.auth   |
++--------+--------------------------------+--------------------------------------------------------------+------+--------------------------------------------------------------+------------+

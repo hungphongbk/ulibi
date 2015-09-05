@@ -46,6 +46,10 @@ class Photo extends Model
         });
     }
 
+    public function destination(){
+        return $this->belongsTo('App\Models\Destination');
+    }
+
     private static function s3_path($path)
     {
         return 's3-'.getenv('S3_REGION').'.amazonaws.com/'.getenv('S3_BUCKET').$path;
