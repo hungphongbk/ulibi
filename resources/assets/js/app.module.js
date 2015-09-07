@@ -1,7 +1,6 @@
 var app = angular.module('Ulibi',[
     'satellizer',
-    'ui.router',
-    'ngMaterial'
+    'ui.router'
 ]);
 app.factory('UlibiAuth', function(){
     return {currentUser: ''};
@@ -15,12 +14,13 @@ app.config(function($stateProvider,$urlRouterProvider,$authProvider,$provide){
                 '': {
                     templateUrl: 'ng-templates/index-view.html'
                 },
-                'topArticles@home': {
+                /*'topArticles@home': {
                     templateUrl: 'ng-templates/top-articles.html',
                     controller: 'ArticlesController'
-                },
+                },*/
                 'topDes@home': {
-                    'template': 'Hey, this is a page will show top destinations'
+                    'templateUrl': 'ng-templates/top-destinations.html',
+                    controller: 'DestinationsController'
                 }
             }
         })

@@ -1,0 +1,11 @@
+<div ng-init="getTop()" >
+    <div bootstrap-col="12 6 6 6" ng-repeat="i in dataSource"  class="item">
+        <div class="border">
+            <img class="avatar" alt="avatar" ng-src="{{i['avatar']}}">
+            <div class="content">
+                <h4>{{ i['des_name'] }}</h4>
+                <p>{{i['des_instruction']}}</p>
+            </div>
+        </div>
+    </div>
+</div>

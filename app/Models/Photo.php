@@ -52,6 +52,6 @@ class Photo extends Model
 
     private static function s3_path($path)
     {
-        return 's3-'.getenv('S3_REGION').'.amazonaws.com/'.getenv('S3_BUCKET').$path;
+        return 'https://s3-'.getenv('S3_REGION').'.amazonaws.com/'.getenv('S3_BUCKET').$path;
     }
 }
