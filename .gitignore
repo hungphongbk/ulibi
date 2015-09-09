@@ -1,7 +1,6 @@
 /rootkey.csv
 /vendor
 /node_modules
-/resources
 Homestead.yaml
 .env
 /bower_components

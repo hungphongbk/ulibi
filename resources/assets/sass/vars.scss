@@ -1,0 +1,72 @@
+$my-navbar-height: 80px;
+
+@font-face{
+	font-family: 'UTM Androgyne';
+	src: url('fonts/utm-androgyne.ttf') format('truetype');
+}
+
+@mixin animation($animate...) {
+    $max: length($animate);
+    $animations: '';
+
+    @for $i from 1 through $max {
+        $animations: #{$animations + nth($animate, $i)};
+
+        @if $i < $max {
+            $animations: #{$animations + ", "};
+        }
+    }
+    -webkit-animation: $animations;
+    -moz-animation:    $animations;
+    -o-animation:      $animations;
+    animation:         $animations;
+}
+
+@mixin keyframes($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+    @keyframes #{$animationName} {
+        @content;
+    }
+}
+@mixin transition($transition...){
+	$max: length($transition);
+    $trans: '';
+
+    @for $i from 1 through $max {
+        $trans: #{$trans + nth($transition, $i)};
+
+        @if $i < $max {
+            $trans: #{$trans + ", "};
+        }
+    }
+	-webkit-transition: #{$trans};
+	-moz-transition:    #{$trans};
+	-o-transition:      #{$trans};
+}
+
+@include keyframes(topdest-content-hover) {
+	0% {background-color: rgba(0,0,0,0.3);}
+	100% {background-color: rgba(0,0,0,0);}
+}
+@include keyframes(topdest-content-hover-title) {
+	0% {
+		line-height: 6em;
+		font-size: 2em;
+	}
+	100% {
+		line-height: 1.6em;
+		font-size: 1.6em;
+	}
+}
+@include keyframes(topdest-content-hover-instruction) {
+	0% {opacity: 0;}
+	100% {opacity: 1;}
+}

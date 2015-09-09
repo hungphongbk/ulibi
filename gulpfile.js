@@ -91,7 +91,7 @@ elixir.extend('html', function(conf) {
 
 elixir(function(mix) {
     mix
-        .less([ 'app.less' ],'public/css/app.css')
+        .sass([ 'app.scss' ],'public/css/app.css')
         .styles([
             '../../../bower_components/bootstrap/dist/css/bootstrap.css',
             '../../../bower_components/bootstrap-material-design/dist/css/material.css',
