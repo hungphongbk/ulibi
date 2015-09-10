@@ -91,22 +91,26 @@ elixir.extend('html', function(conf) {
 
 elixir(function(mix) {
     mix
-        .less([ 'app.less' ],'public/css/app.css')
+        .sass([ 'app.scss' ],'public/css/app.css')
         .styles([
-            //'../../../bower_components/bootstrap/dist/css/bootstrap.css',
-            '../../../bower_components/angular-material/angular-material.css'
+            '../../../bower_components/bootstrap/dist/css/bootstrap.css',
+            '../../../bower_components/bootstrap-material-design/dist/css/material.css',
+            '../../../bower_components/bootstrap-material-design/dist/css/material-fullpalette.css',
+            '../../../bower_components/bootstrap-material-design/dist/css/ripples.css',
+            '../../../bower_components/bootstrap-material-design/dist/css/roboto.css',
         ],'public/css/external.css')
         .scripts([
             '../../../bower_components/jquery/dist/jquery.js',
-            '../../../bower_components/bootstrap/dist/js/bootstrap.js',
             '../../../bower_components/angularjs/angular.js',
             '../../../bower_components/satellizer/satellizer.js',
             '../../../bower_components/angular-ui-router/release/angular-ui-router.js',
             '../../../bower_components/angular-animate/angular-animate.js',
             '../../../bower_components/angular-aria/angular-aria.js',
-            '../../../bower_components/angular-material/angular-material.js'
+            '../../../bower_components/bootstrap-material-design/dist/js/material.js',
+            '../../../bower_components/bootstrap-material-design/dist/js/ripples.js'
 
         ],'public/js/external.js')
         .copy('resources/assets/images','public/images')
+        .copy('resources/assets/fonts','public/fonts')
         .html();
 });

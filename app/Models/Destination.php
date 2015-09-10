@@ -23,7 +23,7 @@ class Destination extends Model
     }
 
     public function getAvatarAttribute(){
-        $photos = Photo::with('destination')
+        $photos = $this->photos()
             ->get(array('photo_awss3_url'))
             ->first();
         return $photos->photo_awss3_url;

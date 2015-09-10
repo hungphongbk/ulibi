@@ -1,0 +1,155 @@
+@import 'reset';
+@import 'vars';
+
+html, body {
+  height: 100%;
+  overflow: scroll;
+  font-family: 'UTM Androgyne';
+}
+.navbar{
+  margin-bottom: 0;
+
+  .navbar-brand, .navbar-nav li a {
+      line-height: $my-navbar-height;
+      height: $my-navbar-height;
+      padding-top: 0;
+  }
+  .navbar-brand {
+    font-size: 2em;
+  }
+  .navbar-nav li a{
+    font-size: 1.6em;
+  }
+}
+
+/*define several less functions*/
+@mixin fix-margin($origin){
+  margin-left: -$origin;
+  margin-right: -$origin;
+}
+.fill-abs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+
+
+.index-page {
+  $left-right-margin: 8%;
+  @include fix-margin(15px);
+  padding-left: $left-right-margin;
+  padding-right: $left-right-margin;
+  padding-top: $my-navbar-height;
+  position: relative;
+
+  .border {
+    position: relative;
+  }
+  
+  .center-area{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    display: inline-block;
+  }
+  .section-header{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: $my-navbar-height;
+    text-align: center;
+    vertical-align: middle;
+
+    h1,h2,h3,h4,h5,h6 {
+      line-height: $my-navbar-height;
+    }
+  }
+
+  &#main {
+    height: 100%;
+    background: url('images/home/intro.png');
+    -webkit-background-size: cover;
+    background-size: cover;
+    text-align: center;
+
+    h3{
+      font-size: 2.4em;
+      padding-top: 0.3em;
+      padding-bottom: 0.3em;
+    }
+    .btn {
+      font-size: 1.8em;
+    }
+  }
+  &#welcome {
+    .center-area img {
+      margin-bottom: 1em;
+    }
+  }
+  &#top-articles {
+    .item{
+      height: 400px;
+    }
+  }
+  &#top-destinations{
+    .item{
+      .border {
+        position: relative;
+        img.avatar {
+          height: 250px;
+          width: 100%;
+        }
+        div.content{
+          $anim-timing: ' .3s ease';
+
+          text-align: center;
+          color: white !important;
+          padding: 1em;
+          background-color: rgba(0,0,0,0);
+
+          @include transition('background-color'+$anim-timing);
+
+          >.des-name {
+            line-height: 6em;
+            font-size: 2em;
+            @include transition('line-height'+$anim-timing, 'font-size'+$anim-timing);
+          }
+          >.des-instruction {
+            opacity: 0;
+            @include transition('opacity'+$anim-timing);
+          }
+
+          // animation
+          &:hover {
+            background-color: rgba(0,0,0,0.4);
+            >.des-name {
+              line-height: 3em;
+              font-size: 1.6em;
+            }
+            >.des-instruction {
+              opacity: 1;
+            }
+            // fading overflow text
+            /*&:after{
+              content: '';
+              position: absolute;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              height: 40%;
+              width: 100%;
+              background: linear-gradient(rgba(0,0,0,0), #000);
+            }*/
+          }
+        }
+      }
+    }
+  }
+}

@@ -13,22 +13,24 @@
     <script src="js/external.js"></script>
     <script inline src="js/app.js"></script>
     <script>
-        $('.dropdown-toggle').dropdown();
+        $.material.init();
+        //$('.dropdown-toggle').dropdown();
     </script>
 </head>
 <body ng-app="Ulibi">
-    <div layout="column">
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <span>Ulibi</span>
-                <span flex></span>
-                <md-button ng-href="#/login">
-                    Đăng nhập
-                </md-button>
+    <nav id="navbar-top" class="banner navbar navbar-default navbar-material-indigo" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Ulibi</a>
             </div>
-        </md-toolbar>
-        <md-content ui-view>
-        </md-content>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#">Dang nhap</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid" ui-view>
     </div>
 </body>
 </html>

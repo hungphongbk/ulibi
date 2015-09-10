@@ -53,7 +53,8 @@
             "php artisan db:seed"
         ],
         "compile-res":[
-            "gulp --production"
+            "gulp sass",
+            "gulp html"
         ]
     },
     "config": {

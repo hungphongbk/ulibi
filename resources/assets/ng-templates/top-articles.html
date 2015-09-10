@@ -1,0 +1,6 @@
+<div layout="row" ng-init="getTop()">
+    <div flex="33" ng-repeat="i in dataSource" layout="column" class="item">
+        <h4>{{ i['article_title'] }}</h4>
+        <p>{{i['article_content']}}</p>
+    </div>
+</div>

@@ -163,7 +163,7 @@ class CreateUsersTable extends Migration
         Schema::create('Destination', function(Blueprint $table) {
             $table->increments('des_id');
             $table->string('des_name');
-            $table->string('des_instruction');
+            $table->text('des_instruction');
             // $table->integer('prop_id')->unsigned();
         });
         DB::statement('ALTER TABLE Destination ADD coordinate GEOMETRY' );

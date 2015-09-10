@@ -19,11 +19,11 @@
   "dependencies": {
     "angular-animate": "~1.4.5",
     "angular-aria": "~1.4.5",
-    "angular-material": "~0.10.1",
     "angular-ui-router": "~0.2.15",
     "angularjs": "~1.4.4",
     "bootstrap": "~3.3.5",
-    "jquery": "~2.1.4",
+    "bootstrap-material-design": "~0.3.0",
+    "jquery": "3.0.0-alpha1+compat",
     "satellizer": "~0.12.2"
   }
 }
