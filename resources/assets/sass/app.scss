@@ -162,4 +162,27 @@ html, body {
       }
     }
   }
+  &#top-ulibier {
+    $ava-size: 4em;
+    img.ulibier-avatar, .ulibier-name {
+      display: inline-block;
+      line-height: $ava-size;
+      height: $ava-size;
+    }
+    img.ulibier-avatar {
+      width: $ava-size;
+      border-radius: $ava-size/2;
+    }
+    .ulibier-name {
+      height: $ava-size*0.8;
+      line-height: $ava-size*0.8;
+      margin-left: 12px;
+    }
+
+    .content>.ulibier-info{
+      padding: 12px;
+      background-color: rgba(0,0,0,0.4);
+      color: white;
+    }
+  }
 }

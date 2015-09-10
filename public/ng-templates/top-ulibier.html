@@ -3,7 +3,12 @@
 		<div class="border clearfix">
 			<img ng-src="{{item.trending_article.first_related_destination.avatar}}" alt="" class="avatar">
 			<div class="content fill-abs">
-				<h4><span>{{item.firstname}}</span> <span>{{item.lastname}}</span></h4>
+				<div class="clearfix ulibier-info">
+					<img ng-src="{{item.avatar_url}}" alt="ulibier avatar" class="ulibier-avatar pull-left">
+					<h4 class="ulibier-name">
+						<span>{{item.firstname}}</span> <span>{{item.lastname}}</span>
+					</h4>
+				</div>
 				<div>
 					<p>{{item.trending_article.article_title}}</p>
 				</div>

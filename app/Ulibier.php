@@ -15,7 +15,8 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
     protected $table = 'Ulibier';
     protected $primaryKey = 'user_id';
     protected $fillable = ['username', 'email', 'password'];
-    protected $hidden = ['user_id', 'password', 'created_at', 'updated_at'];
+    protected $hidden = ['user_id', 'password', 'created_at', 'updated_at', 'avatar'];
+    protected $appends = ['avatar_url'];
 
     /**
      * Get all articles this user wrote
@@ -23,5 +24,12 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
      */
     public function articles() {
         return $this->hasMany(Models\Article::class ,'user_id','user_id');
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        if ($this->avatar==NULL) return '';
+        $avatar = Models\Photo::find($this->avatar);
+        return $avatar->photo_awss3_url;
     }
 }

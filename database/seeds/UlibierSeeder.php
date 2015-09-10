@@ -22,7 +22,8 @@ class UlibierSeeder extends Seeder
             'email'         => 'programmingd32@gmail.com',
             'phonenumber'   => '+841667578431',
             'username'      => 'hungphongbk',
-            'password'      => Hash::make('Hungphong1812')
+            'password'      => Hash::make('Hungphong1812'),
+            'avatar'        => 22
         ));
         Ulibier::create(array(
             'firstname'     => 'Trung',
@@ -32,7 +33,8 @@ class UlibierSeeder extends Seeder
             'email'         => 'trung.nguyen.hcmc@gmail.com',
             'phonenumber'   => '+84969734705',
             'username'      => 'trungluom',
-            'password'      => Hash::make('123456')
+            'password'      => Hash::make('123456'),
+            'avatar'        => 23
         ));
         Ulibier::create(array(
             'firstname'     => 'Chau',
@@ -42,7 +44,8 @@ class UlibierSeeder extends Seeder
             'email'         => 'tranthithuychau1993@gmail.com',
             'phonenumber'   => '+84969734705',
             'username'      => 'tranchau',
-            'password'      => Hash::make('123456')
+            'password'      => Hash::make('123456'),
+            'avatar'        => 24
         ));
     }
 }

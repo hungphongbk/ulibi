@@ -3,7 +3,7 @@ app.controller('UlibierController', function($scope,UlibiApi){
 	$scope.dummyText='fuck you';
 	var api=UlibiApi.ulibier;
 	var s=$scope;
-	s.numOfTrendings=2;
+	s.numOfTrendings=3;
 	s.dataSource=[];
 	s.getTrending=function(){
 		api.trending(s.numOfTrendings)

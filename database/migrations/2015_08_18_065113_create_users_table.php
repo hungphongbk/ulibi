@@ -124,6 +124,16 @@ class CreateUsersTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
+        // Update Ulibier table - allow avatar
+        Schema::table('Ulibier', function($table){
+            $table->integer('avatar')->unsigned()->nullable();
+            $table->foreign('avatar')
+                ->references('photo_id')
+                ->on('Photo')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
+
         // Create table will map Blog And Photo
         Schema::create('BlogPhotoMapping', function (Blueprint $table){
             $table->string('blog_url')->unique();
@@ -168,7 +178,7 @@ class CreateUsersTable extends Migration
         });
         DB::statement('ALTER TABLE Destination ADD coordinate GEOMETRY' );
         Schema::table('Photo', function($table){
-            $table->integer('des_id')->unsigned();
+            $table->integer('des_id')->unsigned()->nullable();
             $table->foreign('des_id')
                 ->references('des_id')
                 ->on('Destination')
