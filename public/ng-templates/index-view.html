@@ -1,24 +1,18 @@
 <script>
     $(document).ready(function(){
-        var h=window.innerHeight;
-        $('.index-page').css({'height':h+'px'});
-
-        var navtop_height=$('#navbar-top').innerHeight();
-        $('.index-page#main').css({'height':(h-navtop_height)+'px'});
-
         $('.section-header').addClass('navbar navbar-material-indigo');
     });
 </script>
-<section  class="index-page" id="main">
-    <div class="centered">
+<div  class="index-page" id="main">
+    <div class="center-area">
         <h3>Phượt, Viết lách, Chụp ảnh</h3>
         <h3>Ulibi là nơi dành cho cả 3</h3>
         <div class="btn btn-info">Tham gia ngay</div>
     </div>
-</section>
-<section class="index-page" id="welcome">
+</div>
+<div class="index-page" id="welcome">
     <div class="section-header">
-        <h3>Tai sao lai co Ulibi?</h3>
+        <h3>Tại sao lại có Ulibi?</h3>
     </div>
     <div class="center-area">
         <div>
@@ -43,10 +37,16 @@
             <h4>Làm một nhà văn với trang blog của riêng mình viết về những trải nghiệm và cảm xúc trên đường đi</h4>
         </div>
     </div>
-</section>
-<section class="index-page" id="top-destinations">
+</div>
+<div class="index-page" id="top-destinations">
     <div class="section-header">
-        <h3>Kham pha</h3>
+        <h3>Khám phá</h3>
     </div>
-    <div ui-view="topDes"></div>
-</section>
+    <div ui-view="topDes" class="clearfix"></div>
+</div>
+<div class="index-page" id="top-ulibier">
+    <div class="section-header">
+        <h3>Cộng đồng Ulibier</h3>
+    </div>
+    <div ui-view="topUlibier" class="clearfix"></div>
+</div>

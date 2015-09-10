@@ -8,6 +8,9 @@ app.factory('UlibiApi',function($http){
         },
         destinations: {
             postfix: 'dest'
+        },
+        ulibier: {
+            postfix: 'ulibier'
         }
     };
     angular.forEach(api, function(section,_){
@@ -16,6 +19,11 @@ app.factory('UlibiApi',function($http){
             return h.get(urlBase+this.postfix+'/all'+param);
         }
     });
+
+    api.ulibier.trending=function(top){
+        top=top||3;
+        return h.get(urlBase+this.postfix+'/trending?top='+top);
+    };
 
     return api;
 });

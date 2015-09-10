@@ -178,11 +178,12 @@ class CreateUsersTable extends Migration
 
         // Create table will map Article and Destination
         Schema::create('ArticleDestinationMapping', function(Blueprint $table) {
+            $table->increments('id');
             $table->integer('article_id')->unsigned();
             $table->integer('des_id')
                 ->unsigned();
 
-            $table->primary(array('article_id','des_id'));
+            $table->unique(array('article_id','des_id'));
             $table->foreign('article_id')
                 ->references('article_id')
                 ->on('Article')

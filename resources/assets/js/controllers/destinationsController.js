@@ -7,7 +7,7 @@ app.controller('DestinationsController', function($scope,UlibiApi){
     s.getTop = function(){
         api.destinations.getAll('withAvatar=1')
             .success(function(data){
-                console.log(data);
+                //console.log(data);
                 s.dataSource=data;
             });
     };

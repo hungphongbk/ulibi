@@ -10,7 +10,7 @@ class Article extends Model
     protected $primaryKey = 'article_id';
     public $timestamps = false;
 
-    protected $hidden = ['user_id'];
+    protected $hidden = ['user_id','article_id'];
 
     /**
      * Get the user that wrote this article
@@ -26,5 +26,34 @@ class Article extends Model
      */
     public function comments() {
         return $this->hasMany(Comment::class, 'article_id', 'article_id');
+    }
+
+    /**
+     * Get all destinations related to this article
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    protected function destinations() {
+        $list = $this->hasMany(Mapping\ArticleDestination::class, 'article_id', 'article_id');
+        return $list->getResults();
+    }
+
+    /**
+     * Get all destinations related to this article
+     * @return \App\Models\Destination
+     */
+    public function getFirstRelatedDestinationAttribute() {
+        $destination = $this->destinations()->first()->destination;
+        $destination->append('avatar');
+        return $destination;
+    }
+
+    public function enterMode($mode){
+        switch($mode){
+            case 'trending-destination-photo':
+                $this->append('first_related_destination');
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -2,7 +2,6 @@
 @import 'vars';
 
 html, body {
-  height: 100%;
   overflow: scroll;
   font-family: 'UTM Androgyne';
 }
@@ -43,6 +42,7 @@ html, body {
   padding-left: $left-right-margin;
   padding-right: $left-right-margin;
   padding-top: $my-navbar-height;
+  height: 100vh;
   position: relative;
 
   .border {
@@ -71,9 +71,15 @@ html, body {
       line-height: $my-navbar-height;
     }
   }
+  img.avatar {
+    height: 250px;
+    width: 100%;
+  }
+  .border {
+    position: relative;
+  }
 
   &#main {
-    height: 100%;
     background: url('images/home/intro.png');
     -webkit-background-size: cover;
     background-size: cover;
@@ -98,14 +104,17 @@ html, body {
       height: 400px;
     }
   }
+  &#top-destinations, &#top-ulibier {
+    >[ui-view] {
+      margin-top: 80px;
+    }
+  }
   &#top-destinations{
+    height: auto;
+
     .item{
+      margin-bottom: 40px;
       .border {
-        position: relative;
-        img.avatar {
-          height: 250px;
-          width: 100%;
-        }
         div.content{
           $anim-timing: ' .3s ease';
 
@@ -113,6 +122,7 @@ html, body {
           color: white !important;
           padding: 1em;
           background-color: rgba(0,0,0,0);
+          overflow: hidden;
 
           @include transition('background-color'+$anim-timing);
 

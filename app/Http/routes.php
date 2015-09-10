@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::group(['prefix' => 'api'], function(){
     Route::controllers([
         'auth' => 'Auth\AuthController',
+        'ulibier' => 'Api\UlibierController',
         'article' => 'Api\ArticleController',
         'photo' => 'Api\PhotoController',
         'dest' => 'Api\DestinationController'

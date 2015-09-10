@@ -14,13 +14,13 @@ app.config(function($stateProvider,$urlRouterProvider,$authProvider,$provide){
                 '': {
                     templateUrl: 'ng-templates/index-view.html'
                 },
-                /*'topArticles@home': {
-                    templateUrl: 'ng-templates/top-articles.html',
-                    controller: 'ArticlesController'
-                },*/
                 'topDes@home': {
                     'templateUrl': 'ng-templates/top-destinations.html',
                     controller: 'DestinationsController'
+                },
+                'topUlibier@home': {
+                    templateUrl: 'ng-templates/top-ulibier.html',
+                    controller: 'UlibierController'
                 }
             }
         })

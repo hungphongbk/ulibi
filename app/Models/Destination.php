@@ -11,7 +11,7 @@ class Destination extends Model
     public $timestamps = false;
 
     protected $fillable = ['des_name'];
-    protected $hidden = ['coordinate'];
+    protected $hidden = ['coordinate', 'des_id'];
     protected $appends = ['location'];
 
     /**
@@ -31,6 +31,8 @@ class Destination extends Model
 
     public function getLocationAttribute(){
         $coors = $this->attributes['coordinate'];
-        return unpack('L/c/L/dlongitude/dlatitude',$coors);
+        $rs = unpack('L/c/L/dlongitude/dlatitude',$coors);
+        array_shift($rs);
+        return $rs;
     }
 }
