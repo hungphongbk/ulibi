@@ -16,4 +16,8 @@
 |        | GET|HEAD                       | api/photo/all/{one?}/{two?}/{three?}/{four?}/{five?}         |      | App\Http\Controllers\Api\PhotoController@getAll              |            |
 |        | POST                           | api/photo/upload/{one?}/{two?}/{three?}/{four?}/{five?}      |      | App\Http\Controllers\Api\PhotoController@postUpload          | jwt.auth   |
 |        | GET|HEAD|POST|PUT|PATCH|DELETE | api/photo/{_missing}                                         |      | App\Http\Controllers\Api\PhotoController@missingMethod       | jwt.auth   |
+|        | GET|HEAD                       | api/r/{type}/{filename}                                      |      | App\Http\Controllers\Api\ResourceController@getIndex         |            |
+|        | GET|HEAD                       | api/ulibier/all/{one?}/{two?}/{three?}/{four?}/{five?}       |      | App\Http\Controllers\Api\UlibierController@getAll            |            |
+|        | GET|HEAD                       | api/ulibier/trending/{one?}/{two?}/{three?}/{four?}/{five?}  |      | App\Http\Controllers\Api\UlibierController@getTrending       |            |
+|        | GET|HEAD|POST|PUT|PATCH|DELETE | api/ulibier/{_missing}                                       |      | App\Http\Controllers\Api\UlibierController@missingMethod     | jwt.auth   |
 +--------+--------------------------------+--------------------------------------------------------------+------+--------------------------------------------------------------+------------+
