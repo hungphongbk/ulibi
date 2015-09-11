@@ -23,4 +23,5 @@ Route::group(['prefix' => 'api'], function(){
         'photo' => 'Api\PhotoController',
         'dest' => 'Api\DestinationController'
     ]);
+    Route::get('r/{type}/{filename}','Api\ResourceController@getIndex');
 });

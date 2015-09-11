@@ -19,6 +19,7 @@ class Photo extends Model
         parent::boot();
 
         static::creating(function($photo){
+            $upload_to_s3 = false;
             // Set default value for 'like' field
             $photo->photo_like = 0;
 
@@ -27,14 +28,18 @@ class Photo extends Model
             $local=Storage::disk('local');
             // Get original local filename
             $filename=$photo['photo_hash'].'.'.$photo['photo_extensions'];
-            // Build S3 file path
-            $s3path='/photos/'.$filename;
-            // Upload local file to S3
-            $s3->put($s3path,static::resize_photo($local->get('/imgtemp/'.$filename)),'public');
-            // Update url of file
-            $photo['photo_awss3_url']=static::s3_path($s3path);
-            // Delete local version
-            $local->delete('/imgtemp/'.$filename);
+            if($upload_to_s3){
+                // Build S3 file path
+                $s3path='/photos/'.$filename;
+                // Upload local file to S3
+                $s3->put($s3path,static::resize_photo($local->get('/imgtemp/'.$filename)),'public');
+                // Update url of file
+                $photo['photo_awss3_url']=static::s3_path($s3path);
+                // Delete local version
+                $local->delete('/imgtemp/'.$filename);
+            } else {
+                $photo['photo_awss3_url'] = '/ulibi/api/r/images/'.$filename;
+            }
         });
 
         static::deleting(function($photo){
@@ -53,7 +58,7 @@ class Photo extends Model
 
     private static function s3_path($path)
     {
-        return 'https://s3-'.getenv('S3_REGION').'.amazonaws.com/'.getenv('S3_BUCKET').$path;
+        return 'http://s3-'.getenv('S3_REGION').'.amazonaws.com/'.getenv('S3_BUCKET').$path;
     }
     private static function resize_photo($stream)
     {

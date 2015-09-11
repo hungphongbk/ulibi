@@ -27,14 +27,6 @@ class PhotoController extends ApiController
         $imageFilename = $hash.'.'.$image->getClientOriginalExtension();
         Storage::put('/imgtemp/'.$imageFilename,file_get_contents($image), 'public');
 
-        /*$photo = Photo::create(array(
-            'user_id'           => $user['user_id'],
-            'photo_uptime'      => $photo_uptime,
-            'photo_hash'        => $hash,
-            'photo_extensions'  => $image->getClientOriginalExtension(),
-            'photo_like'        => 0,
-            'des_id'            => $request->input('des_id')
-        ));*/
         $photo=Photo::create(array('user_id' => $user['user_id']));
         $photo->photo_uptime = $photo_uptime;
         $photo->photo_hash = $hash;

@@ -237,6 +237,8 @@ class CreateUsersTable extends Migration
         //First, delete folder 'photo' in S3 bucket
         $s3 = Storage::disk('s3');
         $s3->deleteDirectory('/photos');
+        $local = Storage::disk('local');
+        $local->deleteDirectory('/imgtemp');
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         $tables=['Ulibier','Article','ArticlePhotoMapping','ArticleDestinationMapping','Comment','Blog','BlogArticleMapping','BlogPhotoMapping', 'Photo','Destination','Rate'];
