@@ -5,33 +5,9 @@ var Task = elixir.Task;
 var $ = elixir.Plugins;
 
 elixir.config.sourcemaps = true;
-elixir.config.production = true;
+elixir.config.production = false;
 
-elixir.extend('uglifyAll', function(src, output, options){
-    var gulpFilter = require('gulp-filter');
 
-    var filter  = gulpFilter(['**/*', '!**/*.min.js']);
-
-    options = options === undefined ? {} : options;
-    output = output || 'public/js';
-    src = output + '/**/*.js';
-
-    new Task('uglifyAll', function() {
-
-        var onError = function(err) {
-            new Notification().error(err, 'Error on line : <%= error.lineNumber %>\n');
-            this.emit('end');
-        };
-
-        return gulp.src(src)
-            .pipe(filter)
-            .pipe($.uglify(options)).on('error', onError)
-            .pipe($.rename({extname: '.min.js'}))
-            .pipe(gulp.dest(output))
-            .pipe(new elixir.Notification('Javascript uglified!'));
-
-    });
-});
 
 elixir.extend('html', function(conf) {
     conf=(conf===undefined)?{}:conf;
@@ -74,7 +50,7 @@ elixir.extend('html', function(conf) {
             .pipe(ngtools.annotate())
             .pipe(ngtools.filesort())
             .pipe($.concat(outFile))
-            .pipe($.uglify())
+            //.pipe($.uglify())
             .pipe($.if(config.sourcemaps, $.sourcemaps.write('.')))
             .pipe(gulp.dest(out));
     });
@@ -93,11 +69,7 @@ elixir(function(mix) {
     mix
         .sass([ 'app.scss' ],'public/css/app.css')
         .styles([
-            '../../../bower_components/bootstrap/dist/css/bootstrap.css',
-            '../../../bower_components/bootstrap-material-design/dist/css/material.css',
-            '../../../bower_components/bootstrap-material-design/dist/css/material-fullpalette.css',
-            '../../../bower_components/bootstrap-material-design/dist/css/ripples.css',
-            '../../../bower_components/bootstrap-material-design/dist/css/roboto.css',
+            '../../../bower_components/bootstrap/dist/css/bootstrap.css'
         ],'public/css/external.css')
         .scripts([
             '../../../bower_components/jquery/dist/jquery.js',
@@ -105,10 +77,7 @@ elixir(function(mix) {
             '../../../bower_components/satellizer/satellizer.js',
             '../../../bower_components/angular-ui-router/release/angular-ui-router.js',
             '../../../bower_components/angular-animate/angular-animate.js',
-            '../../../bower_components/angular-aria/angular-aria.js',
-            '../../../bower_components/bootstrap-material-design/dist/js/material.js',
-            '../../../bower_components/bootstrap-material-design/dist/js/ripples.js'
-
+            //'../../../cssjs-plugins/sticky/jquery.sticky.js'
         ],'public/js/external.js')
         .copy('resources/assets/images','public/images')
         .copy('resources/assets/fonts','public/fonts')

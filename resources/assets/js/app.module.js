@@ -1,6 +1,7 @@
 var app = angular.module('Ulibi',[
     'satellizer',
-    'ui.router'
+    'ui.router',
+    'ngAnimate'
 ]);
 app.factory('UlibiAuth', function(){
     return {currentUser: ''};
@@ -30,9 +31,4 @@ app.config(function($stateProvider,$urlRouterProvider,$authProvider,$provide){
             controller: 'AuthController'
         });
     $urlRouterProvider.otherwise('/home');
-});
-app.run(function($rootScope, $state, UlibiAuth){
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-        console.log(fromState.name+' -> '+toState.name);
-    });
 });

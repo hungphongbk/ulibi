@@ -3,4 +3,5 @@
 /node_modules
 Homestead.yaml
 /bower_components
+/.sublime-settings
 .env

@@ -1,20 +1,16 @@
-<script>
-    $(document).ready(function(){
-        $('.section-header').addClass('navbar navbar-material-indigo');
-    });
-</script>
 <div  class="index-page" id="main">
     <div class="center-area">
-        <h3>Phượt, Viết lách, Chụp ảnh</h3>
-        <h3>Ulibi là nơi dành cho cả 3</h3>
-        <div class="btn btn-info">Tham gia ngay</div>
+        <h2>Phượt, Viết lách, Chụp ảnh</h2>
+        <h1>Ulibi là nơi dành cho cả 3</h1>
+        <div class="btn btn-info btn-lg">Tham gia ngay</div>
     </div>
 </div>
 <div class="index-page" id="welcome">
     <div class="section-header">
-        <h3>Tại sao lại có Ulibi?</h3>
+        <h2>Tại sao lại có Ulibi?</h2>
+        <span class="center-line"></span>
     </div>
-    <div class="center-area">
+    <div class="center-area" style="top: 45%;">
         <div>
             <h4 style="text-align: center">
                 Làm phượt thủ, nhiếp ảnh gia và blogger đều rất tuyệt...<br />
@@ -25,28 +21,45 @@
         </div>
         <br style="line-height: 4em">
         <div bootstrap-col="12 4 4 4" class="text-center">
-            <img src="images/home/why0.png" alt="Generic placeholder image" width="140" height="140">
-            <h4>Làm một phượt thủ với bản đồ phượt toàn Việt Nam</h4>
+            <div class="img">
+                <img src="images/home/why0.png" alt="Generic placeholder image">
+                <svg class="round" viewBox="0 0 1 1">
+                  <circle />
+                </svg>
+            </div>
+            <p>Làm một phượt thủ với bản đồ phượt toàn Việt Nam</p>
         </div>
         <div bootstrap-col="12 4 4 4" class="text-center">
-            <img src="images/home/why1.png" alt="Generic placeholder image" width="140" height="140">
-            <h4>Làm một nhiếp ảnh gia với công cụ lưu trữ và chia sẻ ảnh</h4>
+            <div class="img">
+                <img src="images/home/why1.png" alt="Generic placeholder image">
+                <svg class="round" viewBox="0 0 1 1">
+                  <circle />
+                </svg>
+            </div>
+            <p>Làm một nhiếp ảnh gia với công cụ lưu trữ và chia sẻ ảnh</p>
         </div>
         <div bootstrap-col="12 4 4 4" class="text-center">
-            <img src="images/home/why2.png" alt="Generic placeholder image" width="140" height="140">
-            <h4>Làm một nhà văn với trang blog của riêng mình viết về những trải nghiệm và cảm xúc trên đường đi</h4>
+            <div class="img">
+                <img src="images/home/why2.png" alt="Generic placeholder image">
+                <svg class="round" viewBox="0 0 1 1">
+                  <circle />
+                </svg>
+            </div>
+            <p>Làm một nhà văn với trang blog của riêng mình viết về những trải nghiệm và cảm xúc trên đường đi</p>
         </div>
     </div>
 </div>
 <div class="index-page" id="top-destinations">
     <div class="section-header">
-        <h3>Khám phá</h3>
+        <h2>Khám phá</h2>
+        <span class="center-line"></span>
     </div>
     <div ui-view="topDes" class="clearfix"></div>
 </div>
 <div class="index-page" id="top-ulibier">
     <div class="section-header">
-        <h3>Cộng đồng Ulibier</h3>
+        <h2>Cộng đồng Ulibier</h2>
+        <span class="center-line"></span>
     </div>
     <div ui-view="topUlibier" class="clearfix"></div>
 </div>

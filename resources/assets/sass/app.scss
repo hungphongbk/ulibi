@@ -3,21 +3,55 @@
 
 html, body {
   overflow: scroll;
-  font-family: 'UTM Androgyne';
+  font-family: 'Open Sans';
+}
+a {
+  color: #333;
+  @include transition('all 200ms ease-in');
 }
 .navbar{
   margin-bottom: 0;
 
   .navbar-brand, .navbar-nav li a {
-      line-height: $my-navbar-height;
-      height: $my-navbar-height;
+      line-height: inherit;
+      height: inherit;
       padding-top: 0;
+      padding-bottom: 0;
   }
-  .navbar-brand {
-    font-size: 2em;
+  .navbar-nav{
+    // normal state
+    &>li>a{
+      color: #444;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0px;
+      text-transform: uppercase;
+    }
+    // active state
+    &>li {
+      >a:hover, &a:focus {
+        color: #4f82e9;
+      }
+      &.active {
+        @extend a:hover;
+        >a{
+          @extend a:hover;
+        }
+      }
+    }
   }
-  .navbar-nav li a{
-    font-size: 1.6em;
+
+  &.sticky {
+    height: $my-navbar-height;
+    line-height: $my-navbar-height;
+    opacity: 1;
+    @include transition('all 200ms ease-in');
+
+    &.is-sticky{
+      height: $my-navbar-height*0.8;
+      line-height: $my-navbar-height*0.8;
+      opacity: 0.7;
+    }
   }
 }
 
@@ -32,6 +66,13 @@ html, body {
   left: 0;
   right: 0;
   bottom: 0;
+}
+.animate-switch {
+  @extend .fill-abs;
+  >.animate-switch-inner {
+    position: relative;
+    height: 100%;
+  }
 }
 
 
@@ -49,6 +90,7 @@ html, body {
     position: relative;
   }
   
+  // make element centerized both vertically and horizontally its parent
   .center-area{
     position: relative;
     top: 50%;
@@ -57,6 +99,8 @@ html, body {
     -moz-transform: translateY(-50%);
     display: inline-block;
   }
+
+  // modify header font: Alegreya
   .section-header{
     position: absolute;
     width: 100%;
@@ -66,10 +110,20 @@ html, body {
     height: $my-navbar-height;
     text-align: center;
     vertical-align: middle;
+    font-family: 'Alegreya Sans SC',sans-serif;
 
     h1,h2,h3,h4,h5,h6 {
       line-height: $my-navbar-height;
     }
+
+    .center-line {
+      display: inline-block;
+      width: 70px;
+      height: 1px;
+      border-top: 1px solid #bbb;
+      /* border-bottom: 1px solid $skincolor; */
+      margin: auto;
+      }
   }
   img.avatar {
     height: 250px;
@@ -84,19 +138,80 @@ html, body {
     -webkit-background-size: cover;
     background-size: cover;
     text-align: center;
+    font-family: 'Alegreya Sans SC',sans-serif;
 
-    h3{
-      font-size: 2.4em;
-      padding-top: 0.3em;
-      padding-bottom: 0.3em;
+    h2, h1{
+      padding-bottom: 0.6em;
+    }
+    h1 {
+      font-size: 3em;
     }
     .btn {
-      font-size: 1.8em;
+      font-size: 1.6em;
     }
   }
   &#welcome {
-    .center-area img {
+    $hubsize: 160px;
+    $imgpadding: $hubsize*0.25;
+
+    .center-area .img {
       margin-bottom: 1em;
+      width: $hubsize;
+      height: $hubsize;
+      line-height: ($hubsize - 2 * $imgpadding);
+      padding: $imgpadding;
+      display: inline-block;
+      position: relative;
+
+      img {
+        width: 100%;
+        vertical-align: middle;
+
+        @include transition('transform .2s ease-in');
+        @include transform('scale(1.3)');
+      }
+      svg.round {
+        @extend .fill-abs;
+
+        width: 100%;
+        height: 100%;
+
+        circle {
+          fill: transparent;
+          stroke-width: (2 / 160);
+          stroke: #0B5FA7;
+          cx: 0.5;
+          cy: 0.5;
+          r: 0.48;
+          stroke-dasharray: 0 $pi;
+
+          //normal
+          //@include animation('introduce-circle-hover-in .5s linear forward');
+          @include transition('stroke-dasharray .2s ease-in');
+        }
+      }
+      +p {
+        margin-top: 2em;
+        @include transition('all .20s ease-in');
+        @include transform('translateY(20px)');
+        opacity: 0;
+      }
+
+      &:hover {
+        img {
+          @include transform('scale(1)');
+        }
+        svg.round {
+          circle {
+            //@include animation('introduce-circle-hover-out .5s linear forward');
+            stroke-dasharray: $pi $pi;
+          }
+        }
+        +p {
+          @include transform('translateY(0)');
+          opacity: 1;
+        }
+      }
     }
   }
   &#top-articles {
@@ -164,6 +279,10 @@ html, body {
   }
   &#top-ulibier {
     $ava-size: 4em;
+    $ava-size-large: 8em;
+    $padding: 1em;
+    color: white;
+
     img.ulibier-avatar, .ulibier-name {
       display: inline-block;
       line-height: $ava-size;
@@ -171,7 +290,11 @@ html, body {
     }
     img.ulibier-avatar {
       width: $ava-size;
-      border-radius: $ava-size/2;
+      border-radius: 50%;
+      &.large {
+        height: $ava-size-large;
+        width: $ava-size-large;
+      }
     }
     .ulibier-name {
       height: $ava-size*0.8;
@@ -179,10 +302,29 @@ html, body {
       margin-left: 12px;
     }
 
-    .content>.ulibier-info{
-      padding: 12px;
+    .ulibier-info{
+      padding: $padding;
+      margin-top: -$padding;
+      margin-left: -$padding;
+      margin-right: -$padding;
       background-color: rgba(0,0,0,0.4);
-      color: white;
+    }
+
+    .animate-switch {
+      padding: $padding;
+
+      &.ng-animate {
+        transition:opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.6s;
+
+      }
+      &.ng-leave.ng-leave-active,
+      &.ng-enter {
+        opacity: 0;
+      }
+      &.ng-leave,
+      &.ng-enter.ng-enter-active {
+        opacity: 1;
+      }
     }
   }
 }

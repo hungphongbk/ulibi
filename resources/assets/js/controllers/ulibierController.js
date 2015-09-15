@@ -8,7 +8,6 @@ app.controller('UlibierController', function($scope,UlibiApi){
 	s.getTrending=function(){
 		api.trending(s.numOfTrendings)
 			.success(function(data){
-				console.log(data);
 				s.dataSource=data;
 			});
 
