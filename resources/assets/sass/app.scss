@@ -208,7 +208,7 @@ a {
         opacity: 0;
       }
 
-      &:hover {
+      &:hover, &.hover {
         img {
           @include transforms('scale(1)');
         }
