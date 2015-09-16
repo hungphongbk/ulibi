@@ -74,5 +74,9 @@
                 elem.style.backgroundPosition=elemBackgroundPos;
             });
         });
+        $('#main').addClass('do-anim');
+        $('#main .btn').click(function() {
+            $('body').scrollTo('#welcome',400,'ease-in');
+        });
     })();
 </script>

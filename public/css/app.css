@@ -393,15 +393,17 @@ a {
     font-family: 'Alegreya Sans SC',sans-serif; }
     .index-page#main h2, .index-page#main h1 {
       padding-bottom: 0.6em; }
-    .index-page#main h2 {
+    .index-page#main h1 {
+      font-size: 3em; }
+    .index-page#main .btn {
+      font-size: 1.6em; }
+    .index-page#main.do-anim h2 {
       -webkit-animation: indexpage-intro-h2-slidedown 0.5s ease-in 1s both;
       animation: indexpage-intro-h2-slidedown 0.5s ease-in 1s both; }
-    .index-page#main h1 {
-      font-size: 3em;
+    .index-page#main.do-anim h1 {
       -webkit-animation: indexpage-intro-h1-slideright 0.5s ease-in 1.3s both;
       animation: indexpage-intro-h1-slideright 0.5s ease-in 1.3s both; }
-    .index-page#main .btn {
-      font-size: 1.6em;
+    .index-page#main.do-anim .btn {
       -webkit-animation: indexpage-intro-button-slideup 0.5s ease-in 1.6s both;
       animation: indexpage-intro-button-slideup 0.5s ease-in 1.6s both; }
   .index-page#welcome .center-area .img {

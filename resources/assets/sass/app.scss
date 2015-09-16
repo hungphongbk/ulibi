@@ -142,16 +142,23 @@ a {
     h2, h1{
       padding-bottom: 0.6em;
     }
-    h2 {
-      @include animation('indexpage-intro-h2-slidedown #{$d} ease-in 1s both')
-    }
     h1 {
       font-size: 3em;
-      @include animation('indexpage-intro-h1-slideright #{$d} ease-in 1.3s both');
     }
     .btn {
       font-size: 1.6em;
-      @include animation('indexpage-intro-button-slideup #{$d} ease-in 1.6s both');
+    }
+    
+    &.do-anim {
+      h2 {
+        @include animation('indexpage-intro-h2-slidedown #{$d} ease-in 1s both')
+      }
+      h1 {
+        @include animation('indexpage-intro-h1-slideright #{$d} ease-in 1.3s both');
+      }
+      .btn {
+        @include animation('indexpage-intro-button-slideup #{$d} ease-in 1.6s both');
+      }
     }
   }
   &#welcome {
