@@ -12,7 +12,7 @@
 			//$('[switch-out]').hide();
 		}
 	</script>
-	<div class="item" bootstrap-col="12 4 4 4" ng-repeat="item in dataSource">
+	<div class="item" bootstrap-col="12 6 6 4" ng-repeat="item in dataSource">
 		<div class="border clearfix">
 			<img ng-src="{{item.trending_article.first_related_destination.avatar}}" alt="" class="avatar">
 			<div class="content fill-abs">
@@ -20,9 +20,9 @@
 					<div class="animate-switch-inner">
 						<div class="clearfix ulibier-info animate-up">
 							<img ng-src="{{item.avatar_url}}" alt="ulibier avatar" class="ulibier-avatar pull-left">
-							<h4 class="ulibier-name">
+							<h5 class="ulibier-name">
 								<span>{{item.firstname}}</span> <span>{{item.lastname}}</span>
-							</h4>
+							</h5>
 						</div>
 						<div class="animate-down">
 							<div class="spaceline"></div>
@@ -34,9 +34,9 @@
 					<div class="animate-switch-inner text-center">
 						<div class="center-area">
 							<img ng-src="{{item.avatar_url}}" alt="ulibier avatar" class="ulibier-avatar large animate-up">
-							<h4 class="animate-down">
+							<h3 style="margin-top: 15px;" class="animate-down">
 								<span>{{item.firstname}}</span> <span>{{item.lastname}}</span>
-							</h4>
+							</h3>
 						</div>
 					</div>
 				</div>
