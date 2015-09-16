@@ -15,9 +15,32 @@
     <script src="bower_components/satellizer/satellizer.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <!--<script src="cssjs-plugins/stellar.js/jquery.stellar.min.js"></script>-->
     <script inline src="js/app.js"></script>
 </head>
 <body ng-app="Ulibi">
+    <script>
+        $(document).ready(function(){
+            $(window).scroll(function(e) {
+                if($(document).scrollTop()!=0)
+                    $('.sticky').addClass('is-sticky');
+                else $('.sticky').removeClass('is-sticky');
+            });
+        });
+        function setUpParallax(){
+            console.log('fuck');
+            var parallax=document.querySelectorAll('.parallax'),
+                speed=0.5;
+            $(window).scroll(function(){
+                console.log(parallax);
+                Array.prototype.forEach.call(parallax,function(elem,i){
+                    var yoffset=window.pageYOffset,
+                        elemBackgroundPos="50% "+(yoffset*speed)+"px";
+                    elem.style.backgroundPosition=elemBackgroundPos;
+                });
+            });
+        }
+    </script>
     <nav id="navbar-top" class="banner navbar navbar-default navbar-fixed-top sticky" role="banner">
         <div class="container">
             <div class="navbar-header">

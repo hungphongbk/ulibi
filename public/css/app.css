@@ -78,6 +78,13 @@ h4 {
     0% { stroke-dasharray: $pi $pi;}
     100% { stroke-dasharray: 0 $pi;}
 }*/
+.fill-abs, .animate-switch, .index-page#welcome .center-area .img svg.round {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
 html, body {
   overflow: scroll;
   font-family: 'Open Sans'; }
@@ -116,13 +123,6 @@ a {
       opacity: 0.7; }
 
 /*define several less functions*/
-.fill-abs, .animate-switch, .index-page#welcome .center-area .img svg.round {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0; }
-
 .animate-switch > .animate-switch-inner {
   position: relative;
   height: 100%; }
@@ -171,6 +171,7 @@ a {
   .index-page#main {
     background: url("images/home/intro.png");
     background-size: cover;
+    background-position: 50% 0px;
     text-align: center;
     font-family: 'Alegreya Sans SC',sans-serif; }
     .index-page#main h2, .index-page#main h1 {

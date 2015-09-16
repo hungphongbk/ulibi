@@ -1,4 +1,4 @@
-<div  class="index-page" id="main">
+<div class="index-page parallax" id="main">
     <div class="center-area">
         <h2>Phượt, Viết lách, Chụp ảnh</h2>
         <h1>Ulibi là nơi dành cho cả 3</h1>
@@ -63,3 +63,16 @@
     </div>
     <div ui-view="topUlibier" class="clearfix"></div>
 </div>
+<script>
+    (function(){
+        var parallax=document.querySelectorAll('.parallax'),
+            speed=0.5;
+        $(window).scroll(function(){
+            Array.prototype.forEach.call(parallax,function(elem,i){
+                var yoffset=window.pageYOffset,
+                    elemBackgroundPos="50% "+(yoffset*speed)+"px";
+                elem.style.backgroundPosition=elemBackgroundPos;
+            });
+        });
+    })();
+</script>

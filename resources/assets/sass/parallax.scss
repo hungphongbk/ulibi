@@ -1,0 +1,19 @@
+.parallax {
+	perspective: 1px;
+	-webkit-perspective: 1px;
+	height: 100vh;
+	transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
+	.parallax-inner {
+		position: relative;
+		-webkit-transform-style: inherit;
+		transform-style: inherit;
+
+		&:nth-child(1){
+			@include transform('translateZ(-1px) scale(2)');
+		}
+		&:nth-child(2){
+			@include transform('translateZ(0)');
+		}
+	}
+}

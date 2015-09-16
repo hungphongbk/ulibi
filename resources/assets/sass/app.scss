@@ -1,5 +1,6 @@
 @import 'reset';
 @import 'vars';
+//@import 'parallax';
 
 html, body {
   overflow: scroll;
@@ -59,13 +60,6 @@ a {
 @mixin fix-margin($origin){
   margin-left: -$origin;
   margin-right: -$origin;
-}
-.fill-abs {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 }
 .animate-switch {
   @extend .fill-abs;
@@ -137,6 +131,7 @@ a {
     background: url('images/home/intro.png');
     -webkit-background-size: cover;
     background-size: cover;
+    background-position: 50% 0px;
     text-align: center;
     font-family: 'Alegreya Sans SC',sans-serif;
 
