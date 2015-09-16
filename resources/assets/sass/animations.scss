@@ -1,0 +1,53 @@
+@include keyframes(topdest-content-hover) {
+	0% {background-color: rgba(0,0,0,0.3);}
+	100% {background-color: rgba(0,0,0,0);}
+}
+@include keyframes(topdest-content-hover-title) {
+	0% {
+		line-height: 6em;
+		font-size: 2em;
+	}
+	100% {
+		line-height: 1.6em;
+		font-size: 1.6em;
+	}
+}
+@include keyframes(topdest-content-hover-instruction) {
+	0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+
+@mixin fadein-and-slide-effect($name,$direction,$from,$to){
+	@include keyframes($name) {
+		0% {
+			opacity: 0;
+			@include transforms('translate#{$direction}(#{$from})');
+		}
+		100% {
+			opacity: 1;
+			@include transforms('translate#{$direction}(#{$to})');
+		}
+	}
+}
+@mixin fadeout-and-slide-effect($name,$direction,$from,$to){
+	@include keyframes($name) {
+		0% {
+			opacity: 1;
+			@include transforms('translate#{$direction}(#{$from})');
+		}
+		100% {
+			opacity: 0;
+			@include transforms('translate#{$direction}(#{$to})');
+		}
+	}
+}
+
+
+@include fadein-and-slide-effect(indexpage-intro-h2-slidedown,'Y',-80px,0);
+@include fadein-and-slide-effect(indexpage-intro-h1-slideright,'X',-80px,0);
+@include fadein-and-slide-effect(indexpage-intro-button-slideup,'Y',80px,0);
+
+@include fadein-and-slide-effect(indexpage-ulibier-slideup-in,'Y',40px,0);
+@include fadeout-and-slide-effect(indexpage-ulibier-slideup-out,'Y',0,-40px);
+@include fadein-and-slide-effect(indexpage-ulibier-slidedown-in,'Y',-40px,0);
+@include fadeout-and-slide-effect(indexpage-ulibier-slidedown-out,'Y',0,40px);

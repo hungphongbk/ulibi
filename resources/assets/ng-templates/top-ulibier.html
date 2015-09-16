@@ -1,26 +1,40 @@
 <div ng-init="getTrending()">
+	<script>
+		function initItemState(){
+			console.log('fuck');
+			$('.border').hover(function(e){
+				//hover in
+				$(this).addClass('switch');
+			},function(e){
+				//hover out
+				$(this).removeClass('switch');
+			});
+			//$('[switch-out]').hide();
+		}
+	</script>
 	<div class="item" bootstrap-col="12 4 4 4" ng-repeat="item in dataSource">
-		<div class="border clearfix" ng-model="hover" ng-init="hover=0;" ng-switch on="hover" ng-mouseover="hover=1;" ng-mouseleave="hover=0;">
+		<div class="border clearfix">
 			<img ng-src="{{item.trending_article.first_related_destination.avatar}}" alt="" class="avatar">
 			<div class="content fill-abs">
-				<div class="animate-switch" ng-switch-when="1">
+				<div class="animate-switch" switch-out>
 					<div class="animate-switch-inner">
-						<div class="clearfix ulibier-info">
+						<div class="clearfix ulibier-info animate-up">
 							<img ng-src="{{item.avatar_url}}" alt="ulibier avatar" class="ulibier-avatar pull-left">
 							<h4 class="ulibier-name">
 								<span>{{item.firstname}}</span> <span>{{item.lastname}}</span>
 							</h4>
 						</div>
-						<div>
+						<div class="animate-down">
+							<div class="spaceline"></div>
 							<p>{{item.trending_article.article_title}}</p>
 						</div>
 					</div>
 				</div>
-				<div class="animate-switch" ng-switch-when="0">
+				<div class="animate-switch toggle-animate" switch-in>
 					<div class="animate-switch-inner text-center">
 						<div class="center-area">
-							<img ng-src="{{item.avatar_url}}" alt="ulibier avatar" class="ulibier-avatar large">
-							<h4>
+							<img ng-src="{{item.avatar_url}}" alt="ulibier avatar" class="ulibier-avatar large animate-up">
+							<h4 class="animate-down">
 								<span>{{item.firstname}}</span> <span>{{item.lastname}}</span>
 							</h4>
 						</div>
@@ -28,5 +42,8 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			initItemState();
+		</script>
 	</div>
 </div>

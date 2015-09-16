@@ -50,40 +50,13 @@ $pi: 3.141592654;
 	-moz-transition:    #{$trans};
 	-o-transition:      #{$trans};
 }
-@mixin transform($trans) {
+@mixin transforms($trans) {
     transform: #{$trans};
     -webkit-transform: #{$trans};
     -moz-transform: #{$trans};
     -o-transform: #{$trans};
     -ms-transform: #{$trans};
 }
-
-@include keyframes(topdest-content-hover) {
-	0% {background-color: rgba(0,0,0,0.3);}
-	100% {background-color: rgba(0,0,0,0);}
-}
-@include keyframes(topdest-content-hover-title) {
-	0% {
-		line-height: 6em;
-		font-size: 2em;
-	}
-	100% {
-		line-height: 1.6em;
-		font-size: 1.6em;
-	}
-}
-@include keyframes(topdest-content-hover-instruction) {
-	0% {opacity: 0;}
-	100% {opacity: 1;}
-}
-/*@include keyframes(introduce-circle-hover-out) {
-    0% { stroke-dasharray: 0 $pi;}
-    100% { stroke-dasharray: $pi $pi;}
-}
-@include keyframes(introduce-circle-hover-in) {
-    0% { stroke-dasharray: $pi $pi;}
-    100% { stroke-dasharray: 0 $pi;}
-}*/
 
 .fill-abs {
   position: absolute;
