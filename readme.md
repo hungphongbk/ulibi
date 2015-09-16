@@ -36,6 +36,8 @@ Mở file .env ngay trong thư mục gốc Ulibi, để ý thấy có hai dòng 
 
 CD đến thư mục này (Ulibi). Chạy lần lượt các lệnh sau để khởi tạo toàn bộ project, tạo các bảng và một số dữ liệu mẫu cần thiết:
 ```dos
+> bower install
+> bower update
 > composer install
 > composer update
 > composer run-script pre-init-db
