@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\App;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Illuminate\Routing\UrlGenerator;
 
 class Photo extends Model
 {
@@ -38,7 +40,10 @@ class Photo extends Model
                 // Delete local version
                 $local->delete('/imgtemp/'.$filename);
             } else {
-                $photo['photo_awss3_url'] = '/ulibi/api/r/images/'.$filename;
+                //$urlroot = App::make('url')->asset('/api/r/images/'.$filename);
+                $urlroot=App::make('url')->to('/');
+                $urlroot=str_replace($urlroot,'',App::make('url')->current());
+                $photo['photo_awss3_url'] = $urlroot.'/api/r/images/'.$filename;
             }
         });
 

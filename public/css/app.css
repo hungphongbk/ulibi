@@ -476,6 +476,8 @@ a {
     .index-page#top-destinations .item {
       margin-bottom: 40px; }
       .index-page#top-destinations .item .border img.avatar {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
         -webkit-filter: blur(0px);
         filter: blur(0px);
         -webkit-transition: -webkit-filter .3s ease, filter .3s ease;

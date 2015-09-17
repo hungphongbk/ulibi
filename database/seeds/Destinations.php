@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class Destinations extends Seeder
 {
+
+
     /**
      * Run the database seeds.
      *

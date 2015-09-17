@@ -245,6 +245,8 @@ a {
         $anim-timing: ' .3s ease';
 
         img.avatar {
+          -webkit-transform: translate3d(0,0,0);
+          transform: translate3d(0,0,0);
           -webkit-filter: blur(0px);
           filter: blur(0px);
           @include transition('filter'+$anim-timing);
