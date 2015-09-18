@@ -5,7 +5,7 @@
     background-size: cover;
     background-position: 50% 0px;*/
     text-align: center;
-    font-family: 'Alegreya Sans SC',sans-serif;
+    font-family: $title-font,sans-serif;
 
     $d: .5s;
 
@@ -190,6 +190,9 @@
       height: $ava-size*0.8;
       line-height: $ava-size*0.8;
       margin-left: 12px;
+    }
+    .ulibier-name-bigger {
+      font-family: $title-font;
     }
 
     .ulibier-info{

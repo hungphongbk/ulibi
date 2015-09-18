@@ -2,7 +2,14 @@ $my-navbar-height: 70px;
 $pi: 3.141592654;
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800,300italic,400italic&subset=latin,vietnamese,latin-ext);
-@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:400,500,700&subset=latin,vietnamese,latin-ext);
+//@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:400,500,700&subset=latin,vietnamese,latin-ext);
+@font-face {
+    font-family: 'UTM Caviar';
+    font-style: normal;
+    src: local('fonts/utm-caviar.ttf'), url('fonts/utm-caviar.ttf') format('truetype');
+}
+
+$title-font: 'UTM Caviar';
 
 @mixin animation($animate...) {
     $max: length($animate);

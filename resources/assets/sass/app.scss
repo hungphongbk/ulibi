@@ -157,7 +157,7 @@ a {
     height: $my-navbar-height;
     text-align: center;
     vertical-align: middle;
-    font-family: 'Alegreya Sans SC',sans-serif;
+    font-family: $title-font,sans-serif;
 
     h1,h2,h3,h4,h5,h6 {
       line-height: $my-navbar-height;

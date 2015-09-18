@@ -1,5 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800,300italic,400italic&subset=latin,vietnamese,latin-ext);
-@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:400,500,700&subset=latin,vietnamese,latin-ext);
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 abbr, address, cite, code,
@@ -32,6 +31,11 @@ h4 {
 
 a, a:hover, .navbar .navbar-nav > li.active, .navbar .navbar-nav > li.active > a, a:focus {
   text-decoration: none; }
+
+@font-face {
+  font-family: 'UTM Caviar';
+  font-style: normal;
+  src: local("fonts/utm-caviar.ttf"), url("fonts/utm-caviar.ttf") format("truetype"); }
 
 .fill-abs, .animate-switch, .index-page#main .parallax-slider, .index-page#welcome .center-area .img svg.round {
   position: absolute;
@@ -414,7 +418,7 @@ a {
     height: 70px;
     text-align: center;
     vertical-align: middle;
-    font-family: 'Alegreya Sans SC',sans-serif; }
+    font-family: "UTM Caviar", sans-serif; }
     .index-page .section-header h1, .index-page .section-header h2, .index-page .section-header h3, .index-page .section-header h4, .index-page .section-header h5, .index-page .section-header h6 {
       line-height: 70px; }
     .index-page .section-header .center-line {
@@ -439,7 +443,7 @@ a {
     background-size: cover;
     background-position: 50% 0px;*/
   text-align: center;
-  font-family: 'Alegreya Sans SC',sans-serif; }
+  font-family: "UTM Caviar", sans-serif; }
   .index-page#main h2, .index-page#main h1 {
     padding-bottom: 0.6em; }
   .index-page#main h1 {
@@ -588,6 +592,9 @@ a {
   height: 3.2em;
   line-height: 3.2em;
   margin-left: 12px; }
+
+.index-page#top-ulibier .ulibier-name-bigger {
+  font-family: "UTM Caviar"; }
 
 .index-page#top-ulibier .ulibier-info {
   padding: 1em;
