@@ -2,9 +2,8 @@ var app=angular.module('Ulibi');
 app.factory('UlibiApi',function($http,$location){
     function getUrlBase(loc){
         var root = loc.$$absUrl
-            .split('#')[0];
-        var host=loc.$$protocol+'://'+loc.$$host+(loc.$$port!=80?':'+loc.$$port:'');
-        root=root.replace(host,'');
+            .split('#')[0]
+            .replace(window.location.origin,'');
         if(root.endsWith('/'))
             root=root.slice(0,-1);
         return root;
