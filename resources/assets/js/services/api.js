@@ -6,6 +6,8 @@ app.factory('UlibiApi',function($http,$location){
             .replace(window.location.origin,'');
         if(root.endsWith('/'))
             root=root.slice(0,-1);
+        if(root.endsWith('index.html'))
+            root=root.replace('index.html','');
         return root;
     }
     console.log(getUrlBase($location));
