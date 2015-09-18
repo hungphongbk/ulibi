@@ -32,7 +32,9 @@ elixir.extend('html', function(conf) {
             .pipe(gulp.dest(output, {overwrite: true}))
     });
     gulp.task('html:copy:templates', function(){
+        var minifyInline=require('gulp-uglify-inline');
         return gulp.src('resources/assets/ng-templates/**/*')
+            .pipe(minifyInline())
             .pipe(gulp.dest(output+'/ng-templates', {overwrite: true}));
     });
     gulp.task('html:copy', ['html:copy:index', 'html:copy:templates']);
@@ -68,17 +70,6 @@ elixir.extend('html', function(conf) {
 elixir(function(mix) {
     mix
         .sass([ 'app.scss' ],'public/css/app.css')
-        .styles([
-            '../../../bower_components/bootstrap/dist/css/bootstrap.css'
-        ],'public/css/external.css')
-        .scripts([
-            '../../../bower_components/jquery/dist/jquery.js',
-            '../../../bower_components/angularjs/angular.js',
-            '../../../bower_components/satellizer/satellizer.js',
-            '../../../bower_components/angular-ui-router/release/angular-ui-router.js',
-            '../../../bower_components/angular-animate/angular-animate.js',
-            //'../../../cssjs-plugins/sticky/jquery.sticky.js'
-        ],'public/js/external.js')
         .copy('resources/assets/images','public/images')
         .copy('resources/assets/fonts','public/fonts')
         .html();
