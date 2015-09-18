@@ -61,15 +61,34 @@ app.controller('AuthController',["$scope", "$auth", "$state", "UlibiAuth", funct
     };
 }]);
 var app=angular.module('Ulibi');
+app.directive('bootstrapCol',function(){
+    return {
+        restrict: 'A',
+        link:function(s,e,a){
+            var units=['xs','sm','md','lg'];
+            var vals= a.bootstrapCol.split(' ')
+                .map(function(e,i){
+                    if(e==='-') return null;
+                    return 'col-'+units[i]+'-'+e;
+                })
+                .join(' ');
+            e.addClass(vals);
+        }
+    }
+});
+var app=angular.module('Ulibi');
 app.factory('UlibiApi',["$http", "$location", function($http,$location){
     function getUrlBase(loc){
         var root = loc.$$absUrl
             .split('#')[0];
-
-        return root.replace(loc.$$protocol+'://'+loc.$$host+(loc.$$port!=80?':'+loc.$$port:''),'');
+        var host=loc.$$protocol+'://'+loc.$$host+(loc.$$port!=80?':'+loc.$$port:'');
+        root=root.replace(host,'');
+        if(root.endsWith('/'))
+            root=root.slice(0,-1);
+        return root;
     }
     console.log(getUrlBase($location));
-    var urlBase = getUrlBase($location)+'api/';
+    var urlBase = getUrlBase($location)+'/api/';
     var h=$http;
     var api= {
         article: {
@@ -96,22 +115,6 @@ app.factory('UlibiApi',["$http", "$location", function($http,$location){
 
     return api;
 }]);
-var app=angular.module('Ulibi');
-app.directive('bootstrapCol',function(){
-    return {
-        restrict: 'A',
-        link:function(s,e,a){
-            var units=['xs','sm','md','lg'];
-            var vals= a.bootstrapCol.split(' ')
-                .map(function(e,i){
-                    if(e==='-') return null;
-                    return 'col-'+units[i]+'-'+e;
-                })
-                .join(' ');
-            e.addClass(vals);
-        }
-    }
-});
 var app=angular.module('Ulibi');
 app.controller('UlibierController', ["$scope", "UlibiApi", function($scope,UlibiApi){
 	$scope.dummyText='fuck you';
