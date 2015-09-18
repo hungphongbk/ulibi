@@ -1,6 +1,13 @@
 var app=angular.module('Ulibi');
-app.factory('UlibiApi',function($http){
-    var urlBase = '/ulibi/api/';
+app.factory('UlibiApi',function($http,$location){
+    function getUrlBase(loc){
+        var root = loc.$$absUrl
+            .split('#')[0];
+
+        return root.replace(loc.$$protocol+'://'+loc.$$host+(loc.$$port!=80?':'+loc.$$port:''),'');
+    }
+    console.log(getUrlBase($location));
+    var urlBase = getUrlBase($location)+'api/';
     var h=$http;
     var api= {
         article: {
