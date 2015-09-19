@@ -16,12 +16,20 @@ app.config(["$stateProvider", "$urlRouterProvider", "$authProvider", "$provide",
                     templateUrl: 'ng-templates/index-view.html'
                 },
                 'topDes@home': {
-                    'templateUrl': 'ng-templates/top-destinations.html',
+                    'templateUrl': 'ng-templates/index-view/top-destinations.html',
                     controller: 'DestinationsController'
                 },
                 'topUlibier@home': {
-                    templateUrl: 'ng-templates/top-ulibier.html',
+                    'templateUrl': 'ng-templates/index-view/top-ulibier.html',
                     controller: 'UlibierController'
+                }
+            }
+        })
+        .state('blog', {
+            url: '/blog',
+            views: {
+                '': {
+                    templateUrl: 'ng-templates/blog-view.html'
                 }
             }
         })
@@ -61,64 +69,6 @@ app.controller('AuthController',["$scope", "$auth", "$state", "UlibiAuth", funct
     };
 }]);
 var app=angular.module('Ulibi');
-app.controller('UlibierController', ["$scope", "UlibiApi", function($scope,UlibiApi){
-	$scope.dummyText='fuck you';
-	var api=UlibiApi.ulibier;
-	var s=$scope;
-	s.numOfTrendings=3;
-	s.dataSource=[];
-	s.getTrending=function(){
-		api.trending(s.numOfTrendings)
-			.success(function(data){
-				s.dataSource=data;
-			});
-
-	};
-}]);
-var app = angular.module('Ulibi');
-app.controller('ArticlesController', ["$scope", "UlibiApi", function($scope,UlibiApi){
-    var api=UlibiApi;
-    var s=$scope;
-    s.dataSource=[];
-
-    s.getTop = function(){
-        api.article.getAll()
-            .success(function(data){
-                s.dataSource=data.slice(0,3);
-            });
-    };
-}]);
-var app = angular.module('Ulibi');
-app.controller('DestinationsController', ["$scope", "UlibiApi", function($scope,UlibiApi){
-    var api=UlibiApi;
-    var s=$scope;
-    s.dataSource=[];
-
-    s.getTop = function(){
-        api.destinations.getAll('withAvatar=1')
-            .success(function(data){
-                //console.log(data);
-                s.dataSource=data;
-            });
-    };
-}]);
-var app=angular.module('Ulibi');
-app.directive('bootstrapCol',function(){
-    return {
-        restrict: 'A',
-        link:function(s,e,a){
-            var units=['xs','sm','md','lg'];
-            var vals= a.bootstrapCol.split(' ')
-                .map(function(e,i){
-                    if(e==='-') return null;
-                    return 'col-'+units[i]+'-'+e;
-                })
-                .join(' ');
-            e.addClass(vals);
-        }
-    }
-});
-var app=angular.module('Ulibi');
 app.factory('UlibiApi',["$http", "$location", function($http,$location){
     function getUrlBase(loc){
         var root = loc.$$absUrl
@@ -157,5 +107,84 @@ app.factory('UlibiApi',["$http", "$location", function($http,$location){
     };
 
     return api;
+}]);
+var app = angular.module('Ulibi');
+function wordsLimitTo(input, limit, begin, exceedSign){
+    begin = (!begin || isNaN(begin)) ? 0 : toInt(begin);
+    begin = (begin < 0 && begin >= -input.length) ? input.length + begin : begin;
+    limit+=begin;
+
+    exceedSign = (typeof exceedSign!=='undefined')?exceedSign:'';
+
+    var regex=/\s+/gi;
+	var words = input.trim().replace(regex,' ').split(' ');
+	//console.log(words.length,' ',begin+limit);
+	var length=(begin+limit>words.length)?words.length:begin+limit;
+	exceedSign=(begin+limit<words.length)?exceedSign:'';
+	var rs = words.slice(0,length).join(' ')+exceedSign;
+	//console.log(length);
+	//console.log(words.slice(0,length).join('-'));
+	return rs;
+}
+app.filter('wordLimit',function(){
+	return wordsLimitTo;
+});
+var app=angular.module('Ulibi');
+app.directive('bootstrapCol',function(){
+    return {
+        restrict: 'A',
+        link:function(s,e,a){
+            var units=['xs','sm','md','lg'];
+            var vals= a.bootstrapCol.split(' ')
+                .map(function(e,i){
+                    if(e==='-') return null;
+                    return 'col-'+units[i]+'-'+e;
+                })
+                .join(' ');
+            e.addClass(vals);
+        }
+    }
+});
+var app=angular.module('Ulibi');
+app.controller('UlibierController', ["$scope", "UlibiApi", function($scope,UlibiApi){
+	$scope.dummyText='fuck you';
+	var api=UlibiApi.ulibier;
+	var s=$scope;
+	s.numOfTrendings=3;
+	s.dataSource=[];
+	s.getTrending=function(){
+		api.trending(s.numOfTrendings)
+			.success(function(data){
+				s.dataSource=data;
+			});
+
+	};
+}]);
+var app = angular.module('Ulibi');
+app.controller('ArticlesController', ["$scope", "UlibiApi", function($scope,UlibiApi){
+    var api=UlibiApi;
+    var s=$scope;
+    s.dataSource=[];
+
+    s.getTop = function(){
+        api.article.getAll()
+            .success(function(data){
+                s.dataSource=data.slice(0,3);
+            });
+    };
+}]);
+var app = angular.module('Ulibi');
+app.controller('DestinationsController', ["$scope", "UlibiApi", function($scope,UlibiApi){
+    var api=UlibiApi;
+    var s=$scope;
+    s.dataSource=[];
+
+    s.getTop = function(){
+        api.destinations.getAll('withAvatar=1&top=6')
+            .success(function(data){
+                //console.log(data);
+                s.dataSource=data;
+            });
+    };
 }]);
 //# sourceMappingURL=app.js.map

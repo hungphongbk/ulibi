@@ -16,12 +16,20 @@ app.config(function($stateProvider,$urlRouterProvider,$authProvider,$provide){
                     templateUrl: 'ng-templates/index-view.html'
                 },
                 'topDes@home': {
-                    'templateUrl': 'ng-templates/top-destinations.html',
+                    'templateUrl': 'ng-templates/index-view/top-destinations.html',
                     controller: 'DestinationsController'
                 },
                 'topUlibier@home': {
-                    templateUrl: 'ng-templates/top-ulibier.html',
+                    'templateUrl': 'ng-templates/index-view/top-ulibier.html',
                     controller: 'UlibierController'
+                }
+            }
+        })
+        .state('blog', {
+            url: '/blog',
+            views: {
+                '': {
+                    templateUrl: 'ng-templates/blog-view.html'
                 }
             }
         })

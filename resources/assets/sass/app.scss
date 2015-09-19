@@ -13,12 +13,18 @@ a {
 }
 .navbar{
   margin-bottom: 0;
+  background-color: #fff;
 
   .navbar-brand, .navbar-nav li a {
       line-height: inherit;
       height: inherit;
       padding-top: 0;
       padding-bottom: 0;
+  }
+  .navbar-brand {
+    font-family: $title-font;
+    font-size: 20px;
+    letter-spacing: 0.4em;
   }
   .navbar-nav{
     // normal state
@@ -121,6 +127,22 @@ a {
     transform-origin: right center;
   }
 }
+.breadcrumb-wrap {
+    padding: 30px 0;
+    //background-image: url(../img/shadow-bg.png);
+    //background-position: center center;
+    //background-repeat: no-repeat;
+    //background-color: #f6f6f6;
+    //border-top: 1px solid #d2d3d4;
+    border-bottom: 1px solid #d2d3d4;
+    @include fix-margin(15px);
+
+    h4 {
+      font-family: $title-font;
+      font-weight: 900;
+      font-size: 1.8em;
+    }
+}
 
 .index-page {
   $left-right-margin: 8%;
@@ -128,6 +150,7 @@ a {
   padding-left: $left-right-margin;
   padding-right: $left-right-margin;
   padding-top: $my-navbar-height;
+  padding-bottom: $my-navbar-height/2;
   height: 100vh;
   position: relative;
   background-color: #fff;
@@ -184,3 +207,7 @@ a {
   background: none;
 }
 @import 'page/home';
+.blog-page {
+
+}
+@import 'page/blog'

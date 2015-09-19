@@ -5,7 +5,7 @@ app.controller('DestinationsController', function($scope,UlibiApi){
     s.dataSource=[];
 
     s.getTop = function(){
-        api.destinations.getAll('withAvatar=1')
+        api.destinations.getAll('withAvatar=1&top=6')
             .success(function(data){
                 //console.log(data);
                 s.dataSource=data;

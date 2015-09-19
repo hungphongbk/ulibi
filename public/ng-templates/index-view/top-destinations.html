@@ -1,10 +1,12 @@
 <div ng-init="getTop()" >
-    <div bootstrap-col="12 6 6 6" ng-repeat="i in dataSource"  class="item">
+    <div bootstrap-col="12 6 4 4" ng-repeat="i in dataSource"  class="item">
         <div class="border clearfix">
             <img class="avatar" alt="avatar" ng-src="{{i['avatar']}}">
             <div class="content fill-abs">
                 <h4 class="des-name">{{ i['des_name'] }}</h4>
-                <p class="des-instruction">{{i['des_instruction']}}</p>
+                <p class="des-instruction">
+                	<span class="whiteline"></span><br />
+                	{{i['des_instruction'] | wordLimit:40:0:'...' }} <span><a href="#">Xem thêm</a></span></p>
             </div>
         </div>
     </div>

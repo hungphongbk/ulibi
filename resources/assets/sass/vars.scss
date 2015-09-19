@@ -72,3 +72,11 @@ $title-font: 'UTM Caviar';
   right: 0;
   bottom: 0;
 }
+
+$wsp-list: 10 20 30 40 50 60 70 80;
+@each $wsp in $wsp-list {
+    .wsp-#{$wsp} {
+        width: 100%;
+        height: 0px + $wsp;
+    }
+}

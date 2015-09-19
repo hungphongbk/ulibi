@@ -25,14 +25,16 @@ elixir.extend('html', function(conf) {
         annotate: require('gulp-ng-annotate'),
         filesort: require('gulp-angular-filesort')
     };
+    var minifyInline=require('gulp-uglify-inline');
+
 
     gulp.task('html:copy:index', function(){
         return gulp
             .src('resources/assets/index.html')
+            .pipe(minifyInline())
             .pipe(gulp.dest(output, {overwrite: true}))
     });
     gulp.task('html:copy:templates', function(){
-        var minifyInline=require('gulp-uglify-inline');
         return gulp.src('resources/assets/ng-templates/**/*')
             .pipe(minifyInline())
             .pipe(gulp.dest(output+'/ng-templates', {overwrite: true}));

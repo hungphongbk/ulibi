@@ -23,6 +23,7 @@
     "angularjs": "~1.4.4",
     "bootstrap": "~3.3.5",
     "bxslider-4": "~4.2.5",
+    "font-awesome": "~4.4.0",
     "jquery": "~2.1.4",
     "jquery.scrollTo": "~2.1.1",
     "satellizer": "~0.12.2"

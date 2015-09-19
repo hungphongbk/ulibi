@@ -44,6 +44,38 @@ a, a:hover, .navbar .navbar-nav > li.active, .navbar .navbar-nav > li.active > a
   right: 0;
   bottom: 0; }
 
+.wsp-10 {
+  width: 100%;
+  height: 10px; }
+
+.wsp-20 {
+  width: 100%;
+  height: 20px; }
+
+.wsp-30 {
+  width: 100%;
+  height: 30px; }
+
+.wsp-40 {
+  width: 100%;
+  height: 40px; }
+
+.wsp-50 {
+  width: 100%;
+  height: 50px; }
+
+.wsp-60 {
+  width: 100%;
+  height: 60px; }
+
+.wsp-70 {
+  width: 100%;
+  height: 70px; }
+
+.wsp-80 {
+  width: 100%;
+  height: 80px; }
+
 @-webkit-keyframes topdest-content-hover {
   0% {
     background-color: rgba(0, 0, 0, 0.3); }
@@ -319,12 +351,17 @@ a {
   -o-transition: all 200ms ease-in; }
 
 .navbar {
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  background-color: #fff; }
   .navbar .navbar-brand, .navbar .navbar-nav li a {
     line-height: inherit;
     height: inherit;
     padding-top: 0;
     padding-bottom: 0; }
+  .navbar .navbar-brand {
+    font-family: "UTM Caviar";
+    font-size: 20px;
+    letter-spacing: 0.4em; }
   .navbar .navbar-nav > li > a {
     color: #444;
     font-weight: 600;
@@ -390,12 +427,23 @@ a {
   -webkit-transform-origin: right center;
   transform-origin: right center; }
 
+.breadcrumb-wrap {
+  padding: 30px 0;
+  border-bottom: 1px solid #d2d3d4;
+  margin-left: -15px;
+  margin-right: -15px; }
+  .breadcrumb-wrap h4 {
+    font-family: "UTM Caviar";
+    font-weight: 900;
+    font-size: 1.8em; }
+
 .index-page {
   margin-left: -15px;
   margin-right: -15px;
   padding-left: 8%;
   padding-right: 8%;
   padding-top: 70px;
+  padding-bottom: 35px;
   height: 100vh;
   position: relative;
   background-color: #fff; }
@@ -534,7 +582,9 @@ a {
 .index-page#top-destinations {
   height: auto; }
   .index-page#top-destinations .item {
-    margin-bottom: 40px; }
+    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px; }
     .index-page#top-destinations .item .border img.avatar {
       -webkit-transform: translate3d(0, 0, 0);
       transform: translate3d(0, 0, 0);
@@ -569,74 +619,123 @@ a {
       font-size: 1.6em; }
     .index-page#top-destinations .item .border:hover div.content .des-instruction {
       opacity: 1; }
+    .index-page#top-destinations .item a {
+      color: #81C5FF !important; }
+      .index-page#top-destinations .item a:hover, .index-page#top-destinations .item .navbar .navbar-nav > li.active, .navbar .index-page#top-destinations .item .navbar-nav > li.active, .index-page#top-destinations .item .navbar .navbar-nav > li.active > a, .navbar .index-page#top-destinations .item .navbar-nav > li.active > a {
+        text-decoration: underline; }
+  .index-page#top-destinations span.whiteline {
+    display: block;
+    width: 80px;
+    height: 0;
+    border-top: 1px solid #E0E0E0;
+    margin: 0 auto; }
 
-.index-page#top-ulibier .item {
-  color: #fff; }
-
-.index-page#top-ulibier .content {
-  background-color: rgba(0, 0, 0, 0.4); }
-
-.index-page#top-ulibier img.ulibier-avatar, .index-page#top-ulibier .ulibier-name {
-  display: inline-block;
-  line-height: 4em;
-  height: 4em; }
-
-.index-page#top-ulibier img.ulibier-avatar {
-  width: 4em;
-  border-radius: 50%; }
-  .index-page#top-ulibier img.ulibier-avatar.large {
-    height: 8em;
-    width: 8em; }
-
-.index-page#top-ulibier .ulibier-name {
-  height: 3.2em;
-  line-height: 3.2em;
-  margin-left: 12px; }
-
-.index-page#top-ulibier .ulibier-name-bigger {
-  font-family: "UTM Caviar"; }
-
-.index-page#top-ulibier .ulibier-info {
-  padding: 1em;
-  margin-top: -1em;
-  margin-left: -1em;
-  margin-right: -1em; }
-
-.index-page#top-ulibier .spaceline {
-  height: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.4);
-  margin: 0px 15%;
-  margin-bottom: 1em; }
-
-.index-page#top-ulibier .animate-switch {
-  padding: 1em; }
-  .index-page#top-ulibier .animate-switch:nth-child(1) .animate-up {
+.index-page#top-ulibier {
+  height: auto; }
+  .index-page#top-ulibier .item {
+    color: #fff; }
+  .index-page#top-ulibier .content {
+    background-color: rgba(0, 0, 0, 0.4); }
+  .index-page#top-ulibier img.ulibier-avatar, .index-page#top-ulibier .ulibier-name {
+    display: inline-block;
+    line-height: 4em;
+    height: 4em; }
+  .index-page#top-ulibier img.ulibier-avatar {
+    width: 4em;
+    border-radius: 50%; }
+    .index-page#top-ulibier img.ulibier-avatar.large {
+      height: 8em;
+      width: 8em; }
+  .index-page#top-ulibier .ulibier-name {
+    height: 3.2em;
+    line-height: 3.2em;
+    margin-left: 12px; }
+  .index-page#top-ulibier .ulibier-name-bigger {
+    font-family: "UTM Caviar"; }
+  .index-page#top-ulibier .ulibier-info {
+    padding: 1em;
+    margin-top: -1em;
+    margin-left: -1em;
+    margin-right: -1em; }
+  .index-page#top-ulibier .spaceline {
+    height: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    margin: 0px 15%;
+    margin-bottom: 1em; }
+  .index-page#top-ulibier .animate-switch {
+    padding: 1em; }
+    .index-page#top-ulibier .animate-switch:nth-child(1) .animate-up {
+      -webkit-animation: indexpage-ulibier-slideup-out .2s ease-in both;
+      animation: indexpage-ulibier-slideup-out .2s ease-in both; }
+    .index-page#top-ulibier .animate-switch:nth-child(1) .animate-down {
+      -webkit-animation: indexpage-ulibier-slidedown-out .2s ease-in .2s both;
+      animation: indexpage-ulibier-slidedown-out .2s ease-in .2s both; }
+    .index-page#top-ulibier .animate-switch:nth-child(2) .animate-up {
+      -webkit-animation: indexpage-ulibier-slidedown-in .2s ease-in .4s both;
+      animation: indexpage-ulibier-slidedown-in .2s ease-in .4s both; }
+    .index-page#top-ulibier .animate-switch:nth-child(2) .animate-down {
+      -webkit-animation: indexpage-ulibier-slideup-in .2s ease-in .6s both;
+      animation: indexpage-ulibier-slideup-in .2s ease-in .6s both; }
+  .index-page#top-ulibier .switch .animate-switch:nth-child(2) .animate-up {
     -webkit-animation: indexpage-ulibier-slideup-out .2s ease-in both;
     animation: indexpage-ulibier-slideup-out .2s ease-in both; }
-  .index-page#top-ulibier .animate-switch:nth-child(1) .animate-down {
+  .index-page#top-ulibier .switch .animate-switch:nth-child(2) .animate-down {
     -webkit-animation: indexpage-ulibier-slidedown-out .2s ease-in .2s both;
     animation: indexpage-ulibier-slidedown-out .2s ease-in .2s both; }
-  .index-page#top-ulibier .animate-switch:nth-child(2) .animate-up {
+  .index-page#top-ulibier .switch .animate-switch:nth-child(1) .animate-up {
     -webkit-animation: indexpage-ulibier-slidedown-in .2s ease-in .4s both;
     animation: indexpage-ulibier-slidedown-in .2s ease-in .4s both; }
-  .index-page#top-ulibier .animate-switch:nth-child(2) .animate-down {
+  .index-page#top-ulibier .switch .animate-switch:nth-child(1) .animate-down {
     -webkit-animation: indexpage-ulibier-slideup-in .2s ease-in .6s both;
     animation: indexpage-ulibier-slideup-in .2s ease-in .6s both; }
 
-.index-page#top-ulibier .switch .animate-switch:nth-child(2) .animate-up {
-  -webkit-animation: indexpage-ulibier-slideup-out .2s ease-in both;
-  animation: indexpage-ulibier-slideup-out .2s ease-in both; }
+.index-page#footer {
+  height: auto;
+  padding-top: 40px;
+  padding-bottom: 60px;
+  background-color: #333;
+  color: white; }
+  .index-page#footer h3 {
+    display: inline-block;
+    font-family: "UTM Caviar";
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #fff;
+    margin-bottom: 0.5em; }
+  .index-page#footer p {
+    font-size: 0.9em; }
 
-.index-page#top-ulibier .switch .animate-switch:nth-child(2) .animate-down {
-  -webkit-animation: indexpage-ulibier-slidedown-out .2s ease-in .2s both;
-  animation: indexpage-ulibier-slidedown-out .2s ease-in .2s both; }
+.blog-page.breadcrumb-wrap {
+  margin-top: 70px; }
 
-.index-page#top-ulibier .switch .animate-switch:nth-child(1) .animate-up {
-  -webkit-animation: indexpage-ulibier-slidedown-in .2s ease-in .4s both;
-  animation: indexpage-ulibier-slidedown-in .2s ease-in .4s both; }
-
-.index-page#top-ulibier .switch .animate-switch:nth-child(1) .animate-down {
-  -webkit-animation: indexpage-ulibier-slideup-in .2s ease-in .6s both;
-  animation: indexpage-ulibier-slideup-in .2s ease-in .6s both; }
+.blog-page .blog-post {
+  padding-bottom: 30px;
+  margin-bottom: 60px;
+  border-bottom: 1px solid #e5e5e5; }
+  .blog-page .blog-post .item-img-wrap {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    height: 180px; }
+    .blog-page .blog-post .item-img-wrap img {
+      width: 100%;
+      display: block;
+      height: auto; }
+  .blog-page .blog-post .blog-title {
+    font-family: "UTM Caviar";
+    text-transform: capitalize; }
+  .blog-page .blog-post .blog-detail {
+    margin-top: 25px;
+    margin-bottom: 0px;
+    border-top: 1px solid #ebeaea;
+    border-bottom: 1px solid #ebeaea;
+    margin-left: 0px; }
+    .blog-page .blog-post .blog-detail li {
+      font-size: 11px;
+      color: #777;
+      font-weight: 600;
+      vertical-align: middle;
+      text-transform: uppercase; }
+      .blog-page .blog-post .blog-detail li i {
+        margin-right: 5px; }
 
 /*# sourceMappingURL=app.css.map */
