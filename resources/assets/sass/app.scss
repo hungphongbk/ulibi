@@ -11,6 +11,27 @@ a {
   color: #333;
   @include transition('all 200ms ease-in');
 }
+.btn {
+  text-transform: uppercase;
+
+  &.btn-theme-dark {
+    background-color: #333;
+    color: #fff;
+    -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    -ms-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      color: #fff;
+      background-color: #4f82e9;
+    }
+  }
+
+  &.btn-sm {
+    font-size: 0.85em;
+  }
+}
 .navbar{
   margin-bottom: 0;
   background-color: #fff;
@@ -143,6 +164,65 @@ a {
       font-size: 1.8em;
     }
 }
+.center-area{
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  display: inline-block;
+}
+
+// DEEP TO PAGES AND SECTIONS
+.container-fluid[ui-view] {
+
+  &.ng-enter, &.ng-leave {
+    @include transition('all .5s ease-in-out');
+  }
+
+  &.ng-enter {
+    opacity: 0;
+    @include transforms('scale3d(0.5, 0.5, 0.5)');
+  }
+  &.ng-enter-active {
+    opacity: 1;
+    @include transforms('scale3d(1, 1, 1)');
+  }
+  &.ng-leave {
+    opacity: 1;
+    @include transforms('translate3d(0,0,0)');
+  }
+  &.ng-leave-active {
+    opacity: 0;
+    @include transforms('translate3d(100px,0,0)');
+  }
+}
+#footer {
+  height: $footer-height;
+  padding-top: 40px;
+  padding-bottom: 60px;
+  padding-left: 8%;
+  padding-right: 8%;
+  background-color: #333;
+  color: white;
+
+  h3 {
+    display: inline-block;
+    font-family: $title-font;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #fff;
+    margin-bottom: 0.5em;
+  }
+  p {
+    font-size: 0.9em;
+  }
+}
+div#page404 {
+  height: 100vh;
+  color: #777;
+  font-weight: 100;
+  margin-bottom: -$footer-height;
+}
 
 .index-page {
   $left-right-margin: 8%;
@@ -158,16 +238,6 @@ a {
   .border {
     position: relative;
     overflow: hidden;
-  }
-  
-  // make element centerized both vertically and horizontally its parent
-  .center-area{
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    display: inline-block;
   }
 
   // modify header font: Alegreya

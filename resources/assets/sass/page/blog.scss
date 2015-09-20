@@ -21,9 +21,14 @@
 				height: auto;
 			}
 		}
-		.blog-title {
-			font-family: $title-font;
-			text-transform: capitalize;
+		h2, h3 {
+			margin-top: 0.6em;
+			margin-bottom: 0.6em;
+			line-height: 2em;
+			&.blog-title {
+				font-family: $title-font;
+				text-transform: capitalize;
+			}
 		}
 		.blog-detail {
 			margin-top: 25px;

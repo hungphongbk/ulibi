@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return redirect()->to('index.html');
+	View::addExtension('html');
+    return View::make('index');
 });
 
 Route::group(['prefix' => 'api'], function(){

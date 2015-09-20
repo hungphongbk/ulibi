@@ -76,33 +76,10 @@ class CreateUsersTable extends Migration
             // [VN] Vì một bài viết có thể liên kết đến nhiều article và ngược lại
             // [VN] Tách thành một bảng riêng "map" blog và article
             // [VN] Tương tự với ảnh
-            $table->integer('user_id')->unsigned();
             $table->integer('blog_background')->unsigned();
             $table->integer('blog_view')->unsigned();
 
             $table->primary('blog_url');
-            $table->foreign('user_id')
-                ->references('user_id')
-                ->on('Ulibier')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-        });
-        // Create table will map Blog and Article
-        Schema::create('BlogArticleMapping', function (Blueprint $table) {
-            $table->string('blog_url')->unique();
-            $table->integer('article_id')->unsigned();
-
-            $table->primary(array('blog_url','article_id'));
-            $table->foreign('blog_url')
-                ->references('blog_url')
-                ->on('Blog')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-            $table->foreign('article_id')
-                ->references('article_id')
-                ->on('Article')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
         });
 
         // Create photo table
@@ -241,10 +218,15 @@ class CreateUsersTable extends Migration
         $local->deleteDirectory('/imgtemp');
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        $tables=['Ulibier','Article','ArticlePhotoMapping','ArticleDestinationMapping','Comment','Blog','BlogArticleMapping','BlogPhotoMapping', 'Photo','Destination','Rate'];
+        $tables=['Ulibier','Article','ArticlePhotoMapping','ArticleDestinationMapping','Comment','Blog','BlogPhotoMapping', 'Photo','Destination','Rate'];
         foreach ($tables as $table) {
             Schema::dropIfExists($table);
         }
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }
+
+/*
+- Mỗi người dùng sẽ có một Blog duy nhất, Blog này sẽ quy định giao diện của trang khi xem danh sách
+các bài viết của riêng User đó
+*/

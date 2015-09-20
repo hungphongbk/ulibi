@@ -75,20 +75,4 @@
     </div>
     <div ui-view="topUlibier" class="clearfix"></div>
 </div>
-<div id="footer" class="index-page">
-    <div class="row">
-        <div bootstrap-col="12 4 3 3">
-            <h3>About</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.</p>
-        </div>
-        <div bootstrap-col="12 4 3 3">
-            <h3>Ket noi</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
-        </div>
-    </div>
-</div>
-<script inline="">!function(){var e=$(".bxslider").bxSlider({mode:"fade",pager:!1,nextSelector:$(".parallax-slider-next"),prevSelector:$(".parallax-slider-prev"),nextText:"▶︎",prevText:"◀︎"});e.startAuto(),console.log(e);var o=document.querySelectorAll(".parallax"),a=.5;$(window).scroll(function(){Array.prototype.forEach.call(o,function(e,o){var l=window.pageYOffset,t=l*a+"px";e.style.transform="translateY("+t+")"})}),$("#main").addClass("do-anim"),$("#main .btn").click(function(){$("body").scrollTo("#welcome",600,function(){$("[bootstrap-col] .img").delay(1e3).each(function(e){var o=$(this);setTimeout(function(){console.log(o),o.addClass("hover").delay(800).queue(function(){$(this).removeClass("hover").dequeue()})},700*(e+1))})})})}();</script>
+<script inline="">!function(){var e=$(".bxslider").bxSlider({mode:"fade",pager:!1,nextSelector:$(".parallax-slider-next"),prevSelector:$(".parallax-slider-prev"),nextText:"▶︎",prevText:"◀︎"});e.startAuto(),console.log(e);var o=document.querySelectorAll(".parallax"),a=.5;$(window).scroll(function(e){Array.prototype.forEach.call(o,function(e,o){var l=window.pageYOffset,t=l*a+"px";e.style.transform="translateY("+t+")"})}),$("#main").addClass("do-anim"),$("#main .btn").click(function(){$("body").scrollTo("#welcome",600,function(){$("[bootstrap-col] .img").delay(1e3).each(function(e){var o=$(this);setTimeout(function(){console.log(o),o.addClass("hover").delay(800).queue(function(){$(this).removeClass("hover").dequeue()})},700*(e+1))})})})}();</script>

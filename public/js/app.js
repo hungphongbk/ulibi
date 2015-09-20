@@ -10,7 +10,7 @@ app.config(["$stateProvider", "$urlRouterProvider", "$authProvider", "$provide",
     $authProvider.loginUrl='ulibi/api/auth/authenticate';
     $stateProvider
         .state('home', {
-            url: '/home',
+            url: '/',
             views: {
                 '': {
                     templateUrl: 'ng-templates/index-view.html'
@@ -37,6 +37,10 @@ app.config(["$stateProvider", "$urlRouterProvider", "$authProvider", "$provide",
             url: '/login',
             templateUrl: 'ng-templates/login-view.html',
             controller: 'AuthController'
+        })
+        .state('404', {
+            url: '/404',
+            templateUrl: 'ng-templates/404.html'
         });
     $urlRouterProvider.otherwise('/home');
 }]);
@@ -130,22 +134,6 @@ app.filter('wordLimit',function(){
 	return wordsLimitTo;
 });
 var app=angular.module('Ulibi');
-app.directive('bootstrapCol',function(){
-    return {
-        restrict: 'A',
-        link:function(s,e,a){
-            var units=['xs','sm','md','lg'];
-            var vals= a.bootstrapCol.split(' ')
-                .map(function(e,i){
-                    if(e==='-') return null;
-                    return 'col-'+units[i]+'-'+e;
-                })
-                .join(' ');
-            e.addClass(vals);
-        }
-    }
-});
-var app=angular.module('Ulibi');
 app.controller('UlibierController', ["$scope", "UlibiApi", function($scope,UlibiApi){
 	$scope.dummyText='fuck you';
 	var api=UlibiApi.ulibier;
@@ -187,4 +175,20 @@ app.controller('DestinationsController', ["$scope", "UlibiApi", function($scope,
             });
     };
 }]);
+var app=angular.module('Ulibi');
+app.directive('bootstrapCol',function(){
+    return {
+        restrict: 'A',
+        link:function(s,e,a){
+            var units=['xs','sm','md','lg'];
+            var vals= a.bootstrapCol.split(' ')
+                .map(function(e,i){
+                    if(e==='-') return null;
+                    return 'col-'+units[i]+'-'+e;
+                })
+                .join(' ');
+            e.addClass(vals);
+        }
+    }
+});
 //# sourceMappingURL=app.js.map

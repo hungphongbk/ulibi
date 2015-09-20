@@ -75,22 +75,6 @@
     </div>
     <div ui-view="topUlibier" class="clearfix"></div>
 </div>
-<div id="footer" class="index-page">
-    <div class="row">
-        <div bootstrap-col="12 4 3 3">
-            <h3>About</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.</p>
-        </div>
-        <div bootstrap-col="12 4 3 3">
-            <h3>Ket noi</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
-        </div>
-    </div>
-</div>
 <script inline>
     (function(){
         var slider=$('.bxslider').bxSlider({
@@ -106,7 +90,7 @@
 
         var parallax=document.querySelectorAll('.parallax'),
             speed=0.5;
-        $(window).scroll(function(){
+        $(window).scroll(function(e){
             Array.prototype.forEach.call(parallax,function(elem,i){
                 var yoffset=window.pageYOffset,
                     elemYPos=(yoffset*speed)+"px";

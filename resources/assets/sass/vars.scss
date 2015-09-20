@@ -1,4 +1,5 @@
 $my-navbar-height: 70px;
+$footer-height: 270px;
 $pi: 3.141592654;
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800,300italic,400italic&subset=latin,vietnamese,latin-ext);
@@ -56,6 +57,7 @@ $title-font: 'UTM Caviar';
 	-webkit-transition: #{$trans};
 	-moz-transition:    #{$trans};
 	-o-transition:      #{$trans};
+    transition:         #{$trans};
 }
 @mixin transforms($trans) {
     transform: #{$trans};
