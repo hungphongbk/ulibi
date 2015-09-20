@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
+use Illuminate\Routing\UrlGenerator;
 
 class Article extends Model
 {
@@ -10,7 +12,7 @@ class Article extends Model
     protected $primaryKey = 'article_id';
     public $timestamps = false;
 
-    protected $hidden = ['user_id','article_id'];
+    protected $hidden = ['user_id','article_id','article_content'];
 
     /**
      * Get the user that wrote this article
@@ -52,8 +54,15 @@ class Article extends Model
             case 'trending-destination-photo':
                 $this->append('first_related_destination');
                 break;
+            case 'render-content-to-html':
+                $this->append('render_html');
+                break;
             default:
                 break;
         }
+    }
+
+    public function getRenderHtmlAttribute(){
+        return '/api/article/toHtml?id='.$this->article_id;
     }
 }

@@ -8,8 +8,12 @@ app.factory('UlibiAuth', function(){
 });
 app.config(function($stateProvider,$urlRouterProvider,$authProvider,$provide){
     $authProvider.loginUrl='ulibi/api/auth/authenticate';
+
+    $urlRouterProvider.when('','/');
+    $urlRouterProvider.when('/blog','/blog/index');
+
     $stateProvider
-        .state('home', {
+        .state('homepage', {
             url: '/',
             views: {
                 '': {
@@ -27,9 +31,22 @@ app.config(function($stateProvider,$urlRouterProvider,$authProvider,$provide){
         })
         .state('blog', {
             url: '/blog',
+            abstract: true,
+            template: '<ui-view />'
+        })
+        .state('blog.index', {
+            url: '/index',
             views: {
                 '': {
                     templateUrl: 'ng-templates/blog-view.html'
+                }
+            }
+        })
+        .state('blog.detail', {
+            url: '/detail/:articleId',
+            views: {
+                '': {
+                    templateUrl: 'ng-templates/blog-view/blog-detail.html'
                 }
             }
         })
@@ -42,5 +59,6 @@ app.config(function($stateProvider,$urlRouterProvider,$authProvider,$provide){
             url: '/404',
             templateUrl: 'ng-templates/404.html'
         });
-    $urlRouterProvider.otherwise('/home');
+
+    $urlRouterProvider.otherwise('/404');
 });

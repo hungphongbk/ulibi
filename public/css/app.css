@@ -456,10 +456,10 @@ a {
   -moz-transform: translateY(-50%);
   display: inline-block; }
 
-.container-fluid[ui-view].ng-enter, .container-fluid[ui-view].ng-leave {
+.ui-view-anim.ng-enter, .ui-view-anim.ng-leave {
   transition: all .5s ease-in-out; }
 
-.container-fluid[ui-view].ng-enter {
+.ui-view-anim.ng-enter {
   opacity: 0;
   transform: scale3d(0.5, 0.5, 0.5);
   -webkit-transform: scale3d(0.5, 0.5, 0.5);
@@ -467,7 +467,7 @@ a {
   -o-transform: scale3d(0.5, 0.5, 0.5);
   -ms-transform: scale3d(0.5, 0.5, 0.5); }
 
-.container-fluid[ui-view].ng-enter-active {
+.ui-view-anim.ng-enter-active {
   opacity: 1;
   transform: scale3d(1, 1, 1);
   -webkit-transform: scale3d(1, 1, 1);
@@ -475,7 +475,7 @@ a {
   -o-transform: scale3d(1, 1, 1);
   -ms-transform: scale3d(1, 1, 1); }
 
-.container-fluid[ui-view].ng-leave {
+.ui-view-anim.ng-leave {
   opacity: 1;
   transform: translate3d(0,0,0);
   -webkit-transform: translate3d(0,0,0);
@@ -483,7 +483,7 @@ a {
   -o-transform: translate3d(0,0,0);
   -ms-transform: translate3d(0,0,0); }
 
-.container-fluid[ui-view].ng-leave-active {
+.ui-view-anim.ng-leave-active {
   opacity: 0;
   transform: translate3d(100px,0,0);
   -webkit-transform: translate3d(100px,0,0);

@@ -22,4 +22,26 @@ class ArticleController extends ApiController
         $user = JWTAuth::parseToken()->authenticate();
         return $user->articles;
     }
+
+    /**
+     * Display all
+     * @return Response
+     */
+    public function getAll(Request $request){
+        $withHtmlRenderLink=(bool)$request->input('renderContent',FALSE);
+        $data=parent::getAll($request);
+
+        if(!$withHtmlRenderLink)
+            return $data;
+
+        foreach ($data as $item) {
+            $item->enterMode('render-content-to-html');
+        }
+        return $data;
+    }
+
+    public function getToHtml(Request $request){
+        $id=$request->input('id');
+        return response()->json(['id'=>$id]);
+    }
 }

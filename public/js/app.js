@@ -8,8 +8,12 @@ app.factory('UlibiAuth', function(){
 });
 app.config(["$stateProvider", "$urlRouterProvider", "$authProvider", "$provide", function($stateProvider,$urlRouterProvider,$authProvider,$provide){
     $authProvider.loginUrl='ulibi/api/auth/authenticate';
+
+    $urlRouterProvider.when('','/');
+    $urlRouterProvider.when('/blog','/blog/index');
+
     $stateProvider
-        .state('home', {
+        .state('homepage', {
             url: '/',
             views: {
                 '': {
@@ -27,9 +31,22 @@ app.config(["$stateProvider", "$urlRouterProvider", "$authProvider", "$provide",
         })
         .state('blog', {
             url: '/blog',
+            abstract: true,
+            template: '<ui-view />'
+        })
+        .state('blog.index', {
+            url: '/index',
             views: {
                 '': {
                     templateUrl: 'ng-templates/blog-view.html'
+                }
+            }
+        })
+        .state('blog.detail', {
+            url: '/detail/:articleId',
+            views: {
+                '': {
+                    templateUrl: 'ng-templates/blog-view/blog-detail.html'
                 }
             }
         })
@@ -42,7 +59,8 @@ app.config(["$stateProvider", "$urlRouterProvider", "$authProvider", "$provide",
             url: '/404',
             templateUrl: 'ng-templates/404.html'
         });
-    $urlRouterProvider.otherwise('/home');
+
+    $urlRouterProvider.otherwise('/404');
 }]);
 var app = angular.module('Ulibi');
 app.controller('UserController',["$scope", "$state", "$auth", "UlibiAuth", function($scope, $state, $auth, UlibiAuth){
@@ -134,6 +152,22 @@ app.filter('wordLimit',function(){
 	return wordsLimitTo;
 });
 var app=angular.module('Ulibi');
+app.directive('bootstrapCol',function(){
+    return {
+        restrict: 'A',
+        link:function(s,e,a){
+            var units=['xs','sm','md','lg'];
+            var vals= a.bootstrapCol.split(' ')
+                .map(function(e,i){
+                    if(e==='-') return null;
+                    return 'col-'+units[i]+'-'+e;
+                })
+                .join(' ');
+            e.addClass(vals);
+        }
+    }
+});
+var app=angular.module('Ulibi');
 app.controller('UlibierController', ["$scope", "UlibiApi", function($scope,UlibiApi){
 	$scope.dummyText='fuck you';
 	var api=UlibiApi.ulibier;
@@ -175,20 +209,4 @@ app.controller('DestinationsController', ["$scope", "UlibiApi", function($scope,
             });
     };
 }]);
-var app=angular.module('Ulibi');
-app.directive('bootstrapCol',function(){
-    return {
-        restrict: 'A',
-        link:function(s,e,a){
-            var units=['xs','sm','md','lg'];
-            var vals= a.bootstrapCol.split(' ')
-                .map(function(e,i){
-                    if(e==='-') return null;
-                    return 'col-'+units[i]+'-'+e;
-                })
-                .join(' ');
-            e.addClass(vals);
-        }
-    }
-});
 //# sourceMappingURL=app.js.map
