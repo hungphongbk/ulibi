@@ -13,6 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        //
         // Create ulibier table
         Schema::create('Ulibier', function (Blueprint $table) {
             $table->increments('user_id');
