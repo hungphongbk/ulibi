@@ -19,11 +19,11 @@ app.config(["$stateProvider", "$urlRouterProvider", "$authProvider", "$provide",
                 '': {
                     templateUrl: 'ng-templates/index-view.html'
                 },
-                'topDes@home': {
+                'topDes@homepage': {
                     'templateUrl': 'ng-templates/index-view/top-destinations.html',
                     controller: 'DestinationsController'
                 },
-                'topUlibier@home': {
+                'topUlibier@homepage': {
                     'templateUrl': 'ng-templates/index-view/top-ulibier.html',
                     controller: 'UlibierController'
                 }
@@ -61,6 +61,7 @@ app.config(["$stateProvider", "$urlRouterProvider", "$authProvider", "$provide",
         });
 
     $urlRouterProvider.otherwise('/404');
+    console.log('completed');
 }]);
 var app = angular.module('Ulibi');
 app.controller('UserController',["$scope", "$state", "$auth", "UlibiAuth", function($scope, $state, $auth, UlibiAuth){
@@ -152,22 +153,6 @@ app.filter('wordLimit',function(){
 	return wordsLimitTo;
 });
 var app=angular.module('Ulibi');
-app.directive('bootstrapCol',function(){
-    return {
-        restrict: 'A',
-        link:function(s,e,a){
-            var units=['xs','sm','md','lg'];
-            var vals= a.bootstrapCol.split(' ')
-                .map(function(e,i){
-                    if(e==='-') return null;
-                    return 'col-'+units[i]+'-'+e;
-                })
-                .join(' ');
-            e.addClass(vals);
-        }
-    }
-});
-var app=angular.module('Ulibi');
 app.controller('UlibierController', ["$scope", "UlibiApi", function($scope,UlibiApi){
 	$scope.dummyText='fuck you';
 	var api=UlibiApi.ulibier;
@@ -209,4 +194,20 @@ app.controller('DestinationsController', ["$scope", "UlibiApi", function($scope,
             });
     };
 }]);
+var app=angular.module('Ulibi');
+app.directive('bootstrapCol',function(){
+    return {
+        restrict: 'A',
+        link:function(s,e,a){
+            var units=['xs','sm','md','lg'];
+            var vals= a.bootstrapCol.split(' ')
+                .map(function(e,i){
+                    if(e==='-') return null;
+                    return 'col-'+units[i]+'-'+e;
+                })
+                .join(' ');
+            e.addClass(vals);
+        }
+    }
+});
 //# sourceMappingURL=app.js.map

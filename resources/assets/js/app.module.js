@@ -19,11 +19,11 @@ app.config(function($stateProvider,$urlRouterProvider,$authProvider,$provide){
                 '': {
                     templateUrl: 'ng-templates/index-view.html'
                 },
-                'topDes@home': {
+                'topDes@homepage': {
                     'templateUrl': 'ng-templates/index-view/top-destinations.html',
                     controller: 'DestinationsController'
                 },
-                'topUlibier@home': {
+                'topUlibier@homepage': {
                     'templateUrl': 'ng-templates/index-view/top-ulibier.html',
                     controller: 'UlibierController'
                 }
@@ -61,4 +61,5 @@ app.config(function($stateProvider,$urlRouterProvider,$authProvider,$provide){
         });
 
     $urlRouterProvider.otherwise('/404');
+    console.log('completed');
 });
