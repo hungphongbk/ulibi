@@ -12,8 +12,16 @@
 */
 
 Route::get('/', function () {
-	View::addExtension('html');
     return View::make('index');
+});
+Route::get('/blog', function() {
+    return View::make('pages.blog');
+});
+Route::get('/blog/{id?}', function($id=1) {
+    return View::make('pages.blogdetail');
+});
+Route::get('/photo', function() {
+    return View::make('pages.photos');
 });
 
 Route::group(['prefix' => 'api'], function(){

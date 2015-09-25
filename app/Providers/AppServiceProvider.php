@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\App;
+use Blade;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 class AppServiceProvider extends ServiceProvider
 {
