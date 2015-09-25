@@ -1,11 +1,9 @@
 <!--scripts and plugins -->
 <!--must need plugin jquery-->
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery-migrate.min.js"></script> 
-<!--angularjs mvc frontend-->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!--<script src="js/jquery-migrate.min.js"></script> -->
 <!--bootstrap js plugin-->
-<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>       
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>       
 <!--easing plugin for smooth scroll-->
 <script src="js/jquery.easing.1.3.min.js" type="text/javascript"></script>
 <!--sticky header-->
