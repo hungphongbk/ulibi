@@ -1,4 +1,5 @@
 @extends('layouts.default')
+@section('title','Photos')
 @section('content')
 	<div class="breadcrumb-wrap">
         <div class="container">
@@ -24,7 +25,8 @@
 
 
                 <div id="grid" class="row">
-                    <div class="mix col-sm-3 page1 page4 margin30">
+                    @for($i=0;$i<8;$i++)
+                    <div class="mix col-sm-3 margin30">
                         <div class="item-img-wrap ">
                             <img src="img/img-1.jpg" class="img-responsive" alt="workimg">
                             <div class="item-img-overlay">
@@ -35,84 +37,7 @@
                         </div> 
 
                     </div>
-                    <div class="mix col-sm-3 page2 page3 margin30">
-                        <div class="item-img-wrap ">
-                            <img src="img/img-2.jpg" class="img-responsive" alt="workimg">
-                            <div class="item-img-overlay">
-                                <a href="img/img-2.jpg" class="show-image">
-                                    <span></span>
-                                </a>
-                            </div>
-                        </div> 
-
-                    </div>
-                    <div class="mix col-sm-3  page3 page2 margin30 ">
-                        <div class="item-img-wrap ">
-                            <img src="img/img-3.jpg" class="img-responsive" alt="workimg">
-                            <div class="item-img-overlay">
-                                <a href="img/img-3.jpg" class="show-image">
-                                    <span></span>
-                                </a>
-                            </div>
-                        </div> 
-
-                    </div>
-                    <div class="mix col-sm-3  page4 margin30">
-                        <div class="item-img-wrap ">
-                            <img src="img/img-4.jpg" class="img-responsive" alt="workimg">
-                            <div class="item-img-overlay">
-                                <a href="img/img-4.jpg" class="show-image">
-                                    <span></span>
-                                </a>
-                            </div>
-                        </div> 
-
-                    </div>
-                    <div class="mix col-sm-3 page1 margin30 ">
-                        <div class="item-img-wrap ">
-                            <img src="img/img-5.jpg" class="img-responsive" alt="workimg">
-                            <div class="item-img-overlay">
-                                <a href="img/img-5.jpg" class="show-image">
-                                    <span></span>
-                                </a>
-                            </div>
-                        </div> 
-
-                    </div>
-                    <div class="mix col-sm-3  page2 margin30">
-                        <div class="item-img-wrap ">
-                            <img src="img/img-6.jpg" class="img-responsive" alt="workimg">
-                            <div class="item-img-overlay">
-                                <a href="img/img-6.jpg" class="show-image">
-                                    <span></span>
-                                </a>
-                            </div>
-                        </div> 
-
-                    </div>
-                    <div class="mix col-sm-3  page3 margin30">
-                        <div class="item-img-wrap ">
-                            <img src="img/img-7.jpg" class="img-responsive" alt="workimg">
-                            <div class="item-img-overlay">
-                                <a href="img/img-7.jpg" class="show-image">
-                                    <span></span>
-                                </a>
-                            </div>
-                        </div> 
-
-                    </div>
-                    <div class="mix col-sm-3 page4  margin30">
-                        <div class="item-img-wrap ">
-                            <img src="img/img-8.jpg" class="img-responsive" alt="workimg">
-                            <div class="item-img-overlay">
-                                <a href="img/img-8.jpg" class="show-image">
-                                    <span></span>
-                                </a>
-                            </div>
-                        </div> 
-
-                    </div>                                                            
-
+                    @endfor
                 </div><!--#grid-->
             </div>
         </div>

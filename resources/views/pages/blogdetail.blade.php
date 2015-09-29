@@ -1,4 +1,5 @@
 @extends('layouts.default')
+@section('title','Blog details')
 @section('content')
 	<div class="breadcrumb-wrap">
         <div class="container">

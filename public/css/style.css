@@ -2811,6 +2811,8 @@ ul.post-desc li + li {
   background-position: center center;
   background-repeat: no-repeat;
   background-color: #f6f6f6;
+  -webkit-background-size: cover;
+  background-size: cover;
   border-top: 1px solid #d2d3d4;
   border-bottom: 1px solid #d2d3d4;
 }

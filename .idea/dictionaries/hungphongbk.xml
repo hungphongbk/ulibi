@@ -2,6 +2,8 @@
   <dictionary name="hungphongbk">
     <words>
       <w>amazonaws</w>
+      <w>blogs</w>
+      <w>flexslider</w>
       <w>imgname</w>
       <w>imgtemp</w>
       <w>loggedin</w>
@@ -12,6 +14,7 @@
       <w>ulibier</w>
       <w>uploadtime</w>
       <w>uptime</w>
+      <w>waypoints</w>
     </words>
   </dictionary>
 </component>

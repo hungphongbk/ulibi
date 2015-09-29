@@ -52,16 +52,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.3.8",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "f09d297fd919fadf9b12ac0cbea082a5494e63e9"
+                "reference": "1d0d9b01ac70ea83c381997592c433b8ebe10e19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/f09d297fd919fadf9b12ac0cbea082a5494e63e9",
-                "reference": "f09d297fd919fadf9b12ac0cbea082a5494e63e9",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1d0d9b01ac70ea83c381997592c433b8ebe10e19",
+                "reference": "1d0d9b01ac70ea83c381997592c433b8ebe10e19",
                 "shasum": ""
             },
             "require": {
@@ -124,7 +124,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2015-09-17 19:59:34"
+            "time": "2015-09-24 22:08:14"
         },
         {
             "name": "barryvdh/laravel-cors",
@@ -1970,12 +1970,12 @@
             "version": "v2.7.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/HttpKernel.git",
+                "url": "https://github.com/symfony/http-kernel.git",
                 "reference": "fd9c7af92c9e3ade1327cc3af10b17731eebc4a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/fd9c7af92c9e3ade1327cc3af10b17731eebc4a7",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/fd9c7af92c9e3ade1327cc3af10b17731eebc4a7",
                 "reference": "fd9c7af92c9e3ade1327cc3af10b17731eebc4a7",
                 "shasum": ""
             },

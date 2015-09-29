@@ -1,19 +1,6 @@
 <!--scripts and plugins -->
 <!--must need plugin jquery-->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!--<script src="js/jquery-migrate.min.js"></script> -->
-<!--bootstrap js plugin-->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>       
-<!--easing plugin for smooth scroll-->
-<script src="js/jquery.easing.1.3.min.js" type="text/javascript"></script>
-<!--sticky header-->
-<script type="text/javascript" src="js/jquery.sticky.js"></script>
-<!--flex slider plugin-->
-<script src="js/jquery.flexslider-min.js" type="text/javascript"></script>
-<!--parallax background plugin-->
-<script src="js/jquery.stellar.min.js" type="text/javascript"></script>
-<!--digit countdown plugin-->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+<script src="js/all.js"></script>
 <!--digit countdown plugin-->
 <script src="js/jquery.counterup.min.js" type="text/javascript"></script>
 <!--on scroll animation-->

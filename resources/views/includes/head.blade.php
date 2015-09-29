@@ -2,17 +2,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <base href="http://localhost:8000/" />
-<title>assan - Professional theme</title>
+<title>Ulibi - @yield('title')</title>
 
 <!-- Bootstrap -->
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/all.css" rel="stylesheet">
 <!-- custom css-->
 <link href="css/style.css" rel="stylesheet" type="text/css" media="screen">
-
-<!-- font awesome for icons -->
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<!-- flex slider css -->
-<link href="css/flexslider.css" rel="stylesheet" type="text/css" media="screen">
 <!-- animated css  -->
 <link href="css/animate.css" rel="stylesheet" type="text/css" media="screen"> 
 <!--Revolution slider css-->
