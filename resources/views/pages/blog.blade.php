@@ -7,7 +7,7 @@
                 <div class="col-sm-6">
                     <h4 class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">Blog 2 col</h4>
                     <div style="display: inline-block; width: 40px"></div>
-                    <div class="btn btn-theme-dark visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Add new</div>
+                    <a href="/blog/post" class="btn btn-theme-dark visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Add new</a>
                 </div>
                 <div class="col-sm-6 hidden-xs text-right">
                     <ol class="breadcrumb">

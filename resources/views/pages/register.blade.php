@@ -1,0 +1,85 @@
+@extends('layouts.default')
+@section('title','Register')
+@section('content')
+<div class="breadcrumb-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>Register</h4>
+            </div>
+        </div>
+    </div>
+</div><!--breadcrumbs-->
+<div class="divide80"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div role="tabpanel">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs text-center" role="tablist">
+                    <li role="presentation" class="active"><a href="#login" aria-controls="login" role="tab" data-toggle="tab">Login</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Register</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="login">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>                                  
+                            <div class="pull-left">
+
+                                <p><a href="#">Forget password?</a></p>
+
+                            </div>
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-theme-dark">Login</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div><!--login tab end-->
+                    <div role="tabpanel" class="tab-pane" id="profile">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputname">Name</label>
+                            	<input type="text" class="form-control" id="exampleInputname1" placeholder="Name">                      
+                        	</div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail11">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail11" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword11">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword11" placeholder="Password">
+                            </div>    
+                            <div class="form-group">
+                                <label for="exampleInputPassword111">Re-Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword111" placeholder="Password">
+                            </div> 
+                            <div class="pull-left checkbox">
+                                <label>
+                                    <input type="checkbox"> Accept terms & condition.
+                                </label>
+
+                            </div>
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-theme-dark btn-lg">Register</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div><!--register tab end-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="divide80"></div>
+@stop

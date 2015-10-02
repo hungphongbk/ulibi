@@ -2,9 +2,9 @@
 <!--must need plugin jquery-->
 <script src="js/all.js"></script>
 <!--digit countdown plugin-->
-<script src="js/jquery.counterup.min.js" type="text/javascript"></script>
+<!--<script src="js/jquery.counterup.min.js" type="text/javascript"></script>-->
 <!--on scroll animation-->
-<script src="js/wow.min.js" type="text/javascript"></script> 
+<!--<script src="js/wow.min.js" type="text/javascript"></script> -->
 <!--owl carousel slider-->
 <script src="js/owl.carousel.min.js" type="text/javascript"></script>
 <!--popup js-->

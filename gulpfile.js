@@ -20,6 +20,8 @@ elixir(function(mix) {
             '../bower/jquery-sticky/jquery.sticky.js',
             '../bower/flexslider/jquery.flexslider.js',
             '../bower/jquery.stellar/jquery.stellar.js',
-            '../bower/waypoints/lib/jquery.waypoints.js'
+            '../bower/waypoints/lib/jquery.waypoints.js',
+            '../bower/counter-up/jquery.counterup.js',
+            '../bower/wow/dist/wow.js'
             ]);
 });

@@ -17,11 +17,17 @@ Route::get('/', function () {
 Route::get('/blog', function() {
     return View::make('pages.blog');
 });
+Route::get('/blog/post', function(){
+    return View::make('pages.blogpost');
+});
 Route::get('/blog/{id?}', function($id=1) {
     return View::make('pages.blogdetail');
 });
 Route::get('/photo', function() {
     return View::make('pages.photos');
+});
+Route::get('/register', function() {
+    return View::make('pages.register');
 });
 
 Route::group(['prefix' => 'api'], function(){
