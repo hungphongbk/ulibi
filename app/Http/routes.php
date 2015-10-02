@@ -32,6 +32,9 @@ Route::get('/register', function() {
 Route::get('/profile', function() {
     return View::make('pages.profile');
 });
+Route::get('/map', function() {
+    return View::make('pages.map');
+});
 
 Route::group(['prefix' => 'api'], function(){
     Route::controllers([

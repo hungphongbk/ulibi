@@ -17,7 +17,7 @@
                     <a href="blog">Blogs</a>
                 </li>
                 <li>
-                    <a href="#">Bản đồ</a>
+                    <a href="map">Bản đồ</a>
                 </li>
                 <li>
                     <a href="photo">Hình ảnh</a>
