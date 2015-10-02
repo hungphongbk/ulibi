@@ -29,6 +29,9 @@ Route::get('/photo', function() {
 Route::get('/register', function() {
     return View::make('pages.register');
 });
+Route::get('/profile', function() {
+    return View::make('pages.profile');
+});
 
 Route::group(['prefix' => 'api'], function(){
     Route::controllers([

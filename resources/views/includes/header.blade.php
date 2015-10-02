@@ -22,6 +22,9 @@
                 <li>
                     <a href="photo">Hình ảnh</a>
                 </li>
+                <li>
+                    <a href="profile">Trang của tôi</a>
+                </li>
                 <li class="dropdown " data-animate="animated fadeInUp" style="z-index:500;">
                     <a href="#" class="dropdown-toggle " data-toggle="dropdown"><i class="fa fa-search"></i> tìm kiếm</a>
                     <ul class="dropdown-menu search-dropdown animated fadeInUp">
