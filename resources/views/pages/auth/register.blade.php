@@ -16,7 +16,13 @@
         <div class="col-sm-8 col-sm-offset-2">
             <div class="row">
                 <div class="col-sm-12">
-                    <h4>Tạo một tài khoản Ulibier mới, hoàn toàn miễn phí ^^</h4>
+                    @if(count($errors)==0)
+                        <h4>Tạo một tài khoản Ulibier mới, hoàn toàn miễn phí ^^</h4>
+                    @else
+                        @foreach ($errors->all() as $error)
+                            <h5 class="text-danger">{{ $error }}</h5>
+                        @endforeach
+                    @endif
                     <br />
                 </div>
                 <form role="form" method="POST" action="/ulibier/register" data-toggle="validator">

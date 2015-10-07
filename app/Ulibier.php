@@ -52,7 +52,7 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
 
     protected $table = 'Ulibier';
     protected $primaryKey = 'user_id';
-    protected $fillable = ['username', 'email', 'password'];
+    protected $fillable = ['firstname','lastname','username', 'email', 'password'];
     protected $hidden = ['user_id', 'password', 'created_at', 'updated_at', 'avatar'];
     protected $appends = ['avatar_url'];
 

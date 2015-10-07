@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
     protected $redirectPath = '/';
+    protected $username = 'username';
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
@@ -21,6 +22,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('guest');
     }
 
     /**
@@ -54,12 +56,23 @@ class AuthController extends Controller
     }
 
     /**
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
+    public function getActivated(Request $request){
+        $user=Ulibier::findOrNew($request->input('ulibier'));
+        return view('pages.auth.signupActivated')->with('user',$user);
+
+    }
+
+    /**
      * Handle a login request to the application.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postLogin(Request $request)
+    /*public function postLogin(Request $request)
     {
         $this->validate($request, [
             'username' => 'required', 'password' => 'required',
@@ -77,7 +90,7 @@ class AuthController extends Controller
             ->withErrors([
                 'username' => $this->getFailedLoginMessage(),
             ]);
-    }
+    }*/
 
     /**
      * Handle a registration request for the application.
@@ -114,6 +127,8 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         return Ulibier::create([
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),

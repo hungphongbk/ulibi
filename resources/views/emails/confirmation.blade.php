@@ -6,13 +6,12 @@
 <body>
 <h2>Xác nhận đăng kí tài khoản Ulibier trên trang Ulibi.vn</h2>
 <div>
-    <h4>Xin chao {{ $user->firstname }} {{$user->lastname}} </h4>
+    <h4>Xin chào {{ $user->firstname }} {{$user->lastname}} </h4>
     <p>
-        Rat han hanh chao don ban da den voi Ulibi - .... <br>
-        Chi con mot buoc nua thoi...
-        Hay nhan vao nut "Xac nhan dang ki" phia duoi de hoan tat qua trinh dang ky :)
+        Rất hân hạnh được chào đón bạn đến với Ulibi - diễn đàn dành cho các bạn trẻ yêu phượt trên mọi miền đất nước <br>
+        Chỉ còn một bước nữa thôi là bạn đã hoàn tất quá trình đăng kí của mình rồi đó. Hãy nhấn vào link "Xác nhận đăng kí" phía dưới đi nào :)
     </p>
-    <a href="{{ URL::to('/ulibier/confirm?ulibier='.$user->username) }}">Xac nhan dang ki</a>
+    <a href="{{ URL::to('/ulibier/activated?ulibier='.$user->user_id) }}">Xác nhận đăng kí</a>
 </div>
 </body>
 </html>
