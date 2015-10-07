@@ -2,7 +2,8 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
     var otherResources={
         'bootstrap/dist/fonts':'public/fonts',
-        'font-awesome/fonts':'public/fonts'
+        'font-awesome/fonts':'public/fonts',
+        'owl.carousel/dist/assets/owl.video.play.png':'public/css/owl.video.play.png'
     };
     for(var rc in otherResources){
         mix.copy('resources/assets/bower/'+rc,otherResources[rc]);

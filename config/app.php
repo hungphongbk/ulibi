@@ -148,6 +148,7 @@ return [
          * Plugins...
          */
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*

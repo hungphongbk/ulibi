@@ -67,7 +67,7 @@
                                 <!--                                        <button type="submit" class="btn btn-theme pull-right">Login</button>                 -->
                                 <div class="clearfix"></div>
                                 <hr>
-                                <p>Don't have an account! <a href="/register">Register Now</a></p>
+                                <p>Don't have an account! <a href="/ulibier/register">Register Now</a></p>
                             </div>
                         </form>
                     </div>

@@ -6,6 +6,28 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Routing\UrlGenerator;
 
+/**
+ * App\Models\Article
+ *
+ * @property integer $article_id
+ * @property integer $user_id
+ * @property integer $article_like
+ * @property string $article_title
+ * @property string $article_content
+ * @property string $article_date
+ * @property integer $view
+ * @property-read \App\Ulibier $ulibier
+ * @property-read \Illuminate\Database\Eloquent\Collection|Comment[] $comments
+ * @property-read mixed $first_related_destination
+ * @property-read mixed $render_html
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereArticleId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereArticleLike($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereArticleTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereArticleContent($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereArticleDate($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereView($value)
+ */
 class Article extends Model
 {
     protected $table='Article';

@@ -2,18 +2,44 @@
   <dictionary name="hungphongbk">
     <words>
       <w>amazonaws</w>
+      <w>autoloaded</w>
+      <w>awss</w>
+      <w>barryvdh</w>
+      <w>blogdetail</w>
+      <w>blogpost</w>
       <w>blogs</w>
+      <w>counterup</w>
+      <w>cubeportfolio</w>
+      <w>dest</w>
+      <w>encrypter</w>
+      <w>errorlog</w>
+      <w>firstname</w>
       <w>flexslider</w>
+      <w>flysystem</w>
+      <w>formatters</w>
+      <w>fzaninotto</w>
+      <w>googleapis</w>
       <w>imgname</w>
+      <w>imgstream</w>
       <w>imgtemp</w>
+      <w>lastname</w>
       <w>loggedin</w>
+      <w>magnific</w>
+      <w>mailconfirm</w>
+      <w>monolog</w>
       <w>navbar</w>
       <w>nginclude</w>
+      <w>phonenumber</w>
+      <w>phpspec</w>
+      <w>resized</w>
+      <w>syslog</w>
+      <w>themepunch</w>
       <w>uglify</w>
       <w>ulibi</w>
       <w>ulibier</w>
       <w>uploadtime</w>
       <w>uptime</w>
+      <w>urlroot</w>
       <w>waypoints</w>
     </words>
   </dictionary>

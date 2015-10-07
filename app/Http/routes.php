@@ -36,9 +36,10 @@ Route::get('/map', function() {
     return View::make('pages.map');
 });
 
+Route::controller('ulibier','Auth\AuthController');
 Route::group(['prefix' => 'api'], function(){
     Route::controllers([
-        'auth' => 'Auth\AuthController',
+        'auth' => 'Api\AuthController',
         'ulibier' => 'Api\UlibierController',
         'article' => 'Api\ArticleController',
         'photo' => 'Api\PhotoController',

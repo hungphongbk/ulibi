@@ -226,8 +226,3 @@ class CreateUsersTable extends Migration
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }
-
-/*
-- Mỗi người dùng sẽ có một Blog duy nhất, Blog này sẽ quy định giao diện của trang khi xem danh sách
-các bài viết của riêng User đó
-*/

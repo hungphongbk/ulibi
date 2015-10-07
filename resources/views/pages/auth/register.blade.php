@@ -46,23 +46,24 @@
                         </form>
                     </div><!--login tab end-->
                     <div role="tabpanel" class="tab-pane" id="profile">
-                        <form>
+                        <form role="form" method="POST" action="/ulibier/register?XDEBUG_SESSION_START=PHPSTORM">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="form-group">
                                 <label for="exampleInputname">Name</label>
-                            	<input type="text" class="form-control" id="exampleInputname1" placeholder="Name">                      
+                            	<input type="text" class="form-control" id="exampleInputname1" placeholder="Name" name="username">
                         	</div>
                             <div class="form-group">
                                 <label for="exampleInputEmail11">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail11" placeholder="Enter email">
+                                <input type="email" class="form-control" id="exampleInputEmail11" placeholder="Enter email" name="email">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword11">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword11" placeholder="Password">
+                                <input type="password" class="form-control" id="exampleInputPassword11" placeholder="Password" name="password">
                             </div>    
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label for="exampleInputPassword111">Re-Password</label>
                                 <input type="password" class="form-control" id="exampleInputPassword111" placeholder="Password">
-                            </div> 
+                            </div> -->
                             <div class="pull-left checkbox">
                                 <label>
                                     <input type="checkbox"> Accept terms & condition.

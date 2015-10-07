@@ -8,6 +8,27 @@ use Illuminate\Support\Facades\App;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Illuminate\Routing\UrlGenerator;
 
+/**
+ * App\Models\Photo
+ *
+ * @property integer $photo_id
+ * @property integer $photo_like
+ * @property integer $user_id
+ * @property string $photo_uptime
+ * @property string $photo_hash
+ * @property string $photo_extensions
+ * @property string $photo_awss3_url
+ * @property integer $des_id
+ * @property-read \App\Models\Destination $destination
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo wherePhotoId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo wherePhotoLike($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo wherePhotoUptime($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo wherePhotoHash($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo wherePhotoExtensions($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo wherePhotoAwss3Url($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo whereDesId($value)
+ */
 class Photo extends Model
 {
     protected $table='Photo';
@@ -86,6 +107,7 @@ class Photo extends Model
         // resize
         imagecopyresized($thumb, $imgstream, 0, 0, 0, 0, $newW, $newH, $w, $h);
         // save to new stream
+        /** @var mixed $resized */
         $resized = NULL;
         ob_start();
         imagejpeg($thumb);

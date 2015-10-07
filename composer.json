@@ -9,7 +9,9 @@
         "laravel/framework": "5.1.*",
         "tymon/jwt-auth": "0.5.4",
         "barryvdh/laravel-cors": "^0.7.1",
-        "league/flysystem-aws-s3-v3": "1.0.4"
+        "league/flysystem-aws-s3-v3": "1.0.4",
+        "barryvdh/laravel-ide-helper": "^2.1",
+        "doctrine/dbal": "~2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -39,6 +41,8 @@
             "php artisan clear-compiled"
         ],
         "post-update-cmd": [
+            "php artisan clear-compiled",
+            "php artisan ide-helper:generate",
             "php artisan optimize"
         ],
         "post-root-package-install": [

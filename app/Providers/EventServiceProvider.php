@@ -13,6 +13,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
+        'App\Events\UlibierRegister'=>[
+            'App\Events\EmailRegisterConfirmation'
+        ]
     ];
 
     /**
