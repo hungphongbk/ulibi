@@ -10,5 +10,6 @@
         @include('includes.footer')
     </footer>
     @include('includes.post-scripts')
+    @yield('post-page-scripts','')
 </body>
 </html>

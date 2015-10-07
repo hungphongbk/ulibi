@@ -8,11 +8,13 @@ elixir(function(mix) {
     for(var rc in otherResources){
         mix.copy('resources/assets/bower/'+rc,otherResources[rc]);
     }
+
     mix
         .styles([
             '../bower/bootstrap/dist/css/bootstrap.css',
             '../bower/font-awesome/css/font-awesome.css',
-            '../bower/flexslider/flexslider.css'
+            '../bower/flexslider/flexslider.css',
+            '../bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
             ])
         .scripts([
             '../bower/jquery/dist/jquery.js',
@@ -23,6 +25,9 @@ elixir(function(mix) {
             '../bower/jquery.stellar/jquery.stellar.js',
             '../bower/waypoints/lib/jquery.waypoints.js',
             '../bower/counter-up/jquery.counterup.js',
-            '../bower/wow/dist/wow.js'
+            '../bower/wow/dist/wow.js',
+            '../bower/moment/moment.js',
+            '../bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+            '../bower/bootstrap-validator/dist/validator.js'
             ]);
 });

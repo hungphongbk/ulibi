@@ -22,7 +22,8 @@
     "jquery": "~2.1.4",
     "jquery.easing": "~1.3.1",
     "counter-up": "~1.0.0",
-    "wow": "~1.1.2"
+    "wow": "~1.1.2",
+    "eonasdan-bootstrap-datetimepicker": "~4.17.37"
   },
   "devDependencies": {
     "owl.carousel": "owlcarousel2#~2.0.0-beta.3"

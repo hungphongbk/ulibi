@@ -21,12 +21,6 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth',
-            ['except' =>
-                ['getRegister','getRegister',
-                'getLogin','postLogin',
-                'getConfirm','getActivated']
-            ]);
     }
 
     /**
@@ -93,19 +87,15 @@ class AuthController extends Controller
      */
     public function postRegister(Request $request)
     {
-        $test=true;
-        if(!$test) {
-            $validator = $this->validator($request->all());
-
-            if ($validator->fails()) {
-                $this->throwValidationException(
-                    $request, $validator
-                );
-            }
-
-            Auth::login($this->create($request->all()));
+        $validator = $this->validator($request->all());
+        $rs = $validator->fails();
+        if ($rs) {
+            $this->throwValidationException(
+                $request, $validator
+            );
         }
 
+        $this->create($request->all());
         return response()->redirectTo('/ulibier/confirm');
     }
 
@@ -117,15 +107,14 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'username' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
+            'email' => 'required|email|max:255|unique:Ulibier,email'
         ]);
     }
 
     protected function create(array $data)
     {
         return Ulibier::create([
-            'name' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);

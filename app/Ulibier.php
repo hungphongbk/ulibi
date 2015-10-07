@@ -2,11 +2,13 @@
 
 namespace App;
 
+use App\Events\UlibierRegister;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Support\Facades\Event;
 
 /**
  * App\Ulibier
@@ -70,5 +72,13 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
         if ($this->avatar==NULL) return '';
         $avatar = Models\Photo::find($this->avatar);
         return $avatar->photo_awss3_url;
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::created(function(Ulibier $user){
+            Event::fire(new UlibierRegister($user));
+        });
     }
 }
