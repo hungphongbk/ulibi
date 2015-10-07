@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
             // $table->integer('avatar_id'); - modify at next migration
             $table->string('report');
             $table->timestamps();
+            $table->string('remember_token', 100);
         });
 
         // Create article table
@@ -213,8 +214,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         //First, delete folder 'photo' in S3 bucket
-        $s3 = Storage::disk('s3');
-        $s3->deleteDirectory('/photos');
         $local = Storage::disk('local');
         $local->deleteDirectory('/imgtemp');
 
