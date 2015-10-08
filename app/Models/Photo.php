@@ -47,19 +47,10 @@ class Photo extends Model
             $photo->photo_like = 0;
 
             // Upload photo to S3
-            $s3=Storage::disk('s3');
             $local=Storage::disk('local');
             // Get original local filename
             $filename=$photo['photo_hash'].'.'.$photo['photo_extensions'];
             if($upload_to_s3){
-                // Build S3 file path
-                $s3path='/photos/'.$filename;
-                // Upload local file to S3
-                $s3->put($s3path,static::resize_photo($local->get('/imgtemp/'.$filename)),'public');
-                // Update url of file
-                $photo['photo_awss3_url']=static::s3_path($s3path);
-                // Delete local version
-                $local->delete('/imgtemp/'.$filename);
             } else {
                 //$urlroot = App::make('url')->asset('/api/r/images/'.$filename);
                 $urlroot=App::make('url')->to('/');

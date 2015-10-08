@@ -35,6 +35,9 @@ Route::get('/profile', function() {
 Route::get('/map', function() {
     return View::make('pages.map');
 });
+Route::get('/test/email', function(){
+    return View::make('emails.confirmation');
+});
 
 Route::controller('ulibier','Auth\AuthController');
 Route::group(['prefix' => 'api'], function(){

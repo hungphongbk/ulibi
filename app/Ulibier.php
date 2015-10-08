@@ -78,7 +78,8 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
     {
         parent::boot();
         static::created(function(Ulibier $user){
-            Event::fire(new UlibierRegister($user));
+            if(!Model::isUnguarded())
+                Event::fire(new UlibierRegister($user));
         });
     }
 }
