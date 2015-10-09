@@ -9,6 +9,7 @@
             </button>
             <a class="navbar-brand" href="#">ULIBI Administrator</a>
         </div>
+        @if(!Auth::guest())
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
@@ -27,14 +28,13 @@
                     </ul>
                 </li>
             </ul>
-            @if(!Auth::guest())
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a>{{ Auth::user()->username }}</a>
-                    </li>
-                    <li><a href="/admin/logout">Logout</a></li>
-                </ul>
-            @endif
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a>{{ Auth::user()->username }}</a>
+                </li>
+                <li><a href="/admin/logout">Logout</a></li>
+            </ul>
+        @endif
         </div><!--/.nav-collapse -->
     </div>
 </nav>

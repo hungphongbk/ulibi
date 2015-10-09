@@ -59,5 +59,8 @@ Route::group(['prefix' => 'api'], function(){
 });
 Route::group(['prefix' => 'admin'], function(){
     //ADMIN PERMISSION AUTHORIZATIONS
+    Route::group(['middleware' => 'admin'], function(){
+        Route::resource('destination','Admin\DestinationController');
+    });
     Route::controller('/', 'Admin\AuthController');
 });

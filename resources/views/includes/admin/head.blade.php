@@ -6,3 +6,4 @@
 
 <!-- Bootstrap -->
 <link href="css/all.css" rel="stylesheet">
+<link href="css/app.css" rel="stylesheet">

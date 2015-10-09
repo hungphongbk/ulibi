@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Destination;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -16,6 +17,10 @@ class DestinationController extends Controller
     public function index()
     {
         //
+        return Destination::all()->each(function($i){
+            /** @var \App\Models\Destination $i */
+            $i->append(['avatar']);
+        });
     }
 
     /**

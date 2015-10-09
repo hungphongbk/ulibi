@@ -18,6 +18,10 @@ elixir(function(mix) {
             '../bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
             ])
         .scripts([
+            'admin.js'
+            ],'public/js/admin.js')
+        .copy('resources/assets/ngtmpl','public/ngtmpl')
+        .scripts([
             '../bower/jquery/dist/jquery.js',
             '../bower/bootstrap/dist/js/bootstrap.js',
             '../bower/jquery.easing/js/jquery.easing.js',
