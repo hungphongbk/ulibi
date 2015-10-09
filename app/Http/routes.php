@@ -57,3 +57,7 @@ Route::group(['prefix' => 'api'], function(){
     ]);
     Route::get('r/{type}/{filename}','Api\ResourceController@getIndex');
 });
+Route::group(['prefix' => 'admin'], function(){
+    //ADMIN PERMISSION AUTHORIZATIONS
+    Route::controller('/', 'Admin\AuthController');
+});

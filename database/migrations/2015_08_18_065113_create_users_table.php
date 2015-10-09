@@ -14,9 +14,16 @@ class CreateUsersTable extends Migration
     public function up()
     {
         //
+        // Create ulibier permissions table
+        Schema::create('UlibierPermission', function(Blueprint $table){
+            $table->increments('permission_id');
+            $table->string('permission_name')->unique();
+            $table->timestamps();
+        });
         // Create ulibier table
         Schema::create('Ulibier', function (Blueprint $table) {
             $table->increments('user_id');
+            $table->integer('permission_id')->unsigned();
             $table->string('firstname');
             $table->string('lastname');
             $table->string('sex');
@@ -31,6 +38,12 @@ class CreateUsersTable extends Migration
             $table->string('report');
             $table->timestamps();
             $table->string('remember_token', 100);
+
+            $table->foreign('permission_id')
+                ->references('permission_id')
+                ->on('UlibierPermission')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
 
         // Create article table
@@ -218,7 +231,7 @@ class CreateUsersTable extends Migration
         $local->deleteDirectory('/imgtemp');
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        $tables=['Ulibier','Article','ArticlePhotoMapping','ArticleDestinationMapping','Comment','Blog','BlogPhotoMapping', 'Photo','Destination','Rate'];
+        $tables=['UlibierPermission','Ulibier','Article','ArticlePhotoMapping','ArticleDestinationMapping','Comment','Blog','BlogPhotoMapping', 'Photo','Destination','Rate'];
         foreach ($tables as $table) {
             Schema::dropIfExists($table);
         }

@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Event;
  * @property integer $avatar
  * @property-read \Illuminate\Database\Eloquent\Collection|Models\Article[] $articles
  * @property-read mixed $avatar_url
+ * @property \App\UlibierPermission permission
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereFirstname($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereLastname($value)
@@ -55,6 +56,14 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
     protected $fillable = ['firstname','lastname','username', 'email', 'password'];
     protected $hidden = ['user_id', 'password', 'created_at', 'updated_at', 'avatar'];
     protected $appends = ['avatar_url'];
+
+    /**
+     * Get this user's permission
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function permission() {
+        return $this->belongsTo(UlibierPermission::class, 'permission_id');
+    }
 
     /**
      * Get all articles this user wrote

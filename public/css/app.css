@@ -1,0 +1,28 @@
+[class^='ratio-'] {
+  width: 100%;
+  overflow: hidden;
+  position: relative; }
+  [class^='ratio-']::before, [class^='ratio-']::after {
+    content: ''; }
+  [class^='ratio-']::before {
+    display: block;
+    float: left; }
+  [class^='ratio-']::after {
+    display: table;
+    clear: both; }
+  [class^='ratio-'] img.img-responsive {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%; }
+
+.ratio-500-333::before {
+  padding-bottom: 66.6%; }
+
+.ratio-1024-768::before {
+  padding-bottom: 75%; }
+
+/*# sourceMappingURL=app.css.map */

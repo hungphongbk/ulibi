@@ -2,10 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Ulibier;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
-class Authenticate
+class AdministratorMiddleware
 {
     /**
      * The Guard implementation.
@@ -26,6 +27,7 @@ class Authenticate
 
     /**
      * Handle an incoming request.
+     * Check if current user is Admin
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -33,14 +35,14 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->guest()) {
-            if ($request->ajax()) {
-                return response('Unauthorized.', 401);
-            } else {
-                return redirect()->guest('auth/login2');
-            }
+        if($this->auth->guest()) {
+            return redirect()->to('/admin/login');
         }
-
+        /** @var Ulibier $user */
+        $user=$this->auth->user();
+        if(!$user->permission->isAdmin){
+            return redirect()->to('/admin/login');
+        }
         return $next($request);
     }
 }
