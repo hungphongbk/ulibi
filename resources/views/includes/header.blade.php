@@ -44,12 +44,16 @@
                 </li>
                 <li class="dropdown">
                     @if(Auth::guest())
-                    <a href="#" class=" dropdown-toggle" data-toggle="dropdown"><i class="fa fa-lock"></i> Đăng nhập</a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-login-box animated fadeInUp">
-                        @include('partials.signinBox')
-                    </div>
+                        <a href="#" class=" dropdown-toggle" data-toggle="dropdown"><i class="fa fa-lock"></i> Đăng nhập</a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-login-box animated fadeInUp">
+                            @include('partials.signinBox')
+                        </div>
                     @else
-                        <a href="#" ><i class="fa fa-user"></i> Đăng nhập rồi nhé </a>
+                        <img src="/img/team-1.jpg" height="40px" width="40px" style="float: left; margin-top: 4px;border-radius: 20px;border: 1px solid #bbb;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-left: 35px;">{{ Auth::user()->username }}</a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-login-box animated fadeInUp" style="white-space: nowrap; padding-left: 20px !important; padding-right: 20px !important;">
+                            @include('partials.userinfoBox',['user'=>Auth::user()])
+                        </div>
                     @endif
                 </li> <!--menu login li end here-->
             </ul>
