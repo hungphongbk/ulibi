@@ -266,7 +266,7 @@
             </div><!--services col-->
         </div>
         </div>
-    </div><!--services container-->
+    <!--services container-->
 
     <div class="divide80"></div>
     <div class="container">

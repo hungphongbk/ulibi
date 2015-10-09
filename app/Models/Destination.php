@@ -23,10 +23,14 @@ class Destination extends Model
     }
 
     public function getAvatarAttribute(){
-        $photos = $this->photos()
-            ->get(array('photo_awss3_url'))
-            ->first();
-        return $photos->photo_awss3_url;
+        try {
+            $photos = $this->photos()
+                ->get(array('photo_awss3_url'))
+                ->first();
+            return $photos->photo_awss3_url;
+        } catch (\ErrorException $e){
+            return null;
+        }
     }
 
     public function getLocationAttribute(){

@@ -86,7 +86,7 @@
     <table name="Destination" schema="" catalog="ulibi" type="TABLE">
       <column name="des_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="des_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="des_instruction" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="des_instruction" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <column name="coordinate" sqlType="GEOMETRY" precision="0" scale="0" nullable="true" jdbcType="-2"/>
       <primary-key name="PRIMARY" columns="des_id"/>
       <exported-key name="articledestinationmapping_des_id_foreign" table="ArticleDestinationMapping" schema="" catalog="ulibi" columns="des_id"/>
