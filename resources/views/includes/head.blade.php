@@ -6,6 +6,7 @@
 
 <!-- Bootstrap -->
 <link href="css/all.css" rel="stylesheet">
+<link href="css/app.css" rel="stylesheet">
 <!-- custom css-->
 <link href="css/style.css" rel="stylesheet" type="text/css" media="screen">
 <!-- animated css  -->

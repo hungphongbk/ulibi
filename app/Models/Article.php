@@ -41,7 +41,7 @@ class Article extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function ulibier() {
-        return $this->belongsTo('App\Ulibier');
+        return $this->belongsTo('App\Ulibier','user_id');
     }
 
     /**
@@ -66,9 +66,14 @@ class Article extends Model
      * @return \App\Models\Destination
      */
     public function getFirstRelatedDestinationAttribute() {
-        $destination = $this->destinations()->first()->destination;
-        $destination->append('avatar');
-        return $destination;
+        try {
+            /** @var \App\Models\Destination $destination */
+            $destination = $this->destinations()->first()->destination;
+            $destination->append('avatar');
+            return $destination;
+        } catch (\ErrorException $e){
+            return null;
+        }
     }
 
     public function enterMode($mode){

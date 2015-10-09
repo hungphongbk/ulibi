@@ -12,7 +12,14 @@
 */
 
 Route::get('/', function () {
-    return View::make('index');
+    // get top articles (3)
+    $articles=\App\Models\Article::all()->random(3);
+    // get top places (6)
+    $destinations=\App\Models\Destination::all()->random(6);
+    return View::make('index',[
+        'articles' => $articles,
+        'dest' => $destinations
+    ]);
 });
 Route::get('/blog', function() {
     return View::make('pages.blog');

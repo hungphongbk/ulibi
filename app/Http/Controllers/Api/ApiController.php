@@ -17,7 +17,7 @@ class ApiController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('jwt.auth', ['except' => ['getAll','getTrending']]);
+        $this->middleware('jwt.auth', ['except' => ['getAll','getTrending','getImage']]);
     }
 
     /**

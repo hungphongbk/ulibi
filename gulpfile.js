@@ -10,6 +10,7 @@ elixir(function(mix) {
     }
 
     mix
+        .sass('app.scss')
         .styles([
             '../bower/bootstrap/dist/css/bootstrap.css',
             '../bower/font-awesome/css/font-awesome.css',

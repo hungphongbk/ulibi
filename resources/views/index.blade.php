@@ -281,28 +281,34 @@
     </div>
     <div class="container">
         <div class="row">
-            @for ($i=0; $i<3; $i++)
+            @foreach($articles as $a)
             <div class="col-md-4 margin30">
                 <div class="latest-new">
-                    <img src="img/img-6.jpg" class="img-responsive" alt="">
+                    @if(is_null($a->first_related_destination))
+                        <img src="img/img-1.jpg" class="img-responsive" alt="">
+                    @else
+                        <div class="ratio-500-333">
+                            <img src="{{ $a->first_related_destination->avatar }}" class="img-responsive" alt="">
+                        </div>
+                    @endif
                     <div class="blog-date">
-                        <span>July</span> 1 
+                        <span>July</span> 1
                     </div>
                     <div class="l-news-desc">
-                        <h3><a href="#">Lorem ipsum dollor</a></h3>
+                        <h3><a href="#">{{ $a->article_title }}</a></h3>
                         <ul class="list-inline post-desc">
-                            <li>By <a href="#">Author</a></li>
+                            <li>By <a href="#"><strong>{{ $a->ulibier['username'] }}</strong></a></li>
                             <li> <a href="#">Sports</a></li>
                             <li><a href="#">3 Comments</a></li>
                         </ul>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            {{ str_limit($a->article_content,100) }}
                         </p>
-                        <p><a href="blog/detail" class="btn  border-theme">Read more</a></p>
+                        <p><a href="blog/detail" class="btn  border-theme">Xem thêm</a></p>
                     </div>
                 </div><!--latest news-->
             </div><!--latest news col-->
-            @endfor
+            @endforeach
         </div>    
     </div>
     <div class="divide50"></div>
@@ -319,13 +325,19 @@
         </div>
         <!--owl carousel start-->
         <div id="featured-work">
-            @for ($i=0; $i<10; $i++)
+            @foreach($dest as $d)
             <div class="item">
                 <div class="work-wrap">
-                    <img src="img/fansipan1.jpg" class="img-responsive" alt="">
+                    <div class="ratio-1024-768">
+                    @if(is_null($d->avatar))
+                        <img src="img/fansipan1.jpg" class="img-responsive" alt="">
+                    @else
+                        <img src="{{ $d->avatar }}" class="img-responsive" alt="">
+                    @endif
+                    </div>
                     <div class="img-overlay">
                         <div class="inner-overlay">
-                            <h2>Lorem ipsum dolor sit</h2>
+                            <h2>{{ $d->des_name }}</h2>
                             <p>18/12/1993</p>
                             <a class="link" href="#"><i class="fa fa-location-arrow"></i></a>
                             <!--<a class="zoom show-image" href="img/fansipan1.jpg"><i class="fa fa-image"></i></a>-->
@@ -333,7 +345,7 @@
                     </div><!--img-overlay-->
                 </div><!--work-image-wrap end-->
             </div><!--owl item end-->
-            @endfor
+            @endforeach
         </div>
     </div>
     <div class="divide40"></div>
