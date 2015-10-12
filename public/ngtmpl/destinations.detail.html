@@ -1,1 +1,29 @@
-<h3>hehe</h3>
+<div class="btn" ng-class="{'btn-default':!itemEditMode, 'btn-success':itemEditMode}" ng-click="toggleItemMode();">{{ itemEditMode?'Lưu nội dung':'Sửa nội dung' }}</div>
+<h3 style="font-weight: 200;">
+    <span class="text-primary">{{ selected.object['des_name'] }}</span>
+    &nbsp;<span class="text-muted">({{ selected.object['location']['longitude'] }}, {{ selected.object['location']['latitude'] }})</span>
+</h3>
+<p>{{ selected.object['des_instruction'] }}</p>
+<h4 class="text-muted text-with-rightline">Hình ảnh</h4>
+<div class="row margin-reset-5">
+    <div class="col-xs-2 col-sm-3 col-md-4 item-image" ng-repeat="img in selected.relPhotos.relatedPhotos">
+        <div class="ratio-500-333">
+            <img ng-src="{{ img['photo_awss3_url'] }}" alt="" class="img-responsive">
+            <div class="dark-infobar clearfix">
+                <p class="pull-left">
+                    <span class="fa fa-heart"></span>&nbsp;{{ img['photo_like'] }}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-2 col-sm-3 col-md-4 item-image">
+        <div class="ratio-500-333">
+            <div class="wrapper" style="text-align: center;padding-top: 20px;">
+                <div class="btn btn-lg btn-info btn-round" data-toggle="modal" data-target="#addPhotoModal">
+                    <span class="fa fa-plus"></span>
+                </div>
+                <p>Thêm hình ảnh</p>
+            </div>
+        </div>
+    </div>
+</div>

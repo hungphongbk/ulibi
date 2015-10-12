@@ -4,6 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed photos
+ * @property mixed des_name
+ * @property mixed des_id
+ */
 class Destination extends Model
 {
     protected $table='Destination';

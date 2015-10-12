@@ -35,30 +35,24 @@ class Photo extends Model
     protected $primaryKey = 'photo_id';
     public $timestamps = false;
 
-    protected $fillable = ['user_id'];
-    protected $hidden = ['photo_hash','photo_extensions'];
+    protected $fillable = [
+        'user_id',
+        'des_id',
+        'photo_uptime',
+        'photo_hash',
+        'photo_extensions',
+        'photo_like'];
 
     protected static function boot(){
         parent::boot();
-
         static::creating(function($photo){
             $upload_to_s3 = false;
-            // Set default value for 'like' field
-            $photo->photo_like = 0;
-
-            // Upload photo to S3
-            $local=Storage::disk('local');
-            // Get original local filename
             $filename=$photo['photo_hash'].'.'.$photo['photo_extensions'];
             if($upload_to_s3){
             } else {
-                //$urlroot = App::make('url')->asset('/api/r/images/'.$filename);
-                $urlroot=App::make('url')->to('/');
-                $urlroot=str_replace($urlroot,'',App::make('url')->current());
-                $photo['photo_awss3_url'] = $urlroot.'/api/r/images/'.$filename;
+                $photo['photo_awss3_url'] = '/api/r/image/'.$filename;
             }
         });
-
         static::deleting(function($photo){
             $s3=Storage::disk('s3');
             $filename=$photo['photo_hash'].'.'.$photo['photo_extensions'];
@@ -77,7 +71,7 @@ class Photo extends Model
     {
         return 'http://s3-'.getenv('S3_REGION').'.amazonaws.com/'.getenv('S3_BUCKET').$path;
     }
-    private static function resize_photo($stream)
+    public static function resize_photo($stream)
     {
         $imgstream = imagecreatefromstring($stream);
         list($w,$h) = getimagesizefromstring($stream);

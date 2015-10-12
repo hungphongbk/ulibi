@@ -1,11 +1,14 @@
+*, *::before, *::after {
+  box-sizing:  border-box !important;
+}
 @mixin fixed-ratio($height,$width){
   &::before{
     padding-bottom: ($height / $width) * 100%;
   }
 }
-[class^='ratio-']{
+[class*='ratio-']{
   width: 100%;
-  overflow: hidden;
+  //overflow: hidden;
   position: relative;
   &::before,&::after{
     content: '';
@@ -18,14 +21,28 @@
     display: table;
     clear: both;
   }
-  img.img-responsive{
+  img.img-responsive, .wrapper{
+    height: 100%;
+    width: 100%;
+  }
+  >img.img-responsive, >.wrapper{
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    height: 100%;
-    width: 100%;
+
+  }
+
+  .dark-infobar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 32px;
+    background-color: rgba(0,0,0,0.6);
+    padding: 6px;
+    color: #ffffff;
   }
 }
 .ratio-500-333 {
@@ -33,4 +50,91 @@
 }
 .ratio-1024-768 {
   @include fixed-ratio(768,1024);
+}
+.ratio-1920-850 {
+  @include fixed-ratio(850,1920);
+}
+.blog-post{
+  h2{
+    line-height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+[class*='mansory-']{
+  -webkit-column-gap: 20px;
+  column-gap: 20px;
+  -webkit-column-fill: auto;
+  column-fill: auto;
+}
+.mansory-{
+  &2-col{
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+  }
+  &3-col{
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+  }
+  &child{
+    display: inline-block;
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    column-break-inside: avoid;
+  }
+}
+#adminPage{
+  [class*='item-']{
+    &.selected{
+      background-color: #eeeeee;
+    }
+  }
+  .item-image-text {
+    padding-top: 10px;
+  }
+  .item-image {
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    .dark-infobar{
+      -webkit-transform: translateY(32px);
+      transform: translateY(32px);
+      -webkit-transition: -webkit-transform 0.25s ease-in;
+      transition: transform 0.25s ease-in;
+    }
+    &:hover{
+      .dark-infobar{
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .text-with-rightline{
+    position: relative;
+    &::after{
+      content: '';
+      height: 1px;
+      width: 200px;
+      background-color: #BBBBBB;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+  }
+  .row{
+    &.margin-reset-5 {
+      margin-left: -5px;
+      margin-right: -5px;
+      >[class*='col-']{
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+    }
+  }
+  .btn.btn-round{
+    border-radius: 50% 50%;
+  }
 }

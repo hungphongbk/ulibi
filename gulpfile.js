@@ -1,12 +1,15 @@
 var elixir = require('laravel-elixir');
 elixir(function(mix) {
     var otherResources={
-        'bootstrap/dist/fonts':'public/fonts',
-        'font-awesome/fonts':'public/fonts',
-        'owl.carousel/dist/assets/owl.video.play.png':'public/css/owl.video.play.png'
+        'bower/bootstrap/dist/fonts':'public/fonts',
+        'bower/font-awesome/fonts':'public/fonts',
+        'bower/owl.carousel/dist/assets/owl.video.play.png':'public/css/owl.video.play.png',
+        'ngtmpl':'public/ngtmpl',
+        'sbadmin2/dist/css':'public/css',
+        'sbadmin2/dist/js':'public/js'
     };
     for(var rc in otherResources){
-        mix.copy('resources/assets/bower/'+rc,otherResources[rc]);
+        mix.copy('resources/assets/'+rc,otherResources[rc]);
     }
 
     mix
@@ -17,11 +20,12 @@ elixir(function(mix) {
             '../bower/flexslider/flexslider.css',
             '../bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
             ])
-        .scripts([
-            'admin.js'
+        .coffee([
+            'admin.coffee'
             ],'public/js/admin.js')
-        .copy('resources/assets/ngtmpl','public/ngtmpl')
         .scripts([
+            '../bower/angular/angular.js',
+            '../bower/angular-ui-router/release/angular-ui-router.js',
             '../bower/jquery/dist/jquery.js',
             '../bower/bootstrap/dist/js/bootstrap.js',
             '../bower/jquery.easing/js/jquery.easing.js',

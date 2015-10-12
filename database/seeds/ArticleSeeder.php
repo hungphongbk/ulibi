@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\Article;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use mnshankar\CSV\CSV;
 
 class ArticleSeeder extends Seeder
 {
@@ -13,11 +15,10 @@ class ArticleSeeder extends Seeder
     public function run()
     {
         DB::table('Article')->delete();
-        if (($handle = fopen(dirname(__FILE__).'/csv/Article.csv','r')) !== FALSE){
-            $fields = fgetcsv($handle);
-            while (($line = fgetcsv($handle, 1000, ',')) !== FALSE){
-                Article::create($this->zipArray($fields, $line));
-            }
+        $csv=new CSV();
+        $articles=$csv->fromFile(dirname(__FILE__).'/csv/Article.csv')->toArray();
+        foreach ($articles as $a) {
+            Article::create($a);
         }
     }
 

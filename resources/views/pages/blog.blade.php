@@ -22,30 +22,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10">
-                <div class="row">
-                    @for($i=0;$i<6;$i++)
-                    <div class="blog-post col-md-6">
-                        <a href="#">
-                            <div class="item-img-wrap">
-                                <img src="img/showcase-2.jpg" class="img-responsive" alt="workimg">
-                                <div class="item-img-overlay">
-                                    <span></span>
-                                </div>
-                            </div>                       
-                        </a><!--work link-->
-                        <ul class="list-inline post-detail">
-                            <li>by <a href="#">assan</a></li>
-                            <li><i class="fa fa-calendar"></i> 31st july 2014</li>
-                            <li><i class="fa fa-tag"></i> <a href="#">Sports</a></li>
-                        </ul>
-                        <h2><a href="#">Lorem ipsum dollor sit amet</a></h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. Pellentesque cursus arcu id magna euismod in elementum purus molestie
-                        </p>
-                        <p><a href="blog/detail" class="btn btn-theme-dark">Read More...</a></p>
-                    </div><!--blog post-->
-                    @endfor
+                <div class="mansory-2-col">
+                    @each('includes.templates.blogitem2col',$articles,'article')
                 </div>
+                {!! $articles->render() !!}
             </div>
             <div class="col-md-2">
                 <div class="sidebar-box margin40">
@@ -121,14 +101,14 @@
                 </div>
             </div><!--sidebar-col-->
         </div><!--row for blog post-->
-        <div class="row">
+        <!--<div class="row">
             <div class="col-md-10">
                   <ul class="pager">
                     <li class="previous"><a href="#">&larr; Previous Page</a></li>
                     <li class="next"><a href="#">Next Page &rarr;</a></li>
-                </ul><!--pager-->
+                </ul>
             </div>
-        </div>
+        </div>-->
     </div><!--blog full main container-->
     <div class="divide60"></div>
 @stop

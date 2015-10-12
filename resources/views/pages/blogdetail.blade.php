@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-sm-6 hidden-xs text-right">
                     <ol class="breadcrumb">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="{{ url('/') }}">Home</a></li>
                         <li>blog-Single</li>
                     </ol>
                 </div>
@@ -21,38 +21,25 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="blog-post">
-                        <div>
-                            <img src="img/showcase-2.jpg" class="img-responsive" alt="workimg">
-                      
-                        </div>                       
+                    <div class="ratio-1920-850 hover-zoomout-darken">
+                        <div class="wrapper">
+                            @if(is_null($article->first_related_destination))
+                                <img src="img/showcase-2.jpg" class="img-responsive" alt="workimg">
+                            @else
+                                <img src="{{ $article->first_related_destination->avatar }}" class="img-responsive" alt="workimg">
+                            @endif
+                        </div>
+                    </div>
                     <ul class="list-inline post-detail">
-                        <li>by <a href="#">assan</a></li>
-                        <li><i class="fa fa-calendar"></i> 31st july 2014</li>
+                        <li>by <a href="#">{{ $article->ulibier->username }}</a></li>
+                        <li><i class="fa fa-calendar"></i>
+                            {{ $article->article_date->format('d M Y') }}
+                        </li>
                         <li><i class="fa fa-tag"></i> <a href="#">Sports</a></li>
                         <li><i class="fa fa-comment"></i> <a href="#">6 Comments</a></li>
                     </ul>
-                    <h2>Lorem ipsum dollor sit amet</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. Pellentesque cursus arcu id magna euismod in elementum purus molestie
-                    </p>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. Pellentesque cursus arcu id magna euismod in elementum purus molestie
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. Pellentesque cursus arcu id magna euismod in elementum purus molestie
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. Pellentesque cursus arcu id magna euismod in elementum purus molestie
-
-                    </p>
-                    <p class="dropcap">
-                        Sed iaculis condimentum nibh posuere gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit.<span class="colored-text"> Donec mollis tempor erat</span> ut rhoncus. Nullam tincidunt pretium lectus. Ut at lacinia nisl. Fusce eu risus non quam vehicula volutpat in eget elit. Vestibulum id nunc tellus. Integer sollicitudin nibh est, a volutpat mi interdum et. Ut felis justo, rutrum a ligula ut, lobortis facilisis metus. Etiam vel enim ante. Integer tempor, odio id cursus iaculis, est magna porta metus, vitae mollis est lacus id nibh. Integer pharetra purus eros, hendrerit semper orci elementum sit amet. Etiam suscipit turpis nunc. Vivamus a eleifend lorem. Donec vehicula sem non aliquam consequa
-                    </p> 
-                </div><!--blog post-->
-                <div class="about-author">
-                    <h4 class="colored-text">About the Author</h4>
-                    <img src="img/team-3.jpg" class="img-responsive" alt="">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, <span class="colored-text">adipiscing condimentum tristique</span> vel, eleifend sed turpis. Pellentesque cursus arcu id magna euismod in elementum purus molestie Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. Pellentesque cursus arcu id magna euismod in elementum purus molestie
-                    </p>
+                    <h2>{{ $article->article_title }}</h2>
+                    {!! $article->content_as_html !!}
                 </div><!--about author-->
                 <div class="comment-post">
                     <h3>3 Comments</h3>

@@ -1,6 +1,42 @@
 <div class="row">
-    <h2 class="text-primary text-center">Destinations list</h2>
+    <h2 class="text-primary text-center" style="font-weight: 200;">Destinations list</h2>
     <hr>
     <div class="col-sm-6" ui-view="master"></div>
     <div class="col-sm-6" ui-view="detail"></div>
+</div>
+<div id="addPhotoModal" class="modal fade" role="dialog">
+    <form class="form-horizontal" ng-submit="selected.relPhotos.uploadNewPhoto(newPhoto);">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm hình ảnh vào địa điểm</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="photo_url" class="col-sm-3">URL</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="url" ng-model="selected.relPhotos.newPhoto.photo_url" id="photo_url">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="photo_like" class="col-sm-3">Số lượt thích</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" ng-model="selected.relPhotos.newPhoto.photo_like" id="photo_like">
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <pre>{{selected.relPhotos.newPhoto}} </pre>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" ng-class="{
+                    'btn-info':selected.relPhotos.uploadState==0,
+                    'btn-warning':selected.relPhotos.uploadState==1,
+                    'btn-success':selected.relPhotos.uploadState==2
+                    }" type="submit">{{ selected.relPhotos['uploadStateStr'] }}</button>
+            </div>
+        </div>
+    </div>
+    </form>
 </div>

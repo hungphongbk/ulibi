@@ -52,7 +52,7 @@ class CreateUsersTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('article_like')->unsigned();
             $table->string('article_title');
-            $table->string('article_content');
+            $table->text('article_content');
             $table->datetime('article_date');
             $table->integer('view')->unsigned();
 

@@ -28,13 +28,17 @@ use Illuminate\Routing\UrlGenerator;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereArticleDate($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereView($value)
  */
-class Article extends Model
+class Article extends ContentModel
 {
     protected $table='Article';
     protected $primaryKey = 'article_id';
     public $timestamps = false;
-
     protected $hidden = ['user_id','article_id','article_content'];
+    protected $casts = [
+        'article_date' => 'date'
+    ];
+
+    protected $contentField = 'article_content';
 
     /**
      * Get the user that wrote this article
@@ -92,4 +96,5 @@ class Article extends Model
     public function getRenderHtmlAttribute(){
         return '/api/article/toHtml?id='.$this->article_id;
     }
+
 }

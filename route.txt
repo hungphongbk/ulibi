@@ -1,23 +1,26 @@
-+--------+--------------------------------+--------------------------------------------------------------+------+--------------------------------------------------------------+------------+
-|[32m Domain [39m|[32m Method                         [39m|[32m URI                                                          [39m|[32m Name [39m|[32m Action                                                       [39m|[32m Middleware [39m|
-+--------+--------------------------------+--------------------------------------------------------------+------+--------------------------------------------------------------+------------+
-|        | GET|HEAD                       | /                                                            |      | Closure                                                      |            |
-|        | GET|HEAD                       | api/article                                                  |      | App\Http\Controllers\Api\ArticleController@getIndex          | jwt.auth   |
-|        | GET|HEAD                       | api/article/all/{one?}/{two?}/{three?}/{four?}/{five?}       |      | App\Http\Controllers\Api\ArticleController@getAll            |            |
-|        | GET|HEAD                       | api/article/index/{one?}/{two?}/{three?}/{four?}/{five?}     |      | App\Http\Controllers\Api\ArticleController@getIndex          | jwt.auth   |
-|        | GET|HEAD|POST|PUT|PATCH|DELETE | api/article/{_missing}                                       |      | App\Http\Controllers\Api\ArticleController@missingMethod     | jwt.auth   |
-|        | GET|HEAD                       | api/auth                                                     |      | App\Http\Controllers\Auth\AuthController@getIndex            | jwt.auth   |
-|        | POST                           | api/auth/authenticate/{one?}/{two?}/{three?}/{four?}/{five?} |      | App\Http\Controllers\Auth\AuthController@postAuthenticate    |            |
-|        | GET|HEAD                       | api/auth/index/{one?}/{two?}/{three?}/{four?}/{five?}        |      | App\Http\Controllers\Auth\AuthController@getIndex            | jwt.auth   |
-|        | POST                           | api/auth/signup/{one?}/{two?}/{three?}/{four?}/{five?}       |      | App\Http\Controllers\Auth\AuthController@postSignup          | jwt.auth   |
-|        | GET|HEAD|POST|PUT|PATCH|DELETE | api/auth/{_missing}                                          |      | App\Http\Controllers\Auth\AuthController@missingMethod       | jwt.auth   |
-|        | GET|HEAD                       | api/dest/all/{one?}/{two?}/{three?}/{four?}/{five?}          |      | App\Http\Controllers\Api\DestinationController@getAll        |            |
-|        | GET|HEAD|POST|PUT|PATCH|DELETE | api/dest/{_missing}                                          |      | App\Http\Controllers\Api\DestinationController@missingMethod | jwt.auth   |
-|        | GET|HEAD                       | api/photo/all/{one?}/{two?}/{three?}/{four?}/{five?}         |      | App\Http\Controllers\Api\PhotoController@getAll              |            |
-|        | POST                           | api/photo/upload/{one?}/{two?}/{three?}/{four?}/{five?}      |      | App\Http\Controllers\Api\PhotoController@postUpload          | jwt.auth   |
-|        | GET|HEAD|POST|PUT|PATCH|DELETE | api/photo/{_missing}                                         |      | App\Http\Controllers\Api\PhotoController@missingMethod       | jwt.auth   |
-|        | GET|HEAD                       | api/r/{type}/{filename}                                      |      | App\Http\Controllers\Api\ResourceController@getIndex         |            |
-|        | GET|HEAD                       | api/ulibier/all/{one?}/{two?}/{three?}/{four?}/{five?}       |      | App\Http\Controllers\Api\UlibierController@getAll            |            |
-|        | GET|HEAD                       | api/ulibier/trending/{one?}/{two?}/{three?}/{four?}/{five?}  |      | App\Http\Controllers\Api\UlibierController@getTrending       |            |
-|        | GET|HEAD|POST|PUT|PATCH|DELETE | api/ulibier/{_missing}                                       |      | App\Http\Controllers\Api\UlibierController@missingMethod     | jwt.auth   |
-+--------+--------------------------------+--------------------------------------------------------------+------+--------------------------------------------------------------+------------+
++--------+--------------------------------+-----------------------------------------------------+---------------------------------+---------------------------------------------------------------+------------+
+| Domain | Method                         | URI                                                 | Name                            | Action                                                        | Middleware |
++--------+--------------------------------+-----------------------------------------------------+---------------------------------+---------------------------------------------------------------+------------+
+|        | GET|HEAD                       | admin                                               |                                 | App\Http\Controllers\Admin\AuthController@getIndex            | admin      |
+|        | POST                           | admin/destination                                   | admin.destination.store         | App\Http\Controllers\Admin\DestinationController@store        | admin      |
+|        | GET|HEAD                       | admin/destination                                   | admin.destination.index         | App\Http\Controllers\Admin\DestinationController@index        | admin      |
+|        | GET|HEAD                       | admin/destination/create                            | admin.destination.create        | App\Http\Controllers\Admin\DestinationController@create       | admin      |
+|        | PATCH                          | admin/destination/{destination}                     |                                 | App\Http\Controllers\Admin\DestinationController@update       | admin      |
+|        | DELETE                         | admin/destination/{destination}                     | admin.destination.destroy       | App\Http\Controllers\Admin\DestinationController@destroy      | admin      |
+|        | PUT                            | admin/destination/{destination}                     | admin.destination.update        | App\Http\Controllers\Admin\DestinationController@update       | admin      |
+|        | GET|HEAD                       | admin/destination/{destination}                     | admin.destination.show          | App\Http\Controllers\Admin\DestinationController@show         | admin      |
+|        | GET|HEAD                       | admin/destination/{destination}/edit                | admin.destination.edit          | App\Http\Controllers\Admin\DestinationController@edit         | admin      |
+|        | POST                           | admin/destination/{destination}/photo               | admin.destination.photo.store   | App\Http\Controllers\Admin\DestinationPhotoController@store   | admin      |
+|        | GET|HEAD                       | admin/destination/{destination}/photo               | admin.destination.photo.index   | App\Http\Controllers\Admin\DestinationPhotoController@index   | admin      |
+|        | GET|HEAD                       | admin/destination/{destination}/photo/create        | admin.destination.photo.create  | App\Http\Controllers\Admin\DestinationPhotoController@create  | admin      |
+|        | DELETE                         | admin/destination/{destination}/photo/{photo}       | admin.destination.photo.destroy | App\Http\Controllers\Admin\DestinationPhotoController@destroy | admin      |
+|        | PATCH                          | admin/destination/{destination}/photo/{photo}       |                                 | App\Http\Controllers\Admin\DestinationPhotoController@update  | admin      |
+|        | GET|HEAD                       | admin/destination/{destination}/photo/{photo}       | admin.destination.photo.show    | App\Http\Controllers\Admin\DestinationPhotoController@show    | admin      |
+|        | PUT                            | admin/destination/{destination}/photo/{photo}       | admin.destination.photo.update  | App\Http\Controllers\Admin\DestinationPhotoController@update  | admin      |
+|        | GET|HEAD                       | admin/destination/{destination}/photo/{photo}/edit  | admin.destination.photo.edit    | App\Http\Controllers\Admin\DestinationPhotoController@edit    | admin      |
+|        | GET|HEAD                       | admin/index/{one?}/{two?}/{three?}/{four?}/{five?}  |                                 | App\Http\Controllers\Admin\AuthController@getIndex            | admin      |
+|        | POST                           | admin/login/{one?}/{two?}/{three?}/{four?}/{five?}  |                                 | App\Http\Controllers\Admin\AuthController@postLogin           |            |
+|        | GET|HEAD                       | admin/login/{one?}/{two?}/{three?}/{four?}/{five?}  |                                 | App\Http\Controllers\Admin\AuthController@getLogin            |            |
+|        | GET|HEAD                       | admin/logout/{one?}/{two?}/{three?}/{four?}/{five?} |                                 | App\Http\Controllers\Admin\AuthController@getLogout           | admin      |
+|        | GET|HEAD|POST|PUT|PATCH|DELETE | admin/{_missing}                                    |                                 | App\Http\Controllers\Admin\AuthController@missingMethod       | admin      |
++--------+--------------------------------+-----------------------------------------------------+---------------------------------+---------------------------------------------------------------+------------+

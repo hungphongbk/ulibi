@@ -1,4 +1,4 @@
-<form role="form" method="POST" action="/ulibier/login">
+<form role="form" method="POST" action="{{ url('/ulibier/login') }}">
     <h4>Signin</h4>
 
     <div class="form-group">
@@ -20,6 +20,6 @@
         <!--                                        <button type="submit" class="btn btn-theme pull-right">Login</button>                 -->
         <div class="clearfix"></div>
         <hr>
-        <p>Bạn chưa có tài khoản Ulibi? <a href="/ulibier/register">Đăng kí nào!!!</a></p>
+        <p>Bạn chưa có tài khoản Ulibi? <a href="{{ url('/ulibier/register') }}">Đăng kí nào!!!</a></p>
     </div>
 </form>

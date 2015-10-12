@@ -1,13 +1,8 @@
-<div class="row">
-    <div class="col-sm-4 col-xs-6" ng-repeat="item in dataSrc">
+<div class="row margin-reset-5">
+    <div class="col-sm-4 col-xs-6 item-image-text" ng-class="{selected:selected.index==$index}" ng-repeat="item in dataSrc" ng-click="select($index);">
         <div class="ratio-500-333">
             <img class="img-responsive" ng-src="{{ item.avatar }}" alt="">
         </div>
-        <div style="height: 5px;"></div>
-        <h5 class="text-primary pull-left">{{ item['des_name'] }}</h5>
-        <div class="btn btn-sm btn-primary pull-right">
-            <span class="fa fa-pencil"></span>
-        </div>
-        <div class="clearfix" style="height: 10px;"></div>
+        <h5 class="text-primary">{{ item['des_name'] }}</h5>
     </div>
 </div>

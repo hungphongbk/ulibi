@@ -1,5 +1,5 @@
 @extends('layouts.adminDefault')
 @section('title','Admin Page')
 @section('content')
-    <div ui-view></div>
+    <div id="adminPage" ui-view></div>
 @stop

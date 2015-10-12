@@ -304,7 +304,7 @@
                         <p>
                             {{ str_limit($a->article_content,100) }}
                         </p>
-                        <p><a href="blog/detail" class="btn  border-theme">Xem thêm</a></p>
+                        <p><a href="{{ url('blog/'.$a->article_id) }}" class="btn  border-theme">Xem thêm</a></p>
                     </div>
                 </div><!--latest news-->
             </div><!--latest news col-->

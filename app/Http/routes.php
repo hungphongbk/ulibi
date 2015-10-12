@@ -21,15 +21,6 @@ Route::get('/', function () {
         'dest' => $destinations
     ]);
 });
-Route::get('/blog', function() {
-    return View::make('pages.blog');
-});
-Route::get('/blog/post', function(){
-    return View::make('pages.blogpost');
-});
-Route::get('/blog/{id?}', function($id=1) {
-    return View::make('pages.blogdetail');
-});
 Route::get('/photo', function() {
     return View::make('pages.photos');
 });
@@ -46,7 +37,15 @@ Route::get('/test/email', function(){
     return View::make('emails.confirmation');
 });
 
-Route::controller('ulibier','Auth\AuthController');
+Route::model('destination',\App\Models\Destination::class);
+Route::model('photo',\App\Models\Photo::class);
+Route::model('blog',\App\Models\Article::class);
+
+Route::controller('/ulibier','Auth\AuthController');
+
+//Views Controller
+Route::resource('blog','Views\BlogController');
+//APIs Controller
 Route::group(['prefix' => 'api'], function(){
     Route::controllers([
         'auth' => 'Api\AuthController',
@@ -57,10 +56,12 @@ Route::group(['prefix' => 'api'], function(){
     ]);
     Route::get('r/{type}/{filename}','Api\ResourceController@getIndex');
 });
+//Admins Controller
 Route::group(['prefix' => 'admin'], function(){
     //ADMIN PERMISSION AUTHORIZATIONS
     Route::group(['middleware' => 'admin'], function(){
         Route::resource('destination','Admin\DestinationController');
+        Route::resource('destination.photo','Admin\DestinationPhotoController');
     });
     Route::controller('/', 'Admin\AuthController');
 });

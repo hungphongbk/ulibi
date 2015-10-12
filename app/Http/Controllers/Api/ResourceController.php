@@ -2,21 +2,38 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Class ResourceController
+ * @package App\Http\Controllers\Api
+ */
 class ResourceController extends Controller
 {
 
+    /**
+     * @param $type
+     * @param $filename
+     * @return mixed
+     */
     public function getIndex($type,$filename)
     {
-        return $this->getImage($filename);
+        $method='get'.ucfirst($type);
+        if(method_exists($this,$method))
+            return $this->$method($filename);
+        return response()->json([
+            "error" => "method not found",
+            "target" => "method($method)"
+        ]);
     }
 
+    /**
+     * @param $filename
+     * @return mixed
+     */
     private function getImage($filename){
         $local=Storage::disk('local');
         try{
