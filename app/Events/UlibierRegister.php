@@ -16,9 +16,9 @@ class UlibierRegister extends Event
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param $ulibier
      */
-    public function __construct(Ulibier $ulibier)
+    public function __construct($ulibier)
     {
         //
         $this->ulibier=$ulibier;

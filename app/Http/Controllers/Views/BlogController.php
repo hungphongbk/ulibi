@@ -21,13 +21,13 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $articles=Article::all()->each(function($i){
-            /** @var Article $i */
-            $i->append('first_related_destination');
-        });
+        $articles=Article::renderAll();
         $paginates=$this->createPaginator($articles);
 
-        return View::make('pages.blog',['articles'=>$paginates]);
+        return View::make('pages.blog',[
+            'articles'=>$paginates,
+            'createUrl' => url('/blog/create')
+        ]);
     }
 
     /**
@@ -37,7 +37,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        return View::make('pages.blogpost');
     }
 
     /**

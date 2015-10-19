@@ -34,15 +34,24 @@ class EmailRegisterConfirmation
 
     /**
      * Send an E-mail signup confirmation
-     * @param Ulibier $user
+     * @param mixin $user
      */
-    public function sendConfirmEmail(Ulibier $user){
-        Mail::send('emails.confirmation',['user'=>$user],function($m) use ($user){
+    public function sendConfirmEmail($user){
+        Mail::send('emails.confirmation',
+            [
+                'user'=>$user,
+                'confirmationLink'=>url('/ulibier/activated?token='.base64_encode(serialize($user)))
+            ]
+            ,function($m) use ($user){
             $m->from('noreply@ulibi.vn','Ulibi');
-            $m->to($user->email,$user->firstname.' '.$user->lastname)
+            $m->to($user['email'],$user['firstname'].' '.$user['lastname'])
                 ->subject('Ulibi sign-up confirmation');
         });
+        $email=$user['email'];
         $output=new ConsoleOutput();
-        $output->writeln("<info>Message sent to $user->email :)</info>");
+        $output->writeln(<<<ENDDOC
+<info>Message sent to $email :)</info>
+ENDDOC
+);
     }
 }

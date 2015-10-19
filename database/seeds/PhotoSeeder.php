@@ -15,27 +15,14 @@ class PhotoSeeder extends Seeder
     public function run()
     {
         DB::table('Photo')->truncate();
-        $local=Storage::disk('local');
         if (($handle = fopen(dirname(__FILE__).'/csv/Photo.csv','r')) !== FALSE){
             fgetcsv($handle);
             while (($line = fgetcsv($handle, 1000, ',')) !== FALSE){
-                $uploadtime = time();
-                // $line[3] is file name
-                // copy file to local storage
-                $img_ext=pathinfo($line[3],PATHINFO_EXTENSION);
-                $hash=uniqid($uploadtime,true);
-                $local_imgname=$hash.'.'.$img_ext;
-
-                // detect filename is local file or http
-                $isUrl=(substr($line[3],0,4)==='http');
-                $local->put('/imgtemp/'.$local_imgname,Photo::resize_photo(file_get_contents($isUrl?$line[3]:dirname(__FILE__).'/csv/photo_samples/'.$line[3])));
                 Photo::create(array(
                     'user_id'       => $line[0],
                     'des_id'        => $line[1],
                     'photo_like'    => $line[2],
-                    'photo_hash'    => $hash,
-                    'photo_uptime'  => $uploadtime,
-                    'photo_extensions'  => $img_ext
+                    'internal_url'  => $line[3],
                 ));
 
             }

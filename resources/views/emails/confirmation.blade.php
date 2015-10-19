@@ -8,7 +8,7 @@
     <table border="0" cellpadding="0" cellspacing="0" width="66%" class="emailButton" style="background-color: #3498DB;">
         <tbody><tr>
             <td align="center" valign="middle" class="buttonContent" style="padding-top:15px;padding-bottom:15px;padding-right:15px;padding-left:15px;">
-                <a style="color:#FFFFFF;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:20px;line-height:135%;" href="#" target="_blank">XÁC NHẬN ĐĂNG KÝ</a>
+                <a style="color:#FFFFFF;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:20px;line-height:135%;" href="{{ $confirmationLink }}" target="_blank">XÁC NHẬN ĐĂNG KÝ</a>
             </td>
         </tr>
         </tbody></table>

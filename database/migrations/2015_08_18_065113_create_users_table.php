@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('phonenumber');
             $table->string('nationality');
             $table->string('username')->unique();
+            $table->boolean('registered_with_social_account')->default(false);
             $table->string('password');
             $table->string('blog_url');
             // $table->integer('avatar_id'); - modify at next migration
@@ -102,13 +103,11 @@ class CreateUsersTable extends Migration
             $table->increments('photo_id');
             $table->integer('photo_like')->unsigned();
             $table->integer('user_id')->unsigned();
-            // $table->integer('des_id')->unsigned();
-            // [VN] mỗi tấm ảnh chỉ thuộc về 1 địa điểm, 1 địa điểm có thể có nhiều ảnh :)
             $table->dateTime('photo_uptime');
             $table->string('photo_hash');
             $table->string('photo_extensions');
-            // [VN] sử dụng dịch vụ Amazon S3 để lưu trữ ảnh, do đó thêm url
             $table->string('photo_awss3_url');
+            $table->string('internal_url');
 
             $table->foreign('user_id')
                 ->references('user_id')
@@ -120,6 +119,15 @@ class CreateUsersTable extends Migration
         Schema::table('Ulibier', function($table){
             $table->integer('avatar')->unsigned()->nullable();
             $table->foreign('avatar')
+                ->references('photo_id')
+                ->on('Photo')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
+        // Update Article table - add cover photo
+        Schema::table('Article', function(Blueprint $table){
+            $table->integer('cover_id')->unsigned()->nullable();
+            $table->foreign('cover_id')
                 ->references('photo_id')
                 ->on('Photo')
                 ->onDelete('cascade')
@@ -166,7 +174,7 @@ class CreateUsersTable extends Migration
             $table->increments('des_id');
             $table->string('des_name');
             $table->text('des_instruction');
-            // $table->integer('prop_id')->unsigned();
+            $table->integer('prop_id')->unsigned();
         });
         DB::statement('ALTER TABLE Destination ADD coordinate GEOMETRY' );
         Schema::table('Photo', function($table){

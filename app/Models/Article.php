@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Routing\UrlGenerator;
@@ -80,6 +81,10 @@ class Article extends ContentModel
         }
     }
 
+    public function getViewUrlAttribute() {
+        return url('/blog/'.$this->article_id);
+    }
+
     public function enterMode($mode){
         switch($mode){
             case 'trending-destination-photo':
@@ -97,4 +102,22 @@ class Article extends ContentModel
         return '/api/article/toHtml?id='.$this->article_id;
     }
 
+    /**
+     * @param int $number
+     * @return Collection
+     */
+    public static function renderAll($number=0){
+        /** @var Collection $all */
+        $all=Article::all();
+        if($number>0)
+            $all=$all->random($number);
+        foreach ($all as $i){
+            /** @var Article $i */
+            $i->append([
+                'first_related_destination',
+                'view_url'
+            ]);
+        }
+        return $all;
+    }
 }

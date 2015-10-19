@@ -1,8 +1,18 @@
 <div class="row margin-reset-5">
-    <div class="col-sm-4 col-xs-6 item-image-text" ng-class="{selected:selected.index==$index}" ng-repeat="item in dataSrc" ng-click="select($index);">
+    <div class="col-xs-6 col-sm-4 col-md-3 item-image-text" ng-class="{selected:dataSrc.destinationId==$index+1}" ng-repeat="item in dataSrc.destinationsList" ng-click="select($index+1);">
         <div class="ratio-500-333">
             <img class="img-responsive" ng-src="{{ item.avatar }}" alt="">
         </div>
         <h5 class="text-primary">{{ item['des_name'] }}</h5>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3 item-image-text">
+        <div class="ratio-500-333">
+            <div class="wrapper" style="text-align: center;padding-top: 20px;">
+                <div class="btn btn-lg btn-info btn-round" data-toggle="modal" data-target="#addDestinationModal">
+                    <span class="fa fa-plus"></span>
+                </div>
+                <p>Thêm địa danh</p>
+            </div>
+        </div>
     </div>
 </div>

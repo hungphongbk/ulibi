@@ -2,6 +2,7 @@
   <dictionary name="hungphongbk">
     <words>
       <w>adipiscing</w>
+      <w>alegreya</w>
       <w>amazonaws</w>
       <w>amet</w>
       <w>authenticatable</w>
@@ -12,6 +13,7 @@
       <w>blogitem</w>
       <w>blogpost</w>
       <w>blogs</w>
+      <w>cafile</w>
       <w>clearfix</w>
       <w>consectetur</w>
       <w>counterup</w>
@@ -20,30 +22,39 @@
       <w>datetimepicker</w>
       <w>dbal</w>
       <w>dest</w>
+      <w>dlatitude</w>
+      <w>dlongitude</w>
       <w>dropdown</w>
       <w>eiusmod</w>
       <w>elit</w>
       <w>encrypter</w>
       <w>eonasdan</w>
       <w>errorlog</w>
+      <w>fansipan</w>
+      <w>fbcallback</w>
       <w>fillable</w>
       <w>firstname</w>
+      <w>flavr</w>
       <w>flexslider</w>
       <w>flysystem</w>
       <w>formatters</w>
       <w>fzaninotto</w>
+      <w>geofields</w>
       <w>glyphicon</w>
       <w>gmail</w>
       <w>googleapis</w>
+      <w>hotkeys</w>
       <w>hoàn</w>
       <w>imgname</w>
       <w>imgstream</w>
       <w>imgtemp</w>
       <w>ipsum</w>
       <w>jsonb</w>
+      <w>jssdk</w>
       <w>khoản</w>
       <w>laborum</w>
       <w>lastname</w>
+      <w>lazyload</w>
       <w>loggedin</w>
       <w>lorem</w>
       <w>magnific</w>
@@ -51,27 +62,39 @@
       <w>mailgun</w>
       <w>mansory</w>
       <w>maxcdn</w>
+      <w>minh</w>
       <w>miễn</w>
       <w>monolog</w>
       <w>mssql</w>
       <w>navbar</w>
       <w>nginclude</w>
       <w>ngtmpl</w>
+      <w>noreply</w>
+      <w>noto</w>
+      <w>onwebkitspeechchange</w>
       <w>paginator</w>
       <w>phonenumber</w>
       <w>phpspec</w>
       <w>postgresql</w>
+      <w>raleway</w>
+      <w>reguard</w>
+      <w>requirejs</w>
       <w>resized</w>
       <w>sbadmin</w>
       <w>signin</w>
       <w>signup</w>
+      <w>skyform</w>
       <w>smtp</w>
+      <w>socialte</w>
+      <w>strikethrough</w>
       <w>syslog</w>
+      <w>textarea</w>
       <w>themepunch</w>
       <w>toàn</w>
       <w>uglify</w>
       <w>ulibi</w>
       <w>ulibier</w>
+      <w>unguard</w>
       <w>unstyled</w>
       <w>uploadtime</w>
       <w>uptime</w>
@@ -79,6 +102,8 @@
       <w>userinfo</w>
       <w>vnprovinces</w>
       <w>waypoints</w>
+      <w>webfont</w>
+      <w>xfbml</w>
       <w>đăng</w>
     </words>
   </dictionary>

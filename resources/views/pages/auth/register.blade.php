@@ -26,18 +26,14 @@
                     <br />
                 </div>
                 <form role="form" method="POST" action="/ulibier/register" data-toggle="validator">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-group">
                             <label for="fullName" style="clear: both;">Họ và tên </label>
                             <div id="fullName">
-                                <input type="text" class="form-control" id="firstName" placeholder="Họ" name="firstname" style="width: 60%; float: left;">
-                                <input type="text" class="form-control" id="lastName" placeholder="Tên" name="lastname" style="width: 40%">
+                                <input type="text" class="form-control" id="firstName" placeholder="Họ" name="firstname" style="width: 60%; float: left;" value="">
+                                <input type="text" class="form-control" id="lastName" placeholder="Tên" name="lastname" style="width: 40%" value="">
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputname">Tên đăng nhập </label>
-                            <input type="text" class="form-control" id="exampleInputname1" placeholder="Name" name="username">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail11">Địa chỉ Email </label>
@@ -53,44 +49,6 @@
                             <label for="passwordConfirm">Nhập lại mật khẩu </label>
                             <input type="password" class="form-control" id="passwordConfirm" placeholder="Password" required data-match="#password" data-match-error="Hai mật khẩu không giống nhau">
                             <div class="help-block with-errors"></div>
-                        </div>
-                        <!--<div class="form-group">
-                            <label for="exampleInputPassword111">Re-Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword111" placeholder="Password">
-                        </div> -->
-
-
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label style="margin-right: 2em;display: block;margin-bottom: 14px;">Giới tính </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="sex" value="male">
-                                Nam
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="sex" value="female">
-                                Nữ
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label for="birthday">Sinh nhật của bạn</label>
-                            <div class="input-group date">
-                                <input id="birthday" name="birthday" type="text" class="form-control" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="phonenumber">Số điện thoại</label>
-                            <input class="form-control" id="phonenumber" type="text">
-                        </div>
-                        <div class="form-group">
-                            <label for="province">Bạn đến từ đâu?</label>
-                            <select class="form-control" name="nationality" id="province">
-@include('partials.vnprovinces')
-                            </select>
                         </div>
                     </div>
                     <div class="col-sm-12">

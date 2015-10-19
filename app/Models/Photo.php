@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use ErrorException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\App;
+use Mockery\CountValidator\Exception;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Illuminate\Routing\UrlGenerator;
 
@@ -18,8 +20,10 @@ use Illuminate\Routing\UrlGenerator;
  * @property string $photo_hash
  * @property string $photo_extensions
  * @property string $photo_awss3_url
+ * @property string $internal_url
  * @property integer $des_id
  * @property-read \App\Models\Destination $destination
+ * @property string src
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo wherePhotoId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo wherePhotoLike($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo whereUserId($value)
@@ -34,6 +38,7 @@ class Photo extends Model
     protected $table='Photo';
     protected $primaryKey = 'photo_id';
     public $timestamps = false;
+    protected $appends = [ 'src' ];
 
     protected $fillable = [
         'user_id',
@@ -41,23 +46,42 @@ class Photo extends Model
         'photo_uptime',
         'photo_hash',
         'photo_extensions',
-        'photo_like'];
+        'photo_like',
+        'internal_url'];
+    protected $hidden = ['internal_url'];
 
     protected static function boot(){
         parent::boot();
         static::creating(function($photo){
-            $upload_to_s3 = false;
-            $filename=$photo['photo_hash'].'.'.$photo['photo_extensions'];
-            if($upload_to_s3){
-            } else {
-                $photo['photo_awss3_url'] = '/api/r/image/'.$filename;
+            $internalUrl=$photo['internal_url'];
+            $uploadtime = time(); $photo['photo_uptime']=$uploadtime;
+            $img_ext=pathinfo($internalUrl,PATHINFO_EXTENSION); $photo['photo_extensions']=$img_ext;
+            $hash=uniqid($uploadtime,true); $photo['photo_hash']=$hash;
+            $local_imgname=$hash.(strlen($img_ext)==0?'':'.'.$img_ext);
+
+            // detect filename is local file or http
+            try {
+                Storage::put(
+                    '/imgtemp/' . $local_imgname,
+                    Photo::downloadPhoto($internalUrl)
+                );
+
+                $filename = $photo['photo_hash'] . '.' . $photo['photo_extensions'];
+                $photo['photo_awss3_url'] = url('/api/r/image/' . $filename);
+                $photo['internal_url'] = '';
+            } catch (ErrorException $e){
+                $console=new ConsoleOutput();
+                $console->writeln([
+                    'DOWNLOAD IMAGE ERROR:',
+                    $e->getMessage()
+                ]);
+                $photo['photo_awss3_url'] = '';
             }
         });
         static::deleting(function($photo){
-            $s3=Storage::disk('s3');
             $filename=$photo['photo_hash'].'.'.$photo['photo_extensions'];
-            $s3path='/photos/'.$filename;
-            $s3->delete($s3path);
+            $localPath='/imgtemp/'.$filename;
+            Storage::delete($localPath);
 
             return parent::delete();
         });
@@ -67,10 +91,32 @@ class Photo extends Model
         return $this->belongsTo('App\Models\Destination');
     }
 
-    private static function s3_path($path)
-    {
-        return 'http://s3-'.getenv('S3_REGION').'.amazonaws.com/'.getenv('S3_BUCKET').$path;
+    /**
+     * @return string
+     */
+    public function getSrcAttribute(){
+        if(strlen($this->photo_awss3_url)>0) return url($this->photo_awss3_url);
+        return $this->internal_url;
     }
+
+    private static function downloadPhoto($url){
+        $isUrl=(substr($url,0,4)==='http');
+        $requireSsl=(substr($url,0,5)==='https');
+        $additionalOptions=array(
+            "http" => array(
+                "method" => "GET",
+                "timeout" => 5,
+                "follow_location" => false,
+            )
+        );
+
+        return Photo::resize_photo(file_get_contents($isUrl?$url:database_path('/seeds/csv/photo_samples/'.$url),false,stream_context_create($additionalOptions)));
+    }
+
+    /**
+     * @param string $stream
+     * @return string
+     */
     public static function resize_photo($stream)
     {
         $imgstream = imagecreatefromstring($stream);
@@ -92,7 +138,7 @@ class Photo extends Model
         // resize
         imagecopyresized($thumb, $imgstream, 0, 0, 0, 0, $newW, $newH, $w, $h);
         // save to new stream
-        /** @var mixed $resized */
+        /** @var string $resized */
         $resized = NULL;
         ob_start();
         imagejpeg($thumb);

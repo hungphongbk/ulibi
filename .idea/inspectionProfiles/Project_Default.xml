@@ -6,14 +6,27 @@
       <option name="myIgnoreVendorSpecificProperties" value="false" />
       <option name="myCustomPropertiesList">
         <value>
-          <list size="2">
+          <list size="3">
             <item index="0" class="java.lang.String" itemvalue="column-fill" />
             <item index="1" class="java.lang.String" itemvalue="column-break-inside" />
+            <item index="2" class="java.lang.String" itemvalue="osx-font-smoothing" />
           </list>
         </value>
       </option>
     </inspection_tool>
     <inspection_tool class="CssUnknownTarget" enabled="false" level="ERROR" enabled_by_default="false" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="3">
+            <item index="0" class="java.lang.String" itemvalue="lazyload" />
+            <item index="1" class="java.lang.String" itemvalue="ng-model" />
+            <item index="2" class="java.lang.String" itemvalue="repeat-completed" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>

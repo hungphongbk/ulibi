@@ -10,12 +10,8 @@
             </div>
         </div>
     </a><!--work link-->
-    <ul class="list-inline post-detail">
-        <li>by <a href="#">{{ $article->ulibier->username }}</a></li>
-        <li><i class="fa fa-calendar"></i>{{ $article->article_date->format('d M Y') }}</li>
-        <li><i class="fa fa-tag"></i> <a href="#">Sports</a></li>
-    </ul>
-    <h2><a href="#">{{ $article->article_title }}</a></h2>
+    @include('includes.templates.postDetail',['article' => $article])
+    <h2><a href="{{ $article->view_url }}">{{ $article->article_title }}</a></h2>
     <p>{{ str_limit($article->article_content,200) }}</p>
-    <p><a href="{{ url('blog/'.$article->article_id) }}" class="btn btn-theme-dark">Xem thêm...</a></p>
+    <p><a href="{{ $article->view_url }}" class="btn btn-theme-dark">Xem thêm...</a></p>
 </div>

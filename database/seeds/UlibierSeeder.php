@@ -19,6 +19,9 @@ class UlibierSeeder extends Seeder
         \App\UlibierPermission::create(array(
             'permission_name' => 'admin'
         ));
+        \App\UlibierPermission::create(array(
+            'permission_name' => 'user'
+        ));
 
         Ulibier::create(array(
             'permission_id' => 1,

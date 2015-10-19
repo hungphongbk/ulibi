@@ -201,7 +201,7 @@
                 <div class="center-heading">
                     <h2>LÀM SAO ĐỂ KHÁM PHÁ ULIBI?</h2>
                     <span class="center-line"></span>
-                    <p class="sub-text margin40">
+                    <p class="sub-text margin40" style="white-space: nowrap">
                         Làm phượt thủ, nhiếp ảnh gia và blogger đều rất tuyệt...<br /> Nhưng chẳng phải nó sẽ tuyệt vời hơn nữa nếu làm tất cả những điều đó cùng nhau sao???<br /> Ở Ulibi, chúng tôi không gọi bạn là phượt thủ, nhiếp ảnh gia hay blogger<br /> Chúng tôi gọi bạn là một Ulibier </p>
                 </div>
             </div>
@@ -292,19 +292,21 @@
                         </div>
                     @endif
                     <div class="blog-date">
-                        <span>July</span> 1
+                        <span>{{ $a->article_date->format('F') }}</span> {{ $a->article_date->format('j') }}
                     </div>
                     <div class="l-news-desc">
-                        <h3><a href="#">{{ $a->article_title }}</a></h3>
-                        <ul class="list-inline post-desc">
-                            <li>By <a href="#"><strong>{{ $a->ulibier['username'] }}</strong></a></li>
-                            <li> <a href="#">Sports</a></li>
-                            <li><a href="#">3 Comments</a></li>
-                        </ul>
+                        <h4><a href="{{ $a->view_url }}">{{ $a->article_title }}</a></h4>
+                        @include('includes.templates.postDetail',['article' => $a])
                         <p>
                             {{ str_limit($a->article_content,100) }}
                         </p>
-                        <p><a href="{{ url('blog/'.$a->article_id) }}" class="btn  border-theme">Xem thêm</a></p>
+                        <p><a href="{{ $a->view_url }}" class="btn  border-theme">Xem thêm</a></p>
+                        <!--<div
+                                class="fb-like"
+                                data-share="true"
+                                data-width="450"
+                                data-show-faces="true">
+                        </div>-->
                     </div>
                 </div><!--latest news-->
             </div><!--latest news col-->
@@ -360,13 +362,14 @@
                 </div>                   
             </div>
             <div class="row">
-                @for ($i=0; $i<4; $i++)
+                @foreach($users as $ulibier)
                 <div class="col-sm-3 text-center">
                     <div class="person-v2">
-                        <img src="img/team-1.jpg" class="img-responsive" alt="">
+                        <div class="ratio-500-500">
+                            <img src="{{ $ulibier->avatar_url }}" class="img-responsive" alt="{{ $ulibier->avatar_url }}'s avatar">
+                        </div>
                         <div class="person-desc-v2">
-                            <h3>Steve Smith</h3>
-                            <em>Creative Designer</em>
+                            <h3>{{ $ulibier->full_name }}</h3>
                             <!--<ul class="list-inline top-social">
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -374,7 +377,7 @@
                         </div>
                     </div>
                 </div><!--person col end-->
-                @endfor
+                @endforeach
             </div>
         </div>
     </div><!--our team v-2-->

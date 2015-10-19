@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
 {
+    public static $massSeed=false;
     /**
      * Run the database seeds.
      *
@@ -12,8 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        DatabaseSeeder::$massSeed=true;
         Model::unguard();
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
         $this->call(UlibierSeeder::class);
         $this->call(ArticleSeeder::class);
         $this->call(Destinations::class);
@@ -21,5 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ArticleDestinationMappingSeeder::class);
         Model::reguard();
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        DatabaseSeeder::$massSeed=false;
     }
 }

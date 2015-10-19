@@ -35,4 +35,15 @@ return [
         'secret' => '',
     ],
 
+    'facebook' => [
+        'client_id'     => env('FB_CLIENT_ID','fuck'),
+        'client_secret' => env('FB_CLIENT_SECRET','your'),
+        'redirect'      => env('APP_URLROOT','http://localhost').env('FB_REDIRECT','mother'),
+    ],
+
+    'google' => [
+        'client_id'     => env('GG_CLIENT_ID','fuck'),
+        'client_secret' => env('GG_CLIENT_SECRET','your'),
+        'redirect'      => env('APP_URLROOT','http://localhost').env('GG_REDIRECT','mother'),
+    ]
 ];

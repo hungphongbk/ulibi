@@ -12,7 +12,7 @@
       <column name="user_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="article_like" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="article_title" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="article_content" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="article_content" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <column name="article_date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="view" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="article_id"/>
@@ -75,6 +75,7 @@
       <column name="des_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="des_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="des_instruction" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="prop_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="coordinate" sqlType="GEOMETRY" precision="0" scale="0" nullable="true" jdbcType="-2"/>
       <primary-key name="PRIMARY" columns="des_id"/>
       <exported-key name="articledestinationmapping_des_id_foreign" table="ArticleDestinationMapping" schema="" catalog="ulibi" columns="des_id"/>
@@ -112,6 +113,7 @@
     </table>
     <table name="Ulibier" schema="" catalog="ulibi" type="TABLE">
       <column name="user_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="permission_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="firstname" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="lastname" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="sex" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
@@ -129,12 +131,23 @@
       <column name="avatar" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="user_id"/>
       <foreign-key name="ulibier_avatar_foreign" columns="avatar" ref-table="Photo" ref-schema="" ref-catalog="ulibi" ref-columns="photo_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="ulibier_permission_id_foreign" columns="permission_id" ref-table="UlibierPermission" ref-schema="" ref-catalog="ulibi" ref-columns="permission_id" update-rule="0" delete-rule="0" deferrability="2"/>
       <exported-key name="article_user_id_foreign" table="Article" schema="" catalog="ulibi" columns="user_id"/>
       <exported-key name="comment_user_id_foreign" table="Comment" schema="" catalog="ulibi" columns="user_id"/>
       <exported-key name="photo_user_id_foreign" table="Photo" schema="" catalog="ulibi" columns="user_id"/>
       <exported-key name="rate_user_id_foreign" table="Rate" schema="" catalog="ulibi" columns="user_id"/>
       <index name="ulibier_username_unique" unique="true" columns="username"/>
       <index name="ulibier_avatar_foreign" unique="false" columns="avatar"/>
+      <index name="ulibier_permission_id_foreign" unique="false" columns="permission_id"/>
+    </table>
+    <table name="UlibierPermission" schema="" catalog="ulibi" type="TABLE">
+      <column name="permission_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="permission_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <primary-key name="PRIMARY" columns="permission_id"/>
+      <exported-key name="ulibier_permission_id_foreign" table="Ulibier" schema="" catalog="ulibi" columns="permission_id"/>
+      <index name="ulibierpermission_permission_name_unique" unique="true" columns="permission_name"/>
     </table>
     <table name="migrations" schema="" catalog="ulibi" type="TABLE">
       <column name="migration" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>

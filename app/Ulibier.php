@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Events\UlibierRegister;
+use App\Models\Photo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -14,8 +15,10 @@ use Illuminate\Support\Facades\Event;
  * App\Ulibier
  *
  * @property integer $user_id
+ * @property integer $permission_id
  * @property string $firstname
  * @property string $lastname
+ * @property string $full_name
  * @property string $sex
  * @property string $birthday
  * @property string $email
@@ -25,11 +28,12 @@ use Illuminate\Support\Facades\Event;
  * @property string $password
  * @property string $blog_url
  * @property string $report
+ * @property boolean $registered_with_social_account
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property integer $avatar
  * @property-read \Illuminate\Database\Eloquent\Collection|Models\Article[] $articles
- * @property-read mixed $avatar_url
+ * @property string $avatar_url
  * @property \App\UlibierPermission permission
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereFirstname($value)
@@ -53,9 +57,9 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
 
     protected $table = 'Ulibier';
     protected $primaryKey = 'user_id';
-    protected $fillable = ['firstname','lastname','username', 'email', 'password'];
+    protected $guarded = ['report','avatar'];
     protected $hidden = ['user_id', 'password', 'created_at', 'updated_at', 'avatar'];
-    protected $appends = ['avatar_url'];
+    protected $appends = ['avatar_url','full_name'];
 
     /**
      * Get this user's permission
@@ -80,15 +84,34 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
     {
         if ($this->avatar==NULL) return '';
         $avatar = Models\Photo::find($this->avatar);
-        return $avatar->photo_awss3_url;
+        return $avatar->src;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setAvatarUrlAttribute($value)
+    {
+        $photo=Photo::create([
+            'user_id'       => $this->user_id,
+            'des_id'        => null,
+            'photo_like'    => 0,
+            'internal_url'  => $value
+        ]);
+        $this->avatar=$photo->photo_id;
+        $this->save();
+    }
+
+    public function getFullNameAttribute(){
+        return $this->firstname.' '.$this->lastname;
     }
 
     protected static function boot()
     {
         parent::boot();
-        static::created(function(Ulibier $user){
-            if(!Model::isUnguarded())
+        /*static::created(function(Ulibier $user){
+            if((!Model::isUnguarded())&&(!$user->registered_with_social_account))
                 Event::fire(new UlibierRegister($user));
-        });
+        });*/
     }
 }

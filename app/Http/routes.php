@@ -13,12 +13,20 @@
 
 Route::get('/', function () {
     // get top articles (3)
-    $articles=\App\Models\Article::all()->random(3);
+    $articles=\App\Models\Article::renderAll(3);
     // get top places (6)
     $destinations=\App\Models\Destination::all()->random(6);
+    $users=\App\Ulibier::all([
+        'firstname', 'lastname',
+        'username', 'avatar'
+    ])->each(function($i){
+        /** @var \App\Ulibier $i */
+        $i->append('avatar_url');
+    });
     return View::make('index',[
         'articles' => $articles,
-        'dest' => $destinations
+        'dest' => $destinations,
+        'users' => $users
     ]);
 });
 Route::get('/photo', function() {
@@ -41,7 +49,15 @@ Route::model('destination',\App\Models\Destination::class);
 Route::model('photo',\App\Models\Photo::class);
 Route::model('blog',\App\Models\Article::class);
 
-Route::controller('/ulibier','Auth\AuthController');
+Route::group(['prefix'=>'/ulibier/social'],function(){
+    Route::get('/{provider}','Auth\AuthController@socialAuth');
+    ROute::get('/callback/{provider}','Auth\AuthController@socialAuthCallback');
+});
+Route::controller('/ulibier','Auth\AuthController',[
+    'getRegister' => 'ulibier.getRegister',
+    'postLogin' => 'ulibier.postLogin'
+]);
+
 
 //Views Controller
 Route::resource('blog','Views\BlogController');

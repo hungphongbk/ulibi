@@ -5,7 +5,7 @@
     <div class="col-sm-6" ui-view="detail"></div>
 </div>
 <div id="addPhotoModal" class="modal fade" role="dialog">
-    <form class="form-horizontal" ng-submit="selected.relPhotos.uploadNewPhoto(newPhoto);">
+    <form class="form-horizontal" ng-submit="dataSrc.uploadNewPhoto(newPhoto);">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -16,27 +16,247 @@
                 <div class="form-group">
                     <label for="photo_url" class="col-sm-3">URL</label>
                     <div class="col-sm-9">
-                        <input class="form-control" type="url" ng-model="selected.relPhotos.newPhoto.photo_url" id="photo_url">
+                        <input class="form-control" type="url" ng-model="dataSrc.newPhoto.photo_url" id="photo_url">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="photo_like" class="col-sm-3">Số lượt thích</label>
                     <div class="col-sm-9">
-                        <input class="form-control" type="text" ng-model="selected.relPhotos.newPhoto.photo_like" id="photo_like">
+                        <input class="form-control" type="text" ng-model="dataSrc.newPhoto.photo_like" id="photo_like">
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <pre>{{selected.relPhotos.newPhoto}} </pre>
+                    <pre>{{dataSrc.newPhoto}} </pre>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn" ng-class="{
-                    'btn-info':selected.relPhotos.uploadState==0,
-                    'btn-warning':selected.relPhotos.uploadState==1,
-                    'btn-success':selected.relPhotos.uploadState==2
-                    }" type="submit">{{ selected.relPhotos['uploadStateStr'] }}</button>
+                    'btn-info':dataSrc.uploadState==0,
+                    'btn-warning':dataSrc.uploadState==1,
+                    'btn-success':dataSrc.uploadState==2
+                    }" type="submit">{{ dataSrc['uploadStateStr'] }}</button>
             </div>
         </div>
     </div>
     </form>
 </div>
+<div id="addDestinationModal" class="modal fade" role="dialog">
+    <form class="form-horizontal" ng-submit="dataSrc.createNewDestination();">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Tạo một địa điểm mới</h4>
+                </div>
+                <div class="modal-body clearfix">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div>
+                                        <input class="form-control" type="text" ng-model="dataSrc.newDest.des_name" id="des_name" placeholder="Tên địa điểm. Ví dụ: Đảo Hòn Tre">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div id="des_coors">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <input class="form-control" type="text" ng-model="dataSrc.newDest.des_coors.longitude" id="coors-lng" placeholder="Kinh độ">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" type="text" ng-model="dataSrc.newDest.des_coors.latitude" id="coors-lat" placeholder="Vĩ độ">
+                                            </div>
+                                            <div class="col-sm-12" style="margin-top: 15px;">
+                                                <div class="input-group">
+                                                    <input placeholder="... hoặc tìm theo tên địa điểm tại đây" class="form-control" type="text" id="searchDestByName" value="Đảo Hòn tre">
+                                                    <span class="input-group-btn">
+                                                        <button id="getCoorsBySearch" class="btn btn-default" type="button"><span class="fa fa-globe"></span></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12" style="height: 300px; padding-top: 10px;">
+                                                <div style="height: 100%;width: 100%;">
+                                                    <div id="map-canvas" style="height: 100%;width: 100%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" style="margin-left: 0px;">
+                                    <div>
+                                        <textarea class="form-control" ng-model="dataSrc.newDest.des_instruction" id="des_instruction" placeholder="Viết một vài dòng mô tả về địa điểm tại đây nhé" rows="8"></textarea>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 class="text-primary pull-left">Một số hình ảnh liên quan&nbsp;&nbsp;<span class="badge" ng-show="dataSrc.newDest.related_photos>0">{{dataSrc.newDest.related_photos.length}}</span></h5>
+
+                                    <div class="btn-group pull-right" role="group">
+                                        <button class="btn btn-sm btn-default">Chọn hết</button>
+                                        <button class="btn btn-sm btn-default">Bỏ chọn hết</button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <input id="relatedPhotos" type="hidden" ng-model="dataSrc.newDest.related_photos" ng-list jqbind>
+                                    <div class="row margin-reset-5" style="height: 200px; overflow-y: scroll">
+                                        <div ng-repeat="img in dataSrc.newDest.related_photos track by $index" class="col-sm-4 col-md-3 item-image">
+                                            <div class="ratio-500-333 selectable" ng-class="{selected:img.selected}" ng-click="img.selected=true">
+                                                <img class="img-responsive" ng-src="{{img['url']}}" alt="">
+                                                <span class="fa fa-2x fa-check-circle check-mark"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12" style="max-height: 100px;overflow-y: scroll;">
+                                <pre>{{dataSrc.newDest}} </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info" type="submit">Tạo địa điểm mới</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" lazyload>
+    function initialize(google,dlg) {
+        var btnGetCoors=dlg.querySelector('#getCoorsBySearch');
+        var txtSearch=dlg.querySelector('#searchDestByName');
+        var relatedPhotosInput=dlg.querySelector('#relatedPhotos');
+        var txtCoors={
+            lat:dlg.querySelector('#coors-lat'),
+            lng:dlg.querySelector('#coors-lng')
+        };
+        // default coordinates - Ho Chi Minh City University of Technology
+        var coors={
+            lat:10.7723034,
+            lng:106.6576478
+        };
+
+        var myLatlng = new google.maps.LatLng(coors.lat, coors.lng);
+        google = google || google;
+        var mapOptions = {
+            zoom: 13,
+            center: myLatlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            scrollwheel: true,
+            draggable: true
+        };
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        // init place service
+        var Place=(function(g,m){
+            var core=function(){
+                var _this=this;
+                _this.service=new g.maps.places.PlacesService(m);
+                _this.landmark=null;
+                _this.collectPhotosCompleted=function(photos){};
+            };
+            core.prototype.search=function(lat,lng){
+                var _this=this;
+                var photos=[];
+                function getPhotos(id){
+                    var d= $.Deferred();
+                    _this.service.getDetails({
+                        placeId:id
+                    },function(place,status){
+                        if (status == g.maps.places.PlacesServiceStatus.OK){
+                            if(place.photos){
+                                photos=photos.concat(place.photos);
+                            }
+                        }
+                        d.resolve();
+                    });
+                    return d.promise();
+                }
+                _this.landmark=new g.maps.LatLng(lat,lng);
+                _this.service.nearbySearch({
+                    location:_this.landmark,
+                    radius:500
+                },function(results,status){
+                    if (status == g.maps.places.PlacesServiceStatus.OK) {
+                        var tasks=[];
+                        for (var i = 0; i < results.length; i++)
+                            tasks.push(getPhotos(results[i].place_id));
+                        $.when.apply($,tasks).done(function(){
+                            var urls=photos.map(function(e){
+                                return e.getUrl({
+                                    maxWidth: 1024
+                                });
+                            });
+                            _this.collectPhotosCompleted(urls);
+                        });
+                    }
+                })
+            };
+
+            return core;
+        })(google,map);
+        var place=new Place();
+        place.collectPhotosCompleted=function(photos){
+            console.log(photos);
+            pObjs=photos.map(function(p){
+                return JSON.stringify({url:p,selected:false});
+            });
+            var e= $.Event('keypress');e.which=32;
+            angular.element(relatedPhotosInput).val(pObjs.join(', ')).triggerHandler('change');
+        };
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: 'Marker'
+        });
+        function moveCoors(lat,lng){
+            coors.lat=lat;
+            coors.lng=lng;
+            txtCoors.lat.value=lat;
+            txtCoors.lng.value=lng;
+            recenter();
+            place.search(lat,lng);
+        }
+        function recenter(){
+            myLatlng=new google.maps.LatLng(coors.lat, coors.lng);
+            marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: 'Marker'
+            });
+            map.setCenter(myLatlng);
+        }
+
+        var geocoder=new google.maps.Geocoder();
+
+        function showAddress(){
+            var address=$(txtSearch).val();
+            geocoder.geocode({'address':address},function(rs,status){
+                if(status===google.maps.GeocoderStatus.OK){
+                    var pos=rs[0].geometry.location;
+                    moveCoors(pos.lat(),pos.lng());
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            })
+        }
+        $(dlg).on('shown.bs.modal',function(){
+            google.maps.event.trigger(map, "resize");
+            recenter();
+            btnGetCoors.addEventListener('click',showAddress);
+        });
+        $(dlg).on('hidden.bs.modal',function(){
+            btnGetCoors.removeEventListener('click',showAddress);
+        });
+    }
+    require.config({
+        paths: {
+            'async': 'js/require/src/async'
+        }
+    });
+    require(['async!http://maps.google.com/maps/api/js?sensor=false&&libraries=places'], function() {
+        // Google Maps API and all its dependencies will be loaded here.
+        initialize(window.google,document.getElementById('addDestinationModal'));
+    });
+</script>

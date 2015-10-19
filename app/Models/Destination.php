@@ -2,22 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @property mixed photos
- * @property mixed des_name
+ * @property Collection photos
+ * @property string des_name
  * @property mixed des_id
+ * @property mixed coordinate
+ * @property string des_instruction
+ * @property string avatar
  */
-class Destination extends Model
+class Destination extends SpartialModel
 {
     protected $table='Destination';
     protected $primaryKey = 'des_id';
     public $timestamps = false;
 
     protected $fillable = ['des_name'];
-    protected $hidden = ['coordinate', 'des_id'];
-    protected $appends = ['location'];
+    protected $hidden = ['des_id','coordinate'];
+    protected $appends = ['location', 'avatar'];
+    protected $geofields=['location'];
 
     /**
      * Get all photos of this destination
@@ -29,10 +33,9 @@ class Destination extends Model
 
     public function getAvatarAttribute(){
         try {
-            $photos = $this->photos()
-                ->get(array('photo_awss3_url'))
-                ->first();
-            return $photos->photo_awss3_url;
+            /** @var \App\Models\Photo $photo */
+            $photo = $this->photos->random();
+            return $photo->src;
         } catch (\ErrorException $e){
             return null;
         }

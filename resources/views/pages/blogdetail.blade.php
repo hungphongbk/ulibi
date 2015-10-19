@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('title','Blog details')
 @section('content')
-	<div class="breadcrumb-wrap">
+	<!--<div class="breadcrumb-wrap">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="divide80"></div>
     <div class="container">
         <div class="row">
@@ -30,14 +30,10 @@
                             @endif
                         </div>
                     </div>
-                    <ul class="list-inline post-detail">
-                        <li>by <a href="#">{{ $article->ulibier->username }}</a></li>
-                        <li><i class="fa fa-calendar"></i>
-                            {{ $article->article_date->format('d M Y') }}
-                        </li>
-                        <li><i class="fa fa-tag"></i> <a href="#">Sports</a></li>
-                        <li><i class="fa fa-comment"></i> <a href="#">6 Comments</a></li>
-                    </ul>
+                    @include('includes.templates.postDetail',[
+                        'article' => $article,
+                        'showCommentCount' => true
+                    ])
                     <h2>{{ $article->article_title }}</h2>
                     {!! $article->content_as_html !!}
                 </div><!--about author-->

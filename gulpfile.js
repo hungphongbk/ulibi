@@ -6,7 +6,9 @@ elixir(function(mix) {
         'bower/owl.carousel/dist/assets/owl.video.play.png':'public/css/owl.video.play.png',
         'ngtmpl':'public/ngtmpl',
         'sbadmin2/dist/css':'public/css',
-        'sbadmin2/dist/js':'public/js'
+        'sbadmin2/dist/js':'public/js',
+        'bower/requirejs-plugins/lib':'public/js/require/lib',
+        'bower/requirejs-plugins/src':'public/js/require/src'
     };
     for(var rc in otherResources){
         mix.copy('resources/assets/'+rc,otherResources[rc]);

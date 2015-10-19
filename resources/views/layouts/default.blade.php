@@ -2,6 +2,7 @@
 <html>
 <head>
     @include('includes.head')
+    @yield('head-page-scripts','')
 </head>
 <body>
     @include('includes.header')

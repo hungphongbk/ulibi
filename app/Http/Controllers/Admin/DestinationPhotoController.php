@@ -61,7 +61,7 @@ class DestinationPhotoController extends Controller
 
         // insert image to database
         $uploadtime = time();
-        $img_ext=pathinfo($photo_url,PATHINFO_EXTENSION);
+        $img_ext=pathinfo($photo_url,PATHINFO_EXTENSION)||'jpg';
         $hash=uniqid($uploadtime,true);
         $local_imgname=$hash.'.'.$img_ext;
         Storage::put('/imgtemp/'.$local_imgname,file_get_contents($photo_url));

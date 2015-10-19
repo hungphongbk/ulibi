@@ -2,25 +2,36 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UlibierRegister;
 use App\Ulibier;
+use App\UlibierSocialite;
+use DateTime;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Socialite;
 
 
 class AuthController extends Controller
 {
     protected $redirectPath = '/';
-    protected $username = 'username';
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins {
+        postLogin as postLoginTraditional;
+    }
+    use UlibierSocialite;
 
     /**
      * AuthController constructor.
+     * @param Socialite $socialite
      */
-    public function __construct()
+    public function __construct(Socialite $socialite)
     {
         $this->middleware('guest',['except' => ['getLogout']]);
     }
@@ -28,7 +39,7 @@ class AuthController extends Controller
     /**
      * Show the application login form.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function getLogin()
     {
@@ -36,19 +47,37 @@ class AuthController extends Controller
     }
 
     /**
-     * Show the application registration form.
+     * Handle a login request to the application.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     */
+    public function postLogin(Request $request)
+    {
+        $loginViaSocial=$request->input('via');
+        if($loginViaSocial!=null){
+            $dbUser=Ulibier::whereEmail($request->input('email'))->first();
+            Auth::login($dbUser);
+            return $this->handleUserWasAuthenticated($request, null);
+        }
+        return $this->postLoginTraditional($request);
+    }
+
+    /**
+     * Show the application registration form.
+     * @return Response
+     * @internal param string $encodedData
      */
     public function getRegister()
     {
+        // if encodedData parameter is not null, parse it into existing user data
         return view('pages.auth.register');
     }
 
     /**
      * Show the E-mail confirmation page after
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function getConfirm()
     {
@@ -61,42 +90,24 @@ class AuthController extends Controller
      * @return \Illuminate\View\View
      */
     public function getActivated(Request $request){
-        $user=Ulibier::findOrNew($request->input('ulibier'));
+        $userToken=unserialize(base64_decode($request->query('token')));
+        $user=new Ulibier();
+        $user->permission_id=2;
+        $user->firstname=$userToken['firstname'];
+        $user->lastname=$userToken['lastname'];
+        $user->username=substr(hash('md5',date('m.d.y')),12);
+        $user->email=$userToken['email'];
+        $user->password=Hash::make($userToken['password']);
+        $user->save();
         return view('pages.auth.signupActivated')->with('user',$user);
 
     }
 
     /**
-     * Handle a login request to the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    /*public function postLogin(Request $request)
-    {
-        $this->validate($request, [
-            'username' => 'required', 'password' => 'required',
-        ]);
-
-        $credentials = $request->only('username', 'password');
-
-        if ($this->auth->attempt($credentials, $request->has('remember')))
-        {
-            return redirect()->intended($this->redirectPath());
-        }
-
-        return redirect($this->loginPath())
-            ->withInput($request->only('username', 'remember'))
-            ->withErrors([
-                'username' => $this->getFailedLoginMessage(),
-            ]);
-    }*/
-
-    /**
      * Handle a registration request for the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function postRegister(Request $request)
     {
@@ -108,7 +119,8 @@ class AuthController extends Controller
             );
         }
 
-        $this->create($request->all());
+        $userData=$request->only(['firstname','lastname','email','password']);
+        Event::fire(new UlibierRegister($userData));
         return response()->redirectTo('/ulibier/confirm');
     }
 
@@ -119,8 +131,8 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'username' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:Ulibier,email'
+            'email' => 'required|email|max:255|unique:Ulibier,email',
+            'password' => 'required'
         ]);
     }
 
@@ -133,5 +145,65 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    /**
+     * Redirect to Facebook/Google OAuth login authentication
+     * @param string $provider
+     * @return Response
+     */
+    public function socialAuth($provider){
+        if(!config("services.$provider"))
+            abort('404'); //just to handle providers that doesn't exist
+        return Socialite::with($provider)->redirect();
+    }
+
+    /**
+     * Redirect to Facebook/Google OAuth login authentication
+     * Kiểm tra xem Email gắn liền với tài khoản mạng xã hội đã được đăng ký
+     *  trong CSDL của Ulibi hay chưa
+     * Nếu chưa, redirect tới trang đăng ký Ulibier (yêu cầu sử dụng username, điền sắn
+     *  một số field đã có sẵn như email, avatar, ...)
+     * Nếu đã có, redirect tới postLogin luôn
+     * @param string $provider
+     * @return Response
+     */
+    public function socialAuthCallback($provider){
+        /** @var \Laravel\Socialite\AbstractUser $p */
+        $p=Socialite::with($provider);
+        switch($provider){
+            case 'facebook':
+                $p->fields($this->facebookRequiredScopes());
+                break;
+        }
+        if($user = Socialite::with($provider)->user()){
+            /** @var \App\Ulibier $dbUser */
+            $dbUser=Ulibier::whereEmail($user->email)->first();
+            if($dbUser===null) {
+                $dbUser=Ulibier::create([
+                    'permission_id' => 1,
+                    'username'      => $user->id,
+                    'firstname'     => $this->getSocialField($provider,$user,'firstName'),
+                    'lastname'      => $this->getSocialField($provider,$user,'lastName'),
+                    'sex'           => $this->getSocialField($provider,$user,'gender'),
+                    'birthday'      => new DateTime($this->getSocialField($provider,$user,'birthday')),
+                    'email'         => $this->getSocialField($provider,$user,'email'),
+                    'phonenumber'   => '+841667578431',
+                    'password'      => Hash::make('123456'),
+                    'registered_with_social_account'    => true,
+                ]);
+                $dbUser->avatar_url=$this->getSocialField($provider,$user,'avatar');
+            }
+            return \View::make('pages.auth.redirect',['form' => [
+                'method'=>'POST',
+                'action'=>'/ulibier/login',
+                'fields'=>[
+                    'email'=>$dbUser->email,
+                    'via'=>$provider
+                ]
+            ]]);
+        }else{
+            return 'something went wrong';
+        }
     }
 }
