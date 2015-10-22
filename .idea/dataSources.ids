@@ -13,13 +13,18 @@
       <column name="article_like" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="article_title" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="article_content" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="article_content_type" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="J2phZGUn"/>
       <column name="article_date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="view" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="cover_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="article_id"/>
+      <foreign-key name="article_cover_id_foreign" columns="cover_id" ref-table="Photo" ref-schema="" ref-catalog="ulibi" ref-columns="photo_id" update-rule="0" delete-rule="0" deferrability="2"/>
       <foreign-key name="article_user_id_foreign" columns="user_id" ref-table="Ulibier" ref-schema="" ref-catalog="ulibi" ref-columns="user_id" update-rule="0" delete-rule="0" deferrability="2"/>
       <exported-key name="articledestinationmapping_article_id_foreign" table="ArticleDestinationMapping" schema="" catalog="ulibi" columns="article_id"/>
       <exported-key name="articlephotomapping_article_id_foreign" table="ArticlePhotoMapping" schema="" catalog="ulibi" columns="article_id"/>
+      <exported-key name="articletag_article_id_foreign" table="ArticleTag" schema="" catalog="ulibi" columns="article_id"/>
       <exported-key name="comment_article_id_foreign" table="Comment" schema="" catalog="ulibi" columns="article_id"/>
+      <index name="article_cover_id_foreign" unique="false" columns="cover_id"/>
       <index name="article_user_id_foreign" unique="false" columns="user_id"/>
     </table>
     <table name="ArticleDestinationMapping" schema="" catalog="ulibi" type="TABLE">
@@ -39,6 +44,14 @@
       <foreign-key name="articlephotomapping_article_id_foreign" columns="article_id" ref-table="Article" ref-schema="" ref-catalog="ulibi" ref-columns="article_id" update-rule="0" delete-rule="0" deferrability="2"/>
       <foreign-key name="articlephotomapping_photo_id_foreign" columns="photo_id" ref-table="Photo" ref-schema="" ref-catalog="ulibi" ref-columns="photo_id" update-rule="0" delete-rule="0" deferrability="2"/>
       <index name="articlephotomapping_photo_id_foreign" unique="false" columns="photo_id"/>
+    </table>
+    <table name="ArticleTag" schema="" catalog="ulibi" type="TABLE">
+      <column name="article_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="tag_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="article_id,tag_id"/>
+      <foreign-key name="articletag_article_id_foreign" columns="article_id" ref-table="Article" ref-schema="" ref-catalog="ulibi" ref-columns="article_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="articletag_tag_id_foreign" columns="tag_id" ref-table="Tag" ref-schema="" ref-catalog="ulibi" ref-columns="tag_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="articletag_tag_id_foreign" unique="false" columns="tag_id"/>
     </table>
     <table name="Blog" schema="" catalog="ulibi" type="TABLE">
       <column name="blog_url" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
@@ -90,10 +103,12 @@
       <column name="photo_hash" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="photo_extensions" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="photo_awss3_url" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="internal_url" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="des_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="photo_id"/>
       <foreign-key name="photo_des_id_foreign" columns="des_id" ref-table="Destination" ref-schema="" ref-catalog="ulibi" ref-columns="des_id" update-rule="0" delete-rule="0" deferrability="2"/>
       <foreign-key name="photo_user_id_foreign" columns="user_id" ref-table="Ulibier" ref-schema="" ref-catalog="ulibi" ref-columns="user_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="article_cover_id_foreign" table="Article" schema="" catalog="ulibi" columns="cover_id"/>
       <exported-key name="articlephotomapping_photo_id_foreign" table="ArticlePhotoMapping" schema="" catalog="ulibi" columns="photo_id"/>
       <exported-key name="blogphotomapping_photo_id_foreign" table="BlogPhotoMapping" schema="" catalog="ulibi" columns="photo_id"/>
       <exported-key name="ulibier_avatar_foreign" table="Ulibier" schema="" catalog="ulibi" columns="avatar"/>
@@ -111,6 +126,12 @@
       <foreign-key name="rate_user_id_foreign" columns="user_id" ref-table="Ulibier" ref-schema="" ref-catalog="ulibi" ref-columns="user_id" update-rule="0" delete-rule="0" deferrability="2"/>
       <index name="rate_user_id_foreign" unique="false" columns="user_id"/>
     </table>
+    <table name="Tag" schema="" catalog="ulibi" type="TABLE">
+      <column name="tag_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="tag_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="tag_id"/>
+      <exported-key name="articletag_tag_id_foreign" table="ArticleTag" schema="" catalog="ulibi" columns="tag_id"/>
+    </table>
     <table name="Ulibier" schema="" catalog="ulibi" type="TABLE">
       <column name="user_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="permission_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
@@ -122,6 +143,7 @@
       <column name="phonenumber" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="nationality" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="username" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="registered_with_social_account" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
       <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="blog_url" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="report" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>

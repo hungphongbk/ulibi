@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/hungphongbk/ulibi#readme",
   "devDependencies": {
-    "laravel-elixir": "^3.2.8"
+    "laravel-elixir": "^3.2.8",
+    "laravel-elixir-group": "0.0.5"
   }
 }

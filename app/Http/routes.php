@@ -61,6 +61,7 @@ Route::controller('/ulibier','Auth\AuthController',[
 
 //Views Controller
 Route::resource('blog','Views\BlogController');
+Route::resource('photo','Views\PhotoController');
 //APIs Controller
 Route::group(['prefix' => 'api'], function(){
     Route::controllers([

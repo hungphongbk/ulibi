@@ -23,3 +23,4 @@
 <script src="js/cube-portfolio.js" type="text/javascript"></script>
 <script src="js/pace.min.js" type="text/javascript"></script>
 <script src="js/require.js" type="text/javascript"></script>
+<script src="js/jquery.app.js" type="text/javascript"></script>

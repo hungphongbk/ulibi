@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * App\Models\Article
@@ -35,11 +36,13 @@ class Article extends ContentModel
     protected $primaryKey = 'article_id';
     public $timestamps = false;
     protected $hidden = ['user_id','article_id','article_content'];
+    protected $guarded=[];
     protected $casts = [
         'article_date' => 'date'
     ];
 
     protected $contentField = 'article_content';
+    protected $contentFieldType = 'article_content_type';
 
     /**
      * Get the user that wrote this article
@@ -119,5 +122,19 @@ class Article extends ContentModel
             ]);
         }
         return $all;
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(
+        /**
+         * @param $article
+         */
+            function($article){
+            if($article['user_id']==null){
+                $article['user_id']=Auth::user()->user_id;
+            }
+        });
     }
 }

@@ -13,6 +13,9 @@ h1, h2, h3, h4, h5, h6, .text-center-top, .left-tile-text {
   width: 100%;
   //overflow: hidden;
   position: relative;
+  background-size: cover;
+  background-position: 50% 50%;
+
   &::before,&::after{
     content: '';
   }
@@ -260,6 +263,73 @@ h1, h2, h3, h4, h5, h6, .text-center-top, .left-tile-text {
     padding-bottom: 0.3em;
     padding-left: 0;
     height: auto;
+  }
+}
+.text-core.text-core-skyform-style .text-wrap {
+  $border-input-color: #e5e5e5;
+  $border-input-thickness: 2px;
+  $border-tag-color: #ccc;
+  $tag-foreground-color: #959595;
+
+  .text-label {
+    vertical-align: middle;
+    color: #888;
+    font-weight: 600;
+  }
+  .text-tags {
+    .text-tag {
+      height: 100%;
+      padding: 2px;
+
+      .text-button {
+        height: 100%;
+        font: inherit;
+        border: $border-input-thickness solid $border-tag-color;
+        background: #eee;
+        padding: 0 2em 0 1em;
+      }
+
+      a.text-remove {
+        right: 0.5em;
+        top: 0;
+        width: 1em;
+        height: 100%;
+        background: none;
+        color: #888;
+        -webkit-transition: color 0.25s ease-in-out;
+        -moz-transition: color 0.25s ease-in-out;
+        -o-transition: color 0.25s ease-in-out;
+        transition: color 0.25s ease-in-out;
+
+        &：hover{
+          color: #a94442;
+        }
+      }
+    }
+  }
+  .text-dropdown {
+    padding: 3px;
+    border: $border-input-thickness solid $border-input-color;
+
+    .text-list {
+      .text-suggestion {
+        padding: 0.5em 1em;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+
+        .text-label {
+          color: inherit;
+        }
+
+        &.text-selected{
+          background: $tag-foreground-color;
+        }
+      }
+    }
+  }
+  .text-position-below {
+    margin-top: $border-input-thickness;
   }
 }
 .new-blog-author-detail {

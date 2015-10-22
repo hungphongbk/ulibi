@@ -1,0 +1,117 @@
+<?php
+
+namespace App\Http\Controllers\Views;
+
+use App\Models\Photo;
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+class PhotoController extends Controller
+{
+    use PaginateContent, \App\Http\Controllers\ConsoleHelper;
+    protected $perPage=6;
+    protected $paginatorPath='photo';
+    protected $command;
+    /**
+     * PhotoController constructor.
+     */
+    public function __construct()
+    {
+        // Only ulibiers have authority to post & delete photo
+        $this->middleware('auth',['except'=>'index']);
+        // Prevent hacker use CSRF attack to post & delete automatically
+        $this->middleware('csrf',['only'=>[ 'store', 'destroy' ]]);
+        // Generate command for console something
+        $this->command=new \Symfony\Component\Console\Output\ConsoleOutput();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        if($request->ajax()){
+            $this->consolePrintInfo(substr($request->input('internal_url'),0,50));
+            $newPhoto=new Photo();
+            $newPhoto->des_id=null;
+            $newPhoto->internal_url=$request->input('internal_url');
+            $newPhoto->save();
+
+            return response()->json(array(
+                'status' => 'succeeded',
+                'id' => $newPhoto->photo_id
+            ));
+        } else {
+
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+}

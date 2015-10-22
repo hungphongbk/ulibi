@@ -2,26 +2,27 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
-        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/area/area_spec.js" />
         <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/line/line_spec.js" />
-        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/bar/bar_spec.js" />
         <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/hover_spec.js" />
-        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/lib/morris.donut.js" />
         <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/donut/donut_spec.js" />
-        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/grid/y_label_format_spec.js" />
         <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/commas_spec.js" />
-        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/lib/morris.grid.js" />
         <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/bar/colours.js" />
-        <item url="file://$PROJECT_DIR$/resources/assets/coffee/admin.js" />
         <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/support/placeholder.js" />
-        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/grid/set_data_spec.js" />
         <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/lib/morris.hover.js" />
         <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/parse_time_spec.js" />
-        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/grid/auto_grid_lines_spec.js" />
-        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/lib/morris.area.js" />
         <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/label_series_spec.js" />
-        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/pad_spec.js" />
+        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/lib/morris.area.js" />
         <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/lib/morris.js" />
+        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/area/area_spec.js" />
+        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/bar/bar_spec.js" />
+        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/lib/morris.donut.js" />
+        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/grid/y_label_format_spec.js" />
+        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/lib/morris.grid.js" />
+        <item url="file://$PROJECT_DIR$/resources/assets/coffee/admin.js" />
+        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/grid/set_data_spec.js" />
+        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/grid/auto_grid_lines_spec.js" />
+        <item url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/pad_spec.js" />
+        <item url="file://$PROJECT_DIR$/resources/assets/coffee/jquery.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
@@ -33,8 +34,8 @@
       <root url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/bar/colours.js" />
       <root url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/parse_time_spec.js" />
       <root url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/lib/morris.hover.js" />
-      <root url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/label_series_spec.js" />
       <root url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/lib/morris.area.js" />
+      <root url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/label_series_spec.js" />
       <root url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/lib/morris.js" />
       <root url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/area/area_spec.js" />
       <root url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/bar/bar_spec.js" />
@@ -45,6 +46,7 @@
       <root url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/grid/set_data_spec.js" />
       <root url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/grid/auto_grid_lines_spec.js" />
       <root url="file://$PROJECT_DIR$/resources/assets/sbadmin2/bower_components/morrisjs/spec/lib/pad_spec.js" />
+      <root url="file://$PROJECT_DIR$/resources/assets/coffee/jquery.js" />
     </CLASSES>
     <SOURCES />
   </library>

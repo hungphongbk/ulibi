@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ContentModel extends Model
 {
     protected $contentField;
+    protected $contentFieldType;
 
     /**
      * @return string
@@ -26,11 +27,16 @@ class ContentModel extends Model
      * @return string
      */
     private function parseContentIntoHtml(){
-        $text=$this[$this->contentField];
-        $jade_bin="/usr/local/bin/jade";
+        if($this[$this->contentFieldType]==='jade') {
+            $text = $this[$this->contentField];
+            $jade_bin = "/usr/local/bin/jade";
 
-        $command="echo \"$text\" | $jade_bin";
-        $output=shell_exec($command);
+            $command = "echo \"$text\" | $jade_bin";
+            $output = shell_exec($command);
+        }
+        else {
+            $output=$this[$this->contentField];
+        }
 
         return $output;
     }
@@ -39,6 +45,6 @@ class ContentModel extends Model
      * @return string
      */
     private function parseContentIntoText(){
-        return "This is a plain text";
+        return strip_tags($this->parseContentIntoHtml());
     }
 }

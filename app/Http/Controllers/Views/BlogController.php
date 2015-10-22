@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Views;
 
+use App\Helpers\Contracts\ArticlePost;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -11,9 +12,28 @@ use View;
 
 class BlogController extends Controller
 {
-    use PaginateContent;
+    use PaginateContent, \App\Http\Controllers\ConsoleHelper;
     protected $perPage=6;
     protected $paginatorPath='blog';
+    protected $command;
+    protected $articlePost;
+
+    /**
+     * BlogController constructor.
+     * @param ArticlePost $articlePost
+     */
+    public function __construct(ArticlePost $articlePost)
+    {
+        // Only ulibiers have authority to post & delete article
+        $this->middleware('auth',['except'=>['index', 'show']]);
+        // Prevent hacker use CSRF attack to post & delete automatically
+        $this->middleware('csrf',['only'=>[ 'store', 'destroy' ]]);
+        // Generate command for console something
+        $this->command=new \Symfony\Component\Console\Output\ConsoleOutput();
+
+        $this->articlePost=$articlePost;
+    }
+
     /**
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
@@ -37,7 +57,9 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return View::make('pages.blogpost');
+        return View::make('pages.blogpost',[
+            'actionUrl' => url('/blog')
+        ]);
     }
 
     /**
@@ -49,6 +71,10 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         //
+        /** @var Article $newArticle */
+        $newArticle=$this->articlePost->doPost($request);
+        $this->consolePrintInfo("New Article Posted: $newArticle->article_title");
+        return response()->redirectTo('/');
     }
 
     /**

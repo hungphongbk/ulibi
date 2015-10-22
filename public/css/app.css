@@ -1,9 +1,12 @@
+@charset "UTF-8";
 *, *::before, *::after {
   box-sizing: border-box !important; }
 
 [class*='ratio-'] {
   width: 100%;
-  position: relative; }
+  position: relative;
+  background-size: cover;
+  background-position: 50% 50%; }
   [class*='ratio-']::before, [class*='ratio-']::after {
     content: ''; }
   [class*='ratio-']::before {
@@ -196,6 +199,45 @@
   padding-bottom: 0.3em;
   padding-left: 0;
   height: auto; }
+
+.text-core.text-core-skyform-style .text-wrap .text-label {
+  vertical-align: middle;
+  color: #888;
+  font-weight: 600; }
+
+.text-core.text-core-skyform-style .text-wrap .text-tags .text-tag {
+  height: 100%;
+  padding: 2px; }
+  .text-core.text-core-skyform-style .text-wrap .text-tags .text-tag .text-button {
+    height: 100%;
+    font: inherit;
+    border: 2px solid #ccc;
+    background: #eee;
+    padding: 0 2em 0 1em; }
+  .text-core.text-core-skyform-style .text-wrap .text-tags .text-tag a.text-remove {
+    right: 0.5em;
+    top: 0;
+    width: 1em;
+    height: 100%;
+    background: none;
+    color: #888;
+    transition: color 0.25s ease-in-out; }
+    .text-core.text-core-skyform-style .text-wrap .text-tags .text-tag a.text-remove：hover {
+      color: #a94442; }
+
+.text-core.text-core-skyform-style .text-wrap .text-dropdown {
+  padding: 3px;
+  border: 2px solid #e5e5e5; }
+  .text-core.text-core-skyform-style .text-wrap .text-dropdown .text-list .text-suggestion {
+    padding: 0.5em 1em;
+    border-radius: 2px; }
+    .text-core.text-core-skyform-style .text-wrap .text-dropdown .text-list .text-suggestion .text-label {
+      color: inherit; }
+    .text-core.text-core-skyform-style .text-wrap .text-dropdown .text-list .text-suggestion.text-selected {
+      background: #959595; }
+
+.text-core.text-core-skyform-style .text-wrap .text-position-below {
+  margin-top: 2px; }
 
 .new-blog-author-detail .avatar {
   border-radius: 50% 50%; }

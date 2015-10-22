@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call(Destinations::class);
         $this->call(PhotoSeeder::class);
         $this->call(ArticleDestinationMappingSeeder::class);
+        $this->call(TagSeeder::class);
+
         Model::reguard();
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
         DatabaseSeeder::$massSeed=false;

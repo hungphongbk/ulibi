@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use ErrorException;
+use finfo;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\App;
 use Mockery\CountValidator\Exception;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -53,35 +53,39 @@ class Photo extends Model
     protected static function boot(){
         parent::boot();
         static::creating(function($photo){
+            if($photo['user_id']==null){
+                $photo['user_id']=\Auth::user()->user_id;
+            }
+
             $internalUrl=$photo['internal_url'];
             $uploadtime = time(); $photo['photo_uptime']=$uploadtime;
-            $img_ext=pathinfo($internalUrl,PATHINFO_EXTENSION); $photo['photo_extensions']=$img_ext;
             $hash=uniqid($uploadtime,true); $photo['photo_hash']=$hash;
-            $local_imgname=$hash.(strlen($img_ext)==0?'':'.'.$img_ext);
 
-            // detect filename is local file or http
+            $img_ext='';
             try {
-                Storage::put(
-                    '/imgtemp/' . $local_imgname,
-                    Photo::downloadPhoto($internalUrl)
-                );
 
-                $filename = $photo['photo_hash'] . '.' . $photo['photo_extensions'];
+                $stream=Photo::downloadPhoto($internalUrl,$img_ext);
+                $local_imgname=$hash.(strlen($img_ext)==0?'':'.'.$img_ext);
+                \Storage::put( '/imgtemp/' . $local_imgname, $stream );
+
+                $filename = $photo['photo_hash'] . '.' . $img_ext;
                 $photo['photo_awss3_url'] = url('/api/r/image/' . $filename);
                 $photo['internal_url'] = '';
             } catch (ErrorException $e){
                 $console=new ConsoleOutput();
                 $console->writeln([
-                    'DOWNLOAD IMAGE ERROR:',
+                    '<info>DOWNLOAD IMAGE ERROR :</info>',
                     $e->getMessage()
                 ]);
                 $photo['photo_awss3_url'] = '';
+            } finally {
+                $photo['photo_extensions']=$img_ext;
             }
         });
         static::deleting(function($photo){
             $filename=$photo['photo_hash'].'.'.$photo['photo_extensions'];
             $localPath='/imgtemp/'.$filename;
-            Storage::delete($localPath);
+            \Storage::delete($localPath);
 
             return parent::delete();
         });
@@ -99,9 +103,14 @@ class Photo extends Model
         return $this->internal_url;
     }
 
-    private static function downloadPhoto($url){
+    /**
+     * @param $url
+     * @param $mimeType
+     * @return string
+     */
+    private static function downloadPhoto($url,&$mimeType){
         $isUrl=(substr($url,0,4)==='http');
-        $requireSsl=(substr($url,0,5)==='https');
+        $isDataURI=(substr($url,0,5)==='data:');
         $additionalOptions=array(
             "http" => array(
                 "method" => "GET",
@@ -109,8 +118,26 @@ class Photo extends Model
                 "follow_location" => false,
             )
         );
+        //
+        if($isDataURI) {
+            preg_match("/data:image\/(.+?);base64,(.+)/", $url, $match);
+            $mimeType=$match[1];
+            $stream=base64_decode($match[2]);
+            $console=new ConsoleOutput();
+            $console->writeln([
+                "<info>MIME image detected (type=$mimeType) </info>"
+            ]);
+        } else if($isUrl) {
+            $stream=file_get_contents($url,false,stream_context_create($additionalOptions));
+            $file_info = new finfo(FILEINFO_MIME_TYPE);
+            $mime=$file_info->buffer($stream);
+            $mimeType=substr($mime,strpos($mime,'/')+1);
+        } else {
+            $stream=file_get_contents(database_path('/seeds/csv/photo_samples/'.$url));
+            $mimeType=pathinfo($url,PATHINFO_EXTENSION);
+        }
 
-        return Photo::resize_photo(file_get_contents($isUrl?$url:database_path('/seeds/csv/photo_samples/'.$url),false,stream_context_create($additionalOptions)));
+        return Photo::resize_photo($stream);
     }
 
     /**

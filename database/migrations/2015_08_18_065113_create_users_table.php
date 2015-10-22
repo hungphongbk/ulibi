@@ -54,6 +54,7 @@ class CreateUsersTable extends Migration
             $table->integer('article_like')->unsigned();
             $table->string('article_title');
             $table->text('article_content');
+            $table->string('article_content_type')->default('jade');
             $table->datetime('article_date');
             $table->integer('view')->unsigned();
 
@@ -225,6 +226,27 @@ class CreateUsersTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
+
+        Schema::create('Tag', function (Blueprint $table) {
+            $table->increments('tag_id');
+            $table->string('tag_name');
+        });
+
+        Schema::create('ArticleTag', function (Blueprint $table) {
+            $table->integer('article_id')->unsigned();
+            $table->integer('tag_id')->unsigned();
+
+            $table->primary(array('article_id', 'tag_id'));
+            $table->foreign('article_id')
+                ->references('article_id')
+                ->on('Article')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('tag_id')
+                ->references('tag_id')->on('Tag')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+        });
     }
 
     /**
@@ -239,7 +261,7 @@ class CreateUsersTable extends Migration
         $local->deleteDirectory('/imgtemp');
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        $tables=['UlibierPermission','Ulibier','Article','ArticlePhotoMapping','ArticleDestinationMapping','Comment','Blog','BlogPhotoMapping', 'Photo','Destination','Rate'];
+        $tables=['UlibierPermission','Ulibier','Article','ArticlePhotoMapping','ArticleDestinationMapping','Comment','Blog','BlogPhotoMapping', 'Photo','Destination','Rate','Tag','ArticleTag'];
         foreach ($tables as $table) {
             Schema::dropIfExists($table);
         }

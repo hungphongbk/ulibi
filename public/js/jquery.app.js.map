@@ -1,0 +1,1 @@
+{"version":3,"sources":["jquery.coffee"],"names":[],"mappings":"AAAA;EAAA,CAAC,SAAC,CAAD,GAAA,CAAD,CAAA,CACE,MADF;AAAA","file":"jquery.app.js","sourcesContent":["(($) ->\n) jQuery"],"sourceRoot":"/source/"}
