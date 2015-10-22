@@ -108,7 +108,7 @@ class CreateUsersTable extends Migration
             $table->string('photo_hash');
             $table->string('photo_extensions');
             $table->string('photo_awss3_url');
-            $table->string('internal_url');
+            $table->text('internal_url');
 
             $table->foreign('user_id')
                 ->references('user_id')

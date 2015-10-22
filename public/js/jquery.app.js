@@ -1,6 +1,2 @@
-(function() {
-  (function($) {})(jQuery);
-
-}).call(this);
-
+(function(){var t,e;e=function(){function t(){}return t.prototype.stringToItem=function(t){return{tag_id:0,tag_name:t}},t.prototype.itemToString=function(t){return t.tag_name},t.prototype.compareItems=function(t,e){return t.tag_id===e.tag_id},t}(),t=function(){function t(){}return t.prototype.stringToItem=function(t){return{des_name:t}},t.prototype.itemToString=function(t){return t.des_name},t.prototype.compareItems=function(t,e){return t.des_name===e.des_name},t}(),$.Ulibi={TagItem:e,DestinationItem:t},function(t){return t.fn.extend({UlibiTagEditor:function(e){var n,i;return i={debug:!1,wrapClass:"",tags:[],itemManager:{}},i=t.extend(i,e),n=function(t){i.debug&&"undefined"!=typeof console&&null!==console&&console.log(t)},this.each(function(){return t(this).width(t(this).parent().innerWidth()-24),t(this).textext({plugins:"tags autocomplete",html:{wrap:'<div class="text-core '+i.wrapClass+'"><div class="text-wrap"></div></div>',tag:'<div class="text-tag"><div class="text-button"><span class="text-label"/><a class="custom-edit"/><a class="text-remove"><i class="fa fa-times"></i></a></div></div>'},ext:{itemManager:i.itemManager}}).bind("getSuggestions",function(e,n){var r,a;return a=t(e.target).textext()[0],r=(n?n.query:"")||"",t(this).trigger("setSuggestions",{result:a.itemManager().filter(i.tags,r)})}),n("UlibiTagEditor worked!")})}})}(jQuery)}).call(this);
 //# sourceMappingURL=jquery.app.js.map

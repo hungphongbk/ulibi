@@ -60,6 +60,10 @@ Route::controller('/ulibier','Auth\AuthController',[
 
 
 //Views Controller
+Route::get('blog/manage',array(
+    'as' => 'blog.manage',
+    'uses' => 'Views\BlogController@manage'
+));
 Route::resource('blog','Views\BlogController');
 Route::resource('photo','Views\PhotoController');
 //APIs Controller

@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Views;
 
 use App\Helpers\Contracts\ArticlePost;
 use App\Models\Article;
+use App\Models\Destination;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Pagination\LengthAwarePaginator;
 use View;
 
 class BlogController extends Controller
@@ -45,6 +46,32 @@ class BlogController extends Controller
         $paginates=$this->createPaginator($articles);
 
         return View::make('pages.blog',[
+            'viewTemplate'=>'blogitem2col',
+            'bsColumn' => [
+                'left' => 'col-md-9',
+                'right' => 'col-md-2 col-md-offset-1'
+            ],
+            'articles'=>$paginates,
+            'createUrl' => url('/blog/create'),
+            'manageUrl' => url('/blog/manage')
+        ]);
+    }
+
+    /**
+     * Display a listing of articles which written by yours.
+     * @return \Illuminate\Http\Response
+     * @internal param Request $request
+     */
+    public function manage(){
+        $articles=\Auth::user()->articles;
+        $paginates=$this->createPaginator($articles);
+
+        return View::make('pages.blog',[
+            'viewTemplate'=>'blogitemLeftImg',
+            'bsColumn' => [
+                'left' => 'col-md-8',
+                'right' => 'col-md-3 col-md-offset-1'
+            ],
             'articles'=>$paginates,
             'createUrl' => url('/blog/create')
         ]);
@@ -57,8 +84,14 @@ class BlogController extends Controller
      */
     public function create()
     {
+        // data for tags and suggestion
+        $tags=Tag::all();
+        $dest=Destination::all(['des_id','des_name','coordinate']);
+
         return View::make('pages.blogpost',[
-            'actionUrl' => url('/blog')
+            'actionUrl' => url('/blog'),
+            'tags' => $tags->toJson(),
+            'dest' => $dest->toJson()
         ]);
     }
 
@@ -72,9 +105,15 @@ class BlogController extends Controller
     {
         //
         /** @var Article $newArticle */
+        $validate=$this->articlePost->validate($request);
+        if($validate->fails()){
+            return redirect()->back()
+                ->withInput()
+                ->withErrors($validate);
+        }
         $newArticle=$this->articlePost->doPost($request);
         $this->consolePrintInfo("New Article Posted: $newArticle->article_title");
-        return response()->redirectTo('/');
+        return response()->redirectTo('/blog/'.$newArticle->article_id);
     }
 
     /**
@@ -85,6 +124,11 @@ class BlogController extends Controller
      */
     public function show($article)
     {
+        // Increase views
+        $article->view++;
+        $article->save();
+
+        // Output
         $article->append('first_related_destination')
             ->append('content_as_html');
         return View::make('pages.blogdetail',['article'=>$article]);
@@ -116,11 +160,12 @@ class BlogController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Article $article
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function destroy($id)
+    public function destroy($article)
     {
-        //
+        $article->delete();
     }
 }

@@ -8,7 +8,10 @@
                     <h4 class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">Blog 2 col</h4>
                     <div style="display: inline-block; width: 40px"></div>
                     @if(!Auth::guest())
-                    <a href="{{ $createUrl }}" class="btn btn-theme-dark visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Add new</a>
+                    <a href="{{ $createUrl }}" class="btn btn-theme-dark visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Bài viết mới</a>
+                    @if(isset($manageUrl))
+                    <a href="{{ $manageUrl }}" class="btn border-black visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"><span class="fa fa-file-text"></span>&nbsp;&nbsp;Quản lý bài viết của bạn</a>
+                    @endif
                     @endif
                 </div>
                 <div class="col-sm-6 hidden-xs text-right">
@@ -23,13 +26,15 @@
     <div class="divide80"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-10">
-                <div class="mansory-2-col">
-                    @each('includes.templates.blogitem2col',$articles,'article')
+            <div class="{{ $bsColumn['left'] }}">
+                <div <?php /** @var string $viewTemplate */
+                        if($viewTemplate=='blogitem2col') echo "class='mansory-2-col'";
+                        ?>>
+                    @each('includes.templates.'.$viewTemplate,$articles,'article')
                 </div>
                 {!! $articles->render() !!}
             </div>
-            <div class="col-md-2">
+            <div class="{{ $bsColumn['right'] }}">
                 <div class="sidebar-box margin40">
                     <h4>Search</h4>
                     <form role="form" class="search-widget">
@@ -113,4 +118,55 @@
         </div>-->
     </div><!--blog full main container-->
     <div class="divide60"></div>
+@stop
+@section('head-page-scripts')
+    <link rel="stylesheet" href="css/sweetalert.css" type="text/css">
+@stop
+@section('post-page-scripts')
+    @if(!Auth::guest())
+        <script src="js/sweetalert.min.js" type="text/javascript"></script>
+        <script>
+            $('[data-action="deleteItem"]').click(function(e){
+                var action= $(e.target).attr('data-href');
+                var title=$(e.target).attr('data-title');
+                function refresh(){
+                    location.reload(true);
+                }
+                swal({
+                    title: "Are you sure?",
+                    text: "Bạn có chắc chắn muốn xoá bài viết <strong>"+title+"</strong> không?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Có, xoá nó đi :)',
+                    cancelButtonText: 'Không :(',
+                    closeOnConfirm: false,
+                    closeOnCancel: true,
+                    showLoaderOnConfirm: true,
+                    html: true
+                },
+                function () {
+                    $.ajax({
+                        url: action,
+                        type: 'DELETE',
+                        data: { '_token':'{{ csrf_token() }}' },
+                        success: function(){
+                            swal({
+                                title: 'Success',
+                                text: '',
+                                type: 'success'
+                            },refresh)
+                        },
+                        error: function(){
+                            swal({
+                                title: 'Failed',
+                                text: '',
+                                type: 'error'
+                            },refresh)
+                        }
+                    })
+                });
+            });
+        </script>
+    @endif
 @stop

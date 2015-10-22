@@ -7,8 +7,6 @@ use mnshankar\CSV\CSV;
 
 class ArticleSeeder extends Seeder
 {
-    protected $model='\\App\\Models\\Article';
-    use SeederHelper;
     /**
      * Run the database seeds.
      *
@@ -16,15 +14,11 @@ class ArticleSeeder extends Seeder
      */
     public function run()
     {
-        $this->beforeRun();
-
         DB::table('Article')->delete();
         $csv=new CSV();
         $articles=$csv->fromFile(dirname(__FILE__).'/csv/Article.csv')->toArray();
         foreach ($articles as $a) {
             Article::create($a);
         }
-
-        $this->afterRun();
     }
 }

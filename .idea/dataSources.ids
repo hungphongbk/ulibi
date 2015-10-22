@@ -103,7 +103,7 @@
       <column name="photo_hash" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="photo_extensions" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="photo_awss3_url" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="internal_url" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="internal_url" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <column name="des_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="photo_id"/>
       <foreign-key name="photo_des_id_foreign" columns="des_id" ref-table="Destination" ref-schema="" ref-catalog="ulibi" ref-columns="des_id" update-rule="0" delete-rule="0" deferrability="2"/>

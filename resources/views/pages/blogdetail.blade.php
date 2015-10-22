@@ -23,10 +23,10 @@
                 <div class="blog-post">
                     <div class="ratio-1920-850 hover-zoomout-darken">
                         <div class="wrapper">
-                            @if(is_null($article->first_related_destination))
+                            @if(is_null($article->thumbnail))
                                 <img src="img/showcase-2.jpg" class="img-responsive" alt="workimg">
                             @else
-                                <img src="{{ $article->first_related_destination->avatar }}" class="img-responsive" alt="workimg">
+                                <img src="{{ $article->thumbnail }}" class="img-responsive" alt="workimg">
                             @endif
                         </div>
                     </div>

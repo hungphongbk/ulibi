@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
  * @property string $article_content
  * @property string $article_date
  * @property integer $view
+ * @property int cover_id
  * @property-read \App\Ulibier $ulibier
  * @property-read \Illuminate\Database\Eloquent\Collection|Comment[] $comments
  * @property-read mixed $first_related_destination
@@ -84,6 +85,12 @@ class Article extends ContentModel
         }
     }
 
+    public function getThumbnailAttribute(){
+        if($this->cover_id!=null){
+            return Photo::findOrFail($this->cover_id)->src;
+        } else return $this->first_related_destination->avatar;
+    }
+
     public function getViewUrlAttribute() {
         return url('/blog/'.$this->article_id);
     }
@@ -118,6 +125,7 @@ class Article extends ContentModel
             /** @var Article $i */
             $i->append([
                 'first_related_destination',
+                'thumbnail',
                 'view_url'
             ]);
         }

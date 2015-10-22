@@ -19,7 +19,7 @@ class Destination extends SpartialModel
     public $timestamps = false;
 
     protected $fillable = ['des_name'];
-    protected $hidden = ['des_id','coordinate'];
+    protected $hidden = ['coordinate'];
     protected $appends = ['location', 'avatar'];
     protected $geofields=['location'];
 

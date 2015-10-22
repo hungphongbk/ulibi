@@ -55,7 +55,7 @@ class PhotoController extends Controller
     public function store(Request $request)
     {
         if($request->ajax()){
-            $this->consolePrintInfo(substr($request->input('internal_url'),0,50));
+            //$this->consolePrintInfo(substr($request->input('internal_url'),0,50));
             $newPhoto=new Photo();
             $newPhoto->des_id=null;
             $newPhoto->internal_url=$request->input('internal_url');

@@ -27,7 +27,7 @@
                         <div class="row">
                             <section class="section-3x no-border">
                                 <label class="input">
-                                    <input type="text" name="article_title" id="name" placeholder="Tiêu đề">
+                                    <input type="text" name="article_title" id="name" placeholder="Tiêu đề" value="{{ Input::get('article_title') }}">
                                 </label>
                             </section>
                         </div>
@@ -58,8 +58,8 @@
                             </section>
                             <section class="col col-6">
                                 <label class="input">
-                                    <i class="icon-append fa fa-map-marker"></i>
-                                    <input type="text" name="destination" id="destination" placeholder="Địa điểm" >
+                                    <!--<i class="icon-append fa fa-map-marker"></i>-->
+                                    <input type="text" name="destinations" id="destinations" placeholder="Địa điểm" >
                                 </label>
                             </section>
                         </div>
@@ -129,6 +129,7 @@
                     <input type="hidden" name="article_date" value="{{ date('Y-m-d H:i:s') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="article_content_type" value="html">
+                    <input type="hidden" name="cover_id" id="cover_id" value="0">
                     <footer>
                         <ul class="list-inline">
                             <li>
@@ -152,7 +153,7 @@
     </div><!--contact advanced container end-->
     <div class="divide60"></div>
     <div data-id="destination-choose" style="display: none">
-        <h3>FUCK YOUR MOTHER</h3>
+        <h3>XIN LỖI, TÍNH NĂNG NÀY CHƯA ĐƯỢC HIỆN THỰC XONG :)</h3>
     </div>
 @stop
 @section('head-page-scripts')
@@ -212,7 +213,7 @@
     <script src="git/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
     <script>
         $('#editor').wysiwyg().on('change',function(){
-            console.log($('#editor').cleanHtml());
+            $('#blogContent').val($('#editor').cleanHtml());
         });
     </script>
     <script src="flavr/flavr.min.js"></script>
@@ -222,9 +223,10 @@
             $.ajax('/photo',{
                 type: 'POST',
                 data: (uploadExisting?'id='+data:'internal_url='+data)+('&_token='+token)
-            }).done(function(){
+            }).done(function(data){
                 if(typeof callback==='function')
-                    callback('success');
+                    callback(data.status);
+                $('#cover_id').val(data.id);
             });
         };
     </script>
@@ -252,7 +254,7 @@
             reader.onload=function(event){
                 console.log(event.target.result);
                 window.blogUploadPhoto(false,event.target.result,function(rs){
-                    if(rs==='success'){
+                    if(rs==='succeeded'){
                         if(!$(holder).hasClass('has-image')){
                             $(holder).addClass('has-image');
                         }
@@ -269,27 +271,17 @@
     <script src="jquery-textext-master/src/js/textext.plugin.tags.js" type="text/javascript"></script>
     <script>
         var t=document.getElementById('tagnames');
-        $(t).width($(t).parent().innerWidth()-24);
-        $(t)
-            .textext({
-                plugins: 'tags autocomplete',
-                html:{
-                    wrap: '<div class="text-core text-core-skyform-style"><div class="text-wrap"/></div>',
-                    tag: '<div class="text-tag"><div class="text-button"><span class="text-label"/><a class="custom-edit"/><a class="text-remove"><i class="fa fa-times"></i></a></div></div>'
-                }
-            })
-            .bind('getSuggestions',function(e,data){
-                var list = [
-                    'Phượt', 'Ăn uống', 'Nghỉ dưỡng', 'Leo núi'
-                ],
-                textext = $(e.target).textext()[0],
-                query = (data ? data.query : '') || ''
-                ;
-
-                $(this).trigger(
-                    'setSuggestions',
-                    { result : textext.itemManager().filter(list, query) }
-                );
-            });
+        $(t).UlibiTagEditor({
+            debug: true,
+            wrapClass: 'text-core-skyform-style',
+            tags: JSON.parse('{!! $tags !!}'),
+            itemManager: new $.Ulibi.TagItem()
+        })
+        $('#destinations').UlibiTagEditor({
+            debug: true,
+            wrapClass: 'text-core-skyform-style',
+            tags: JSON.parse('{!! $dest !!}'),
+            itemManager: new $.Ulibi.DestinationItem()
+        })
     </script>
 @stop

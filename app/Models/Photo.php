@@ -119,10 +119,12 @@ class Photo extends Model
             )
         );
         //
+        /** @var string $stream */
+        $stream='';
         if($isDataURI) {
             preg_match("/data:image\/(.+?);base64,(.+)/", $url, $match);
             $mimeType=$match[1];
-            $stream=base64_decode($match[2]);
+            $stream=base64_decode(str_replace(' ','+',$match[2]));
             $console=new ConsoleOutput();
             $console->writeln([
                 "<info>MIME image detected (type=$mimeType) </info>"
