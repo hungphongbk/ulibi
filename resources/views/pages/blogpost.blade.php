@@ -11,11 +11,13 @@
         </div>
     </div>breadcrumbs-->
    
-    <div id="destination-choose">
-        <i class="fa fa-3x fa-camera" style="margin-right: 0.3em;line-height: 240px;"></i>
-        <span style="line-height: 240px; font-size: 24px;display: inline-block; vertical-align: bottom;">
-            Kéo thả hoặc click vào đây để tạo một bức cover đẹp cho bài viết bạn nhé ^^
-        </span>
+    <div id="destination-choose" class="drag-drop-animation">
+        <div>
+            <i class="fa fa-3x fa-camera" style="margin-right: 0.3em;line-height: 240px;"></i>
+            <span style="line-height: 240px; font-size: 24px;display: inline-block; vertical-align: bottom;">
+                Kéo thả hoặc click vào đây để tạo một bức cover đẹp cho bài viết bạn nhé ^^
+            </span>
+        </div>
     </div>
     <div class="container">
         <div class="row">
@@ -133,7 +135,7 @@
                     <footer>
                         <ul class="list-inline">
                             <li>
-                                <button class="btn btn-border-theme btn-lg ">Xem trước</button>
+                                <button id="articlePreview" class="btn btn-border-theme btn-lg ">Xem trước</button>
                             </li>
                             <li>
                                 <button type="submit" class="btn btn-theme-bg btn-lg ">Lưu bài viết</button>
@@ -188,7 +190,7 @@
             background-position: center;
         }
         #destination-choose.has-image *{
-            display: none !important;
+            /*display: none !important;*/
         }
         #editor {
             overflow:scroll;
@@ -212,24 +214,15 @@
     <script src="git/jquery.hotkeys/jquery.hotkeys.js"></script>
     <script src="git/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
     <script>
-        $('#editor').wysiwyg().on('change',function(){
-            $('#blogContent').val($('#editor').cleanHtml());
+        var blogContent=$('#blogContent');
+        var editor=$('#editor');
+        $(editor).wysiwyg().on('change',function(){
+            $(blogContent).val($(editor).cleanHtml());
         });
+        if ($(blogContent).val().length>0)
+            $(editor).html($(blogContent).val());
     </script>
     <script src="flavr/flavr.min.js"></script>
-    <script>
-        window.blogUploadPhoto=function(uploadExisting,data,callback){
-            var token=$('input[name="_token"]').val();
-            $.ajax('/photo',{
-                type: 'POST',
-                data: (uploadExisting?'id='+data:'internal_url='+data)+('&_token='+token)
-            }).done(function(data){
-                if(typeof callback==='function')
-                    callback(data.status);
-                $('#cover_id').val(data.id);
-            });
-        };
-    </script>
     <script>
         $('#destination-choose').click(function(){
             var content=$('[data-id="destination-choose"]').clone();
@@ -242,29 +235,17 @@
         });
 
         var holder=document.getElementById('destination-choose');
-        if (typeof window.FileReader === 'undefined') {
-            alert('Trình duyệt của bạn không hỗ trợ kéo & thả File :)');
-        }
-        holder.ondragover=function(){return false;};
-        holder.ondragend=function(){return false;};
-        holder.ondrop=function(e){
+        $(holder).UlibiPhotoDragDrop({
+            debug: true,
+            callback: function(data){
+                $('#cover_id').val(data.id);
+            }
+        });
+        $('#articlePreview').click(function(e){
+            alert('Tính năng này hiện đang trong giai đoạn phát triển :)');
             e.preventDefault();
-            var file = e.dataTransfer.files[0],
-                    reader = new FileReader();
-            reader.onload=function(event){
-                console.log(event.target.result);
-                window.blogUploadPhoto(false,event.target.result,function(rs){
-                    if(rs==='succeeded'){
-                        if(!$(holder).hasClass('has-image')){
-                            $(holder).addClass('has-image');
-                        }
-                        $(holder).css('background-image','url('+event.target.result+')');
-                    }
-                });
-            };
-            reader.readAsDataURL(file);
             return false;
-        };
+        });
     </script>
     <script src="jquery-textext-master/src/js/textext.core.js" type="text/javascript"></script>
     <script src="jquery-textext-master/src/js/textext.plugin.autocomplete.js" type="text/javascript"></script>
@@ -276,7 +257,7 @@
             wrapClass: 'text-core-skyform-style',
             tags: JSON.parse('{!! $tags !!}'),
             itemManager: new $.Ulibi.TagItem()
-        })
+        });
         $('#destinations').UlibiTagEditor({
             debug: true,
             wrapClass: 'text-core-skyform-style',
