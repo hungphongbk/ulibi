@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property mixed des_id
  * @property mixed coordinate
  * @property string des_instruction
- * @property string avatar
+ * @property Photo avatar
  */
 class Destination extends SpartialModel
 {
@@ -23,6 +23,8 @@ class Destination extends SpartialModel
     protected $appends = ['location', 'avatar'];
     protected $geofields=['location'];
 
+    use Thumbnail;
+
     /**
      * Get all photos of this destination
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -31,14 +33,27 @@ class Destination extends SpartialModel
         return $this->hasMany(Photo::class, 'des_id', 'des_id');
     }
 
+    /**
+     * @return Photo|null
+     */
     public function getAvatarAttribute(){
         try {
             /** @var \App\Models\Photo $photo */
             $photo = $this->photos->random();
-            return $photo->src;
+            return $photo;
         } catch (\ErrorException $e){
             return null;
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getThumbnailAttribute(){
+        $photo=$this->avatar;
+        if($photo==null)
+            return Photo::samplePhotoUrl();
+        return $photo->src;
     }
 
     public function getLocationAttribute(){

@@ -36,7 +36,8 @@ group.register('external',function(){
                 '../bower/wow/dist/wow.js',
                 '../bower/moment/moment.js',
                 '../bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-                '../bower/bootstrap-validator/dist/validator.js'
+                '../bower/bootstrap-validator/dist/validator.js',
+                ''
             ]);
     });
 });

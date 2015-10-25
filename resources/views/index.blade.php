@@ -284,13 +284,9 @@
             @foreach($articles as $a)
             <div class="col-md-4 margin30">
                 <div class="latest-new">
-                    @if(is_null($a->first_related_destination))
-                        <img src="img/img-1.jpg" class="img-responsive" alt="">
-                    @else
-                        <div class="ratio-500-333">
-                            <img src="{{ $a->first_related_destination->avatar }}" class="img-responsive" alt="">
-                        </div>
-                    @endif
+                    <div class="ratio-500-333">
+                        <img src="{{ $a->thumbnail_400 }}" class="img-responsive" alt="">
+                    </div>
                     <div class="blog-date">
                         <span>{{ $a->article_date->format('F') }}</span> {{ $a->article_date->format('j') }}
                     </div>
@@ -298,7 +294,7 @@
                         <h4><a href="{{ $a->view_url }}">{{ $a->article_title }}</a></h4>
                         @include('includes.templates.postDetail',['article' => $a])
                         <p>
-                            {{ str_limit($a->article_content,100) }}
+                            {{ str_limit($a->content_as_plain_text,100) }}
                         </p>
                         <p><a href="{{ $a->view_url }}" class="btn  border-theme">Xem thêm</a></p>
                         <!--<div
@@ -331,11 +327,7 @@
             <div class="item">
                 <div class="work-wrap">
                     <div class="ratio-1024-768">
-                    @if(is_null($d->avatar))
-                        <img src="img/fansipan1.jpg" class="img-responsive" alt="">
-                    @else
-                        <img src="{{ $d->avatar }}" class="img-responsive" alt="">
-                    @endif
+                        <img src="{{ $d->thumbnail_400 }}" class="img-responsive" alt="{{ $d->des_name }}'s thumbnail image">
                     </div>
                     <div class="img-overlay">
                         <div class="inner-overlay">
@@ -366,7 +358,7 @@
                 <div class="col-sm-3 text-center">
                     <div class="person-v2">
                         <div class="ratio-500-500">
-                            <img src="{{ $ulibier->avatar_url }}" class="img-responsive" alt="{{ $ulibier->avatar_url }}'s avatar">
+                            <img src="{{ $ulibier->thumbnail_600 }}" class="img-responsive" alt="{{ $ulibier->full_name }}'s avatar">
                         </div>
                         <div class="person-desc-v2">
                             <h3>{{ $ulibier->full_name }}</h3>

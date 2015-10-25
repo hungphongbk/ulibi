@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Auth;
@@ -41,9 +42,12 @@ class Article extends ContentModel
     protected $casts = [
         'article_date' => 'date'
     ];
+    protected $dates = ['deleted_at'];
 
     protected $contentField = 'article_content';
     protected $contentFieldType = 'article_content_type';
+
+    use Thumbnail, SoftDeletes;
 
     /**
      * Get the user that wrote this article
@@ -85,14 +89,27 @@ class Article extends ContentModel
         }
     }
 
+    /**
+     * If an article not have cover, replace by its tagged destination's image
+     * @return string URL of article cover image
+     */
     public function getThumbnailAttribute(){
-        if($this->cover_id!=null){
-            return Photo::findOrFail($this->cover_id)->src;
-        } else return $this->first_related_destination->avatar;
+        /** @var Photo $thumbPhoto */
+        try {
+            $thumbPhoto = ($this->cover_id != null) ? Photo::find($this->cover_id) : $this->first_related_destination->avatar;
+
+            return $thumbPhoto->src;
+        } catch (\Exception $e) {
+            return Photo::samplePhotoUrl();
+        }
     }
 
     public function getViewUrlAttribute() {
         return url('/blog/'.$this->article_id);
+    }
+
+    public function getEditUrlAttribute() {
+        return url('/blog/'.$this->article_id.'/edit');
     }
 
     public function enterMode($mode){

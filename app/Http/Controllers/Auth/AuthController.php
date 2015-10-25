@@ -147,6 +147,7 @@ class AuthController extends Controller
         ]);
     }
 
+    // TODO: Tìm cách redirect tới trang hiện tại (không phải trang chủ) sau khi Login
     /**
      * Redirect to Facebook/Google OAuth login authentication
      * @param string $provider
@@ -155,7 +156,10 @@ class AuthController extends Controller
     public function socialAuth($provider){
         if(!config("services.$provider"))
             abort('404'); //just to handle providers that doesn't exist
-        return Socialite::with($provider)->redirect();
+        $p=Socialite::with($provider)
+            ->with(array("rdr"=>url()))
+            ->asPopup();
+        return $p->redirect();
     }
 
     /**
@@ -205,5 +209,11 @@ class AuthController extends Controller
         }else{
             return 'something went wrong';
         }
+    }
+
+    public function authenticated(Request $request,Ulibier $user) {
+        $redirectPath = $request->query('rdr',env('APP_URLROOT'));
+
+        return redirect()->intended($redirectPath);
     }
 }

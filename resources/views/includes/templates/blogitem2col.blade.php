@@ -1,6 +1,10 @@
 <div class="blog-post mansory-child">
     <a href="#">
-        <div class="ratio-1920-850 thumbnail hover-zoomout-darken" style="background-image: url('{{ $article->thumbnail }}')">
+        <div class="ratio-1920-850 thumbnail overlay-animation">
+            <div class="background" style="background-image: url('{{ $article->thumbnail }}')"></div>
+            <div class="wrapper">
+                <span class="overlay-frame"></span>
+            </div>
         </div>
     </a><!--work link-->
     @include('includes.templates.postDetail',['article' => $article])

@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\App;
 use Blade;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        View::addExtension('html', 'php');
     }
 
     /**

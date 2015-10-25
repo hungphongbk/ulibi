@@ -57,6 +57,7 @@ class CreateUsersTable extends Migration
             $table->string('article_content_type')->default('jade');
             $table->datetime('article_date');
             $table->integer('view')->unsigned();
+            $table->softDeletes();
 
             $table->foreign('user_id')
                 ->references('user_id')
@@ -109,6 +110,7 @@ class CreateUsersTable extends Migration
             $table->string('photo_extensions');
             $table->string('photo_awss3_url');
             $table->text('internal_url');
+            $table->softDeletes();
 
             $table->foreign('user_id')
                 ->references('user_id')
@@ -127,7 +129,10 @@ class CreateUsersTable extends Migration
         });
         // Update Article table - add cover photo
         Schema::table('Article', function(Blueprint $table){
-            $table->integer('cover_id')->unsigned()->nullable();
+            $table->integer('cover_id')
+                ->unsigned()
+                ->nullable()
+                ->after('article_title');
             $table->foreign('cover_id')
                 ->references('photo_id')
                 ->on('Photo')

@@ -39,6 +39,8 @@
 <link href="css/yamm.css" rel="stylesheet" type="text/css">
 <!--cube css-->
 <link href="cubeportfolio/css/cubeportfolio.min.css" rel="stylesheet" type="text/css">
+<!--jquery magnific popup css-->
+<link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>

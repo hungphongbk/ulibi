@@ -1,33 +1,13 @@
 @extends('layouts.default')
 @section('title','Blog details')
 @section('content')
-	<!--<div class="breadcrumb-wrap">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h4>Blog Single</h4>
-                </div>
-                <div class="col-sm-6 hidden-xs text-right">
-                    <ol class="breadcrumb">
-                        <li><a href="{{ url('/') }}">Home</a></li>
-                        <li>blog-Single</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>-->
     <div class="divide80"></div>
     <div class="container">
         <div class="row">
             <div class="col-md-8">
                 <div class="blog-post">
                     <div class="ratio-1920-850 hover-zoomout-darken">
-                        <div class="wrapper">
-                            @if(is_null($article->thumbnail))
-                                <img src="img/showcase-2.jpg" class="img-responsive" alt="workimg">
-                            @else
-                                <img src="{{ $article->thumbnail }}" class="img-responsive" alt="workimg">
-                            @endif
+                        <div class="background" style="background-image: url('{{ $article->thumbnail_1000 }}');">
                         </div>
                     </div>
                     @include('includes.templates.postDetail',[

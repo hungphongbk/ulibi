@@ -89,9 +89,11 @@ class BlogController extends Controller
         $dest=Destination::all(['des_id','des_name','coordinate']);
 
         return View::make('pages.blogpost',[
-            'actionUrl' => url('/blog'),
-            'tags' => $tags->toJson(),
-            'dest' => $dest->toJson()
+            'model'     => new Article(),
+            'action'    => 'blog.store',
+            'method'    => 'POST',
+            'tags'      => $tags->toJson(),
+            'dest'      => $dest->toJson()
         ]);
     }
 
@@ -137,24 +139,36 @@ class BlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Article $article
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($article)
     {
-        //
+
+        $tags=Tag::all();
+        $dest=Destination::all(['des_id','des_name','coordinate']);
+
+        return View::make('pages.blogpost',[
+            'model'     => $article,
+            'action'    => array('blog.update', $article->article_id),
+            'method'    => 'PUT',
+            'tags'      => $tags->toJson(),
+            'dest'      => $dest->toJson()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param Article $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $article)
     {
-        //
+        $input = array_except($request->input(), array('_method','_token','tagnames','destinations'));
+        $article->update($input);
+        return response()->redirectTo('/blog/'.$article->article_id);
     }
 
     /**

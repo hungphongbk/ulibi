@@ -2,14 +2,14 @@
 
 namespace App;
 
-use App\Events\UlibierRegister;
 use App\Models\Photo;
+use App\Models\Thumbnail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Support\Facades\Event;
+
 
 /**
  * App\Ulibier
@@ -53,7 +53,7 @@ use Illuminate\Support\Facades\Event;
  */
 class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswordContract
 {
-    use Authenticatable, CanResetPassword;
+    use Authenticatable, CanResetPassword, Thumbnail;
 
     protected $table = 'Ulibier';
     protected $primaryKey = 'user_id';
@@ -82,9 +82,14 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
      */
     public function getAvatarUrlAttribute()
     {
-        if ($this->avatar==NULL) return '';
+        if ($this->avatar==NULL) return Photo::samplePhotoUrl();
+        /** @var Photo|null $avatar */
         $avatar = Models\Photo::find($this->avatar);
         return $avatar->src;
+    }
+
+    public function getThumbnailAttribute() {
+        return $this->avatar_url;
     }
 
     /**

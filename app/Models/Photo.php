@@ -4,9 +4,10 @@ namespace App\Models;
 
 use ErrorException;
 use finfo;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
 use Mockery\CountValidator\Exception;
+use Model;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Illuminate\Routing\UrlGenerator;
 
@@ -39,7 +40,7 @@ class Photo extends Model
     protected $primaryKey = 'photo_id';
     public $timestamps = false;
     protected $appends = [ 'src' ];
-
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'user_id',
         'des_id',
@@ -49,6 +50,7 @@ class Photo extends Model
         'photo_like',
         'internal_url'];
     protected $hidden = ['internal_url'];
+    use SoftDeletes;
 
     protected static function boot(){
         parent::boot();
@@ -139,22 +141,24 @@ class Photo extends Model
             $mimeType=pathinfo($url,PATHINFO_EXTENSION);
         }
 
-        return Photo::resize_photo($stream);
+        // return Photo::resize_photo($stream);
+        // no need to resize photo when upload
+        return $stream;
     }
 
     /**
      * @param string $stream
+     * @param int $maxWidth
      * @return string
      */
-    public static function resize_photo($stream)
+    public static function resize_photo($stream, $maxWidth = 600)
     {
         $imgstream = imagecreatefromstring($stream);
         list($w,$h) = getimagesizefromstring($stream);
 
-        // default height = 800
-        $newH = 600;
-        $percent = $newH / $h;
-        $newW = $w * $percent;
+        $newW = $maxWidth;
+        $percent = $newW / $w;
+        $newH = $h * $percent;
 
         if ($percent>=1) {
             // no need to compress image
@@ -178,5 +182,13 @@ class Photo extends Model
         unset($thumb);
 
         return $resized;
+    }
+
+    /**
+     * Get sample Image Url when suitable photo does not exist
+     * @return string
+     */
+    public static function samplePhotoUrl(){
+        return url('/img/img-1.jpg');
     }
 }
