@@ -16,12 +16,11 @@
                 </div>
                 {!! Form::model($model, array(
                     'route'     => $action,
+                    'method'    => $method,
                     'id'        => 'sky-form',
                     'class'     => 'sky-form sky-form-columns'
                      )) !!}
-                @if($method=='PUT')
-                    {!! Form::hidden('_method','PUT') !!}
-                    @endif
+
                 <fieldset>
                     <div class="row">
                         <section class="section-3x no-border">
@@ -74,7 +73,6 @@
                 </fieldset>
 
                 {!! Form::hidden('article_content', null,array('id' => 'blogContent')) !!}
-                {!! Form::hidden('_token', csrf_token()) !!}
                 {!! Form::hidden('article_date', date('Y-m-d H:i:s')) !!}
                 {!! Form::hidden('article_content_type', 'html') !!}
                 {!! Form::hidden('cover_id', null, array( "id" => "cover_id" )) !!}
@@ -85,7 +83,7 @@
                             <div id="articlePreview" href="#articlePreviewPage" class="btn btn-theme-dark btn-lg">Xem trước</div>
                         </li>
                         <li>
-                            <button type="submit" class="btn btn-theme-bg btn-lg ">Lưu bài viết</button>
+                            {!! Form::submit("Lưu bài viết", array( "class" => "btn btn-theme-bg btn-lg" )) !!}
                         </li>
                     </ul>
                 </footer>

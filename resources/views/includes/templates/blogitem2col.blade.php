@@ -8,7 +8,11 @@
         </div>
     </a><!--work link-->
     @include('includes.templates.postDetail',['article' => $article])
-    <h2><a href="{{ $article->view_url }}">{{ $article->article_title }}</a></h2>
+    <h2>
+        {!! link_to_route("blog.show", $article->article_title, $article->article_id ) !!}
+    </h2>
     <p>{{ str_limit($article->content_as_plain_text,200) }}</p>
-    <p><a href="{{ $article->view_url }}" class="btn btn-theme-dark">Xem thêm...</a></p>
+    <p>
+        {!! link_to_route("blog.show", "Xem thêm...", $article->article_id, [ "class" => "btn btn-theme-dark" ] ) !!}
+    </p>
 </div>

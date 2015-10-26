@@ -16,13 +16,8 @@ Route::get('/', function () {
     $articles=\App\Models\Article::renderAll(3);
     // get top places (6)
     $destinations=\App\Models\Destination::all()->random(6);
-    $users=\App\Ulibier::all([
-        'firstname', 'lastname',
-        'username', 'avatar'
-    ])->each(function($i){
-        /** @var \App\Ulibier $i */
-        $i->append('avatar_url');
-    });
+    // get top ulibiers (4)
+    $users=\App\Ulibier::all();
     return View::make('index',[
         'articles' => $articles,
         'dest' => $destinations,
@@ -48,16 +43,24 @@ Route::get('/test/email', function(){
 Route::model('destination',\App\Models\Destination::class);
 Route::model('photo',\App\Models\Photo::class);
 Route::model('blog',\App\Models\Article::class);
+Route::model('profile',\App\Models\UlibierProfile::class);
 
-Route::group(['prefix'=>'/ulibier/social'],function(){
-    Route::get('/{provider}','Auth\AuthController@socialAuth');
-    ROute::get('/callback/{provider}','Auth\AuthController@socialAuthCallback');
+Route::resource('profile', 'Views\UlibierProfile');
+Route::group(['prefix' => 'ulibier', 'as' => 'ulibier.'], function() {
+    Route::post('login', ['as' => 'postLogin', 'use' => 'Auth\AuthController@postLogin']);
+    Route::get('register', ['as' => 'register', 'use' => 'Auth\AuthController@getRegister']);
+    Route::post('register', ['as' => 'postRegister', 'use' => 'Auth\AuthController@postRegister']);
+    Route::get('confirm', ['as' => 'confirm', 'use' => 'Auth\AuthController@getConfirm']);
+    Route::get('activated', ['as' => 'activated', 'use' => 'Auth\AuthController@getActivated']);
+
+    Route::get('social/{provider}', ['as' => 'social-login', 'use' => 'Auth\AuthController@socialAuth']);
+    ROute::get('social/callback/{provider}', ['as' => 'social-login.callback', 'use' => 'Auth\AuthController@socialAuthCallback']);
 });
-Route::controller('/ulibier','Auth\AuthController',[
-    'getRegister' => 'ulibier.getRegister',
-    'postLogin' => 'ulibier.postLogin'
+/*Route::controller('/ulibier','Auth\AuthController',[
+    'getRegister'   => 'ulibier.getRegister',
+    'postLogin'     => 'ulibier.postLogin'
 ]);
-
+*/
 
 //Views Controller
 Route::get('blog/manage',array(
@@ -66,6 +69,7 @@ Route::get('blog/manage',array(
 ));
 Route::resource('blog','Views\BlogController');
 Route::resource('photo','Views\PhotoController');
+
 //APIs Controller
 Route::group(['prefix' => 'api'], function(){
     Route::controllers([

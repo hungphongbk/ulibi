@@ -1,6 +1,7 @@
 <component name="ProjectDictionaryState">
   <dictionary name="hungphongbk">
     <words>
+      <w>addon</w>
       <w>adipiscing</w>
       <w>alegreya</w>
       <w>amazonaws</w>
@@ -75,6 +76,8 @@
       <w>noreply</w>
       <w>noto</w>
       <w>ondragend</w>
+      <w>ondragenter</w>
+      <w>ondragleave</w>
       <w>ondragover</w>
       <w>ondrop</w>
       <w>onload</w>

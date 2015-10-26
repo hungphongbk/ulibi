@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Events\UlibierRegister;
+use App\Models\UlibierProfile;
 use App\Ulibier;
 use App\UlibierSocialite;
 use DateTime;
@@ -91,14 +92,22 @@ class AuthController extends Controller
      */
     public function getActivated(Request $request){
         $userToken=unserialize(base64_decode($request->query('token')));
+
+        // create new Ulibier
         $user=new Ulibier();
         $user->permission_id=2;
         $user->firstname=$userToken['firstname'];
         $user->lastname=$userToken['lastname'];
-        $user->username=substr(hash('md5',date('m.d.y')),12);
+        $user->username=substr(hash('md5',$userToken['email']),12);
         $user->email=$userToken['email'];
         $user->password=Hash::make($userToken['password']);
         $user->save();
+
+        // create new Ulibier profile and attach it to above
+        /** @var UlibierProfile $profile */
+        $profile=$user->profile()->create(array());
+
+        // return to "activated message" page
         return view('pages.auth.signupActivated')->with('user',$user);
 
     }
@@ -133,17 +142,6 @@ class AuthController extends Controller
         return Validator::make($data, [
             'email' => 'required|email|max:255|unique:Ulibier,email',
             'password' => 'required'
-        ]);
-    }
-
-    protected function create(array $data)
-    {
-        return Ulibier::create([
-            'firstname' => $data['firstname'],
-            'lastname' => $data['lastname'],
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
         ]);
     }
 
@@ -216,4 +214,5 @@ class AuthController extends Controller
 
         return redirect()->intended($redirectPath);
     }
+
 }

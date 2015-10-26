@@ -31,10 +31,10 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property boolean $registered_with_social_account
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property integer $avatar
  * @property-read \Illuminate\Database\Eloquent\Collection|Models\Article[] $articles
  * @property string $avatar_url
  * @property \App\UlibierPermission permission
+ * @property \App\Models\UlibierProfile profile
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereFirstname($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereLastname($value)
@@ -57,8 +57,8 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
 
     protected $table = 'Ulibier';
     protected $primaryKey = 'user_id';
-    protected $guarded = ['report','avatar'];
-    protected $hidden = ['user_id', 'password', 'created_at', 'updated_at', 'avatar'];
+    protected $guarded = ['report'];
+    protected $hidden = ['user_id', 'password', 'created_at', 'updated_at'];
     protected $appends = ['avatar_url','full_name'];
 
     /**
@@ -82,9 +82,9 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
      */
     public function getAvatarUrlAttribute()
     {
-        if ($this->avatar==NULL) return Photo::samplePhotoUrl();
+        if ($this->profile->avatar==NULL) return Photo::samplePhotoUrl();
         /** @var Photo|null $avatar */
-        $avatar = Models\Photo::find($this->avatar);
+        $avatar = $this->profile->avatar;
         return $avatar->src;
     }
 
@@ -103,12 +103,18 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
             'photo_like'    => 0,
             'internal_url'  => $value
         ]);
-        $this->avatar=$photo->photo_id;
-        $this->save();
+        $this->profile->avatar()->save($photo);
     }
 
     public function getFullNameAttribute(){
         return $this->firstname.' '.$this->lastname;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function profile(){
+        return $this->hasOne(Models\UlibierProfile::class, 'user_id');
     }
 
     protected static function boot()

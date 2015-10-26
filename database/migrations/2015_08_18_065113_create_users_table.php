@@ -46,6 +46,16 @@ class CreateUsersTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
+        Schema::create('UlibierProfile', function(Blueprint $table) {
+            $table->integer('user_id')->unsigned();
+
+            $table->primary('user_id');
+            $table->foreign('user_id')
+                ->references('user_id')
+                ->on('Ulibier')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
 
         // Create article table
         Schema::create('Article', function (Blueprint $table) {
@@ -119,9 +129,16 @@ class CreateUsersTable extends Migration
                 ->onUpdate('cascade');
         });
         // Update Ulibier table - allow avatar
-        Schema::table('Ulibier', function($table){
-            $table->integer('avatar')->unsigned()->nullable();
-            $table->foreign('avatar')
+        Schema::table('UlibierProfile', function($table){
+            $table->integer('avatar_id')->unsigned()->nullable();
+            $table->integer('cover_id')->unsigned()->nullable();
+
+            $table->foreign('avatar_id')
+                ->references('photo_id')
+                ->on('Photo')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('cover_id')
                 ->references('photo_id')
                 ->on('Photo')
                 ->onDelete('cascade')
@@ -194,12 +211,11 @@ class CreateUsersTable extends Migration
 
         // Create table will map Article and Destination
         Schema::create('ArticleDestinationMapping', function(Blueprint $table) {
-            $table->increments('id');
             $table->integer('article_id')->unsigned();
             $table->integer('des_id')
                 ->unsigned();
 
-            $table->unique(array('article_id','des_id'));
+            $table->primary(array('article_id','des_id'));
             $table->foreign('article_id')
                 ->references('article_id')
                 ->on('Article')
@@ -266,7 +282,7 @@ class CreateUsersTable extends Migration
         $local->deleteDirectory('/imgtemp');
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        $tables=['UlibierPermission','Ulibier','Article','ArticlePhotoMapping','ArticleDestinationMapping','Comment','Blog','BlogPhotoMapping', 'Photo','Destination','Rate','Tag','ArticleTag'];
+        $tables=['UlibierPermission','Ulibier','UlibierProfile','Article','ArticlePhotoMapping','ArticleDestinationMapping','Comment','Blog','BlogPhotoMapping', 'Photo','Destination','Rate','Tag','ArticleTag'];
         foreach ($tables as $table) {
             Schema::dropIfExists($table);
         }

@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
-                <h4>Trung Nguyễn</h4>
+                <h4>{{ $ulibier->full_name }}</h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, voluptatum?</p>
             </div>
             <div class="col-sm-6 hidden-xs text-right">
