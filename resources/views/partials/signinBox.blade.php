@@ -25,8 +25,8 @@
         </div>
 
         {!! Form::submit("Đăng nhập", [ "class" => "btn btn-theme-bg pull-right" ]) !!}
-        <a href="{{ URLExt::socialLoginUrl('facebook') }}" class="btn btn-fb-login pull-right"><i class="fa fa-facebook"></i> Đăng nhập với Facebook</a>
-        <a href="{{ URLExt::socialLoginUrl('google') }}" class="btn btn-gg-login pull-right"><i class="fa fa-google-plus"></i> Đăng nhập với Google+</a>
+        <a href="{{ url("ulibier/social/facebook") }}" class="btn btn-fb-login pull-right"><i class="fa fa-facebook"></i> Đăng nhập với Facebook</a>
+        <a href="{{ url("ulibier/social/google") }}" class="btn btn-gg-login pull-right"><i class="fa fa-google-plus"></i> Đăng nhập với Google+</a>
         <div class="clearfix"></div>
         <hr>
         <p>Bạn chưa có tài khoản Ulibi? <a href="{{ url('/ulibier/register') }}">Đăng kí nào!!!</a></p>

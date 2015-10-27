@@ -51,7 +51,7 @@ class DestinationPhotoController extends Controller
         $csv=new CSV();
         $photo_csvContent=$csv->fromFile($photo_csvFile)->toArray();
         $photo_added=array([
-            'user_id' => \Auth::user()->user_id,
+            'username' => \Auth::user()->username,
             'des_id' => $dest->des_id,
             'photo_like' => $photo_like,
             'photo_sample_name' => $photo_url
@@ -68,7 +68,7 @@ class DestinationPhotoController extends Controller
 
         /** @var Photo $photo */
         $photo=Photo::create(array(
-            'user_id'       => \Auth::user()->user_id,
+            'username'       => \Auth::user()->username,
             'des_id'        => $dest->des_id,
             'photo_like'    => $photo_like,
             'photo_hash'    => $hash,

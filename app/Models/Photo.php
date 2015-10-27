@@ -16,7 +16,7 @@ use Illuminate\Routing\UrlGenerator;
  *
  * @property integer $photo_id
  * @property integer $photo_like
- * @property integer $user_id
+ * @property string $username
  * @property string $photo_uptime
  * @property string $photo_hash
  * @property string $photo_extensions
@@ -42,7 +42,7 @@ class Photo extends Model
     protected $appends = [ 'src' ];
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'user_id',
+        'username',
         'des_id',
         'photo_uptime',
         'photo_hash',
@@ -55,8 +55,8 @@ class Photo extends Model
     protected static function boot(){
         parent::boot();
         static::creating(function($photo){
-            if($photo['user_id']==null){
-                $photo['user_id']=\Auth::user()->user_id;
+            if($photo['username']==null){
+                $photo['username']=\Auth::user()->username;
             }
 
             $internalUrl=$photo['internal_url'];

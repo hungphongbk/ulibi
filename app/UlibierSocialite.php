@@ -26,7 +26,7 @@ trait UlibierSocialite
      * @param string $field
      * @return string
      */
-    public function getSocialField($provider,$object,$field){
+    protected function getSocialField($provider,$object,$field){
         $method='getSocialField_'.$field;
         if(method_exists($this,$method)){
             return $this->$method($provider,$object);

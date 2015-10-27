@@ -14,17 +14,12 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 /**
  * App\Ulibier
  *
- * @property integer $user_id
+ * @property string $username
  * @property integer $permission_id
  * @property string $firstname
  * @property string $lastname
  * @property string $full_name
- * @property string $sex
- * @property string $birthday
  * @property string $email
- * @property string $phonenumber
- * @property string $nationality
- * @property string $username
  * @property string $password
  * @property string $blog_url
  * @property string $report
@@ -32,10 +27,11 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|Models\Article[] $articles
+ * @property-read \Illuminate\Database\Eloquent\Collection|Models\Photo[] $photos
  * @property string $avatar_url
  * @property \App\UlibierPermission permission
  * @property \App\Models\UlibierProfile profile
- * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereUsername($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereFirstname($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereLastname($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereSex($value)
@@ -43,22 +39,24 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereEmail($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier wherePhonenumber($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereNationality($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereUsername($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier wherePassword($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereBlogUrl($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereReport($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Ulibier whereAvatar($value)
+ * @method static \Illuminate\Support\Collection|\App\Ulibier find($username)
  */
 class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword, Thumbnail;
 
     protected $table = 'Ulibier';
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = 'username';
+    public $incrementing = false;
+    protected $fillable = ['username', 'email'];
     protected $guarded = ['report'];
-    protected $hidden = ['user_id', 'password', 'created_at', 'updated_at'];
+    protected $hidden = ['password', 'created_at', 'updated_at'];
     protected $appends = ['avatar_url','full_name'];
 
     /**
@@ -74,7 +72,11 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function articles() {
-        return $this->hasMany(Models\Article::class ,'user_id','user_id');
+        return $this->hasMany(Models\Article::class ,'username','username');
+    }
+
+    public function photos() {
+        return $this->hasMany(Models\Photo::class, 'username', 'username');
     }
 
     /**
@@ -98,7 +100,7 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
     public function setAvatarUrlAttribute($value)
     {
         $photo=Photo::create([
-            'user_id'       => $this->user_id,
+            'username'       => $this->username,
             'des_id'        => null,
             'photo_like'    => 0,
             'internal_url'  => $value
@@ -110,19 +112,11 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
         return $this->firstname.' '.$this->lastname;
     }
 
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function profile(){
-        return $this->hasOne(Models\UlibierProfile::class, 'user_id');
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-        /*static::created(function(Ulibier $user){
-            if((!Model::isUnguarded())&&(!$user->registered_with_social_account))
-                Event::fire(new UlibierRegister($user));
-        });*/
+        return $this->hasOne(Models\UlibierProfile::class, 'username');
     }
 }

@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class UlibierProfile extends Model
 {
     protected $table = 'UlibierProfile';
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = 'username';
     public $timestamps = false;
 
     /**
@@ -32,6 +32,6 @@ class UlibierProfile extends Model
 
     public function ulibier()
     {
-        return $this->belongsTo(Ulibier::class, 'user_id');
+        return $this->belongsTo(Ulibier::class, 'username');
     }
 }

@@ -46,21 +46,12 @@ Route::model('blog',\App\Models\Article::class);
 Route::model('profile',\App\Models\UlibierProfile::class);
 
 Route::resource('profile', 'Views\UlibierProfile');
-Route::group(['prefix' => 'ulibier', 'as' => 'ulibier.'], function() {
-    Route::post('login', ['as' => 'postLogin', 'use' => 'Auth\AuthController@postLogin']);
-    Route::get('register', ['as' => 'register', 'use' => 'Auth\AuthController@getRegister']);
-    Route::post('register', ['as' => 'postRegister', 'use' => 'Auth\AuthController@postRegister']);
-    Route::get('confirm', ['as' => 'confirm', 'use' => 'Auth\AuthController@getConfirm']);
-    Route::get('activated', ['as' => 'activated', 'use' => 'Auth\AuthController@getActivated']);
-
-    Route::get('social/{provider}', ['as' => 'social-login', 'use' => 'Auth\AuthController@socialAuth']);
-    ROute::get('social/callback/{provider}', ['as' => 'social-login.callback', 'use' => 'Auth\AuthController@socialAuthCallback']);
-});
-/*Route::controller('/ulibier','Auth\AuthController',[
-    'getRegister'   => 'ulibier.getRegister',
-    'postLogin'     => 'ulibier.postLogin'
+Route::get('ulibier/social/{provider}', 'Auth\AuthController@socialAuth');
+ROute::get('ulibier/social/callback/{provider}', 'Auth\AuthController@socialAuthCallback');
+Route::controller('ulibier', 'Auth\AuthController', [
+    'postLogin' => 'ulibier.postLogin',
+    'getRegister' => 'ulibier.getRegister'
 ]);
-*/
 
 //Views Controller
 Route::get('blog/manage',array(

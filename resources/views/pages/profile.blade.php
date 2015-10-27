@@ -1,18 +1,16 @@
 @extends('layouts.default')
 @section('title','Profile')
 @section('content')
-<div class="breadcrumb-wrap breadcrumb-light">
+<div class="cover background" style="background-image: url(img/showcase-1.jpg);">
     <div class="container">
         <div class="row">
-            <div class="col-sm-6">
-                <h4>{{ $ulibier->full_name }}</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, voluptatum?</p>
+            <div class="col-fixed-sm-200">
+                <div class="ratio-500-500 background img-circle shadow" style="background-image: url('{{ $ulibier->thumbnail_400 }}');"></div>
             </div>
-            <div class="col-sm-6 hidden-xs text-right">
-                <ol class="breadcrumb">
-                    <li><a href="home-shop.html">Shop</a></li>
-                    <li>Login</li>
-                </ol>
+            <div class="col-fixed-offset-sm-200">
+                <div class="divide20"></div>
+                <h3>{{ $ulibier->full_name }}</h3>
+                <p>Because life is a journey, not a destination... :)</p>
             </div>
         </div>
     </div>

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
  * App\Models\Article
  *
  * @property integer $article_id
- * @property integer $user_id
+ * @property integer $username
  * @property integer $article_like
  * @property string $article_title
  * @property string $article_content
@@ -37,7 +37,7 @@ class Article extends ContentModel
     protected $table='Article';
     protected $primaryKey = 'article_id';
     public $timestamps = false;
-    protected $hidden = ['user_id','article_id','article_content'];
+    protected $hidden = ['username','article_id','article_content'];
     protected $guarded=[];
     protected $casts = [
         'article_date' => 'date'
@@ -54,7 +54,7 @@ class Article extends ContentModel
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function ulibier() {
-        return $this->belongsTo('App\Ulibier','user_id');
+        return $this->belongsTo('App\Ulibier','username');
     }
 
     /**
@@ -157,8 +157,8 @@ class Article extends ContentModel
          * @param $article
          */
             function($article){
-            if($article['user_id']==null){
-                $article['user_id']=Auth::user()->user_id;
+            if($article['username']==null){
+                $article['username']=Auth::user()->username;
             }
         });
     }

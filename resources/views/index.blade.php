@@ -361,7 +361,7 @@
                             <img src="{{ $ulibier->thumbnail_600 }}" class="img-responsive" alt="{{ $ulibier->full_name }}'s avatar">
                         </div>
                         <div class="person-desc-v2">
-                            <h3>{{ $ulibier->full_name }}</h3>
+                            <h3><a href="{{ route("profile.show", [ $ulibier->username ]) }}">{{ $ulibier->full_name }}</a></h3>
                             <!--<ul class="list-inline top-social">
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>

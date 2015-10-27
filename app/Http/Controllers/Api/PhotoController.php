@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Ulibier;
 use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,7 @@ class PhotoController extends ApiController
      * Upload a photo to Amazon S3 bucket
      */
     public function postUpload(Request $request){
+        /** @var Ulibier $user */
         $user = JWTAuth::parseToken()->authenticate();
         $image = $request->file('image');
 
@@ -27,11 +29,14 @@ class PhotoController extends ApiController
         $imageFilename = $hash.'.'.$image->getClientOriginalExtension();
         Storage::put('/imgtemp/'.$imageFilename,file_get_contents($image), 'public');
 
-        $photo=Photo::create(array('user_id' => $user['user_id']));
+
+        $photo=Photo::create();
         $photo->photo_uptime = $photo_uptime;
         $photo->photo_hash = $hash;
         $photo->photo_extensions = $image->getClientOriginalExtension();
         $photo->des_id = $request->input('des_id');
+        $photo->save();
+        $user->photos()->save($photo);
 
         return $photo;
     }

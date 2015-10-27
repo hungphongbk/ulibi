@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $comment_id
  * @property string $comment_time
  * @property string $comment_content
- * @property integer $user_id
+ * @property string $username
  * @property integer $article_id
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Comment whereCommentId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Comment whereCommentTime($value)

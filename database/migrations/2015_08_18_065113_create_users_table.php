@@ -22,16 +22,11 @@ class CreateUsersTable extends Migration
         });
         // Create ulibier table
         Schema::create('Ulibier', function (Blueprint $table) {
-            $table->increments('user_id');
+            $table->string('username')->primary();
             $table->integer('permission_id')->unsigned();
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('sex');
-            $table->date('birthday');
             $table->string('email');
-            $table->string('phonenumber');
-            $table->string('nationality');
-            $table->string('username')->unique();
             $table->boolean('registered_with_social_account')->default(false);
             $table->string('password');
             $table->string('blog_url');
@@ -39,7 +34,7 @@ class CreateUsersTable extends Migration
             $table->string('report');
             $table->timestamps();
             $table->string('remember_token', 100);
-
+            
             $table->foreign('permission_id')
                 ->references('permission_id')
                 ->on('UlibierPermission')
@@ -47,11 +42,15 @@ class CreateUsersTable extends Migration
                 ->onUpdate('cascade');
         });
         Schema::create('UlibierProfile', function(Blueprint $table) {
-            $table->integer('user_id')->unsigned();
+            $table->string('username');
+            $table->string('sex');
+            $table->date('birthday');
+            $table->string('phonenumber');
+            $table->string('nationality');
 
-            $table->primary('user_id');
-            $table->foreign('user_id')
-                ->references('user_id')
+            $table->primary('username');
+            $table->foreign('username')
+                ->references('username')
                 ->on('Ulibier')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
@@ -60,7 +59,7 @@ class CreateUsersTable extends Migration
         // Create article table
         Schema::create('Article', function (Blueprint $table) {
             $table->increments('article_id');
-            $table->integer('user_id')->unsigned();
+            $table->string('username');
             $table->integer('article_like')->unsigned();
             $table->string('article_title');
             $table->text('article_content');
@@ -69,8 +68,8 @@ class CreateUsersTable extends Migration
             $table->integer('view')->unsigned();
             $table->softDeletes();
 
-            $table->foreign('user_id')
-                ->references('user_id')
+            $table->foreign('username')
+                ->references('username')
                 ->on('Ulibier')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
@@ -81,11 +80,11 @@ class CreateUsersTable extends Migration
             $table->increments('comment_id');
             $table->dateTime('comment_time');
             $table->string('comment_content');
-            $table->integer('user_id')->unsigned();     // Comment's author
+            $table->string('username');     // Comment's author
             $table->integer('article_id')->unsigned();  // Article id which this comment belongs to
 
-            $table->foreign('user_id')
-                ->references('user_id')
+            $table->foreign('username')
+                ->references('username')
                 ->on('Ulibier')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
@@ -114,7 +113,7 @@ class CreateUsersTable extends Migration
         Schema::create('Photo', function (Blueprint $table) {
             $table->increments('photo_id');
             $table->integer('photo_like')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->string('username');
             $table->dateTime('photo_uptime');
             $table->string('photo_hash');
             $table->string('photo_extensions');
@@ -122,8 +121,8 @@ class CreateUsersTable extends Migration
             $table->text('internal_url');
             $table->softDeletes();
 
-            $table->foreign('user_id')
-                ->references('user_id')
+            $table->foreign('username')
+                ->references('username')
                 ->on('Ulibier')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
@@ -230,19 +229,19 @@ class CreateUsersTable extends Migration
         // Create user's rate information table
         Schema::create('Rate', function (Blueprint $table) {
             $table->integer('des_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->string('username');
             $table->integer('budget')->unsigned();
             $table->integer('visit_time')->unsigned();
             $table->string('vehicle');
 
-            $table->primary(array('des_id','user_id'));
+            $table->primary(array('des_id','username'));
             $table->foreign('des_id')
                 ->references('des_id')
                 ->on('Destination')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->foreign('user_id')
-                ->references('user_id')
+            $table->foreign('username')
+                ->references('username')
                 ->on('Ulibier')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

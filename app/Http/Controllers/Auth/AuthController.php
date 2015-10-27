@@ -182,19 +182,22 @@ class AuthController extends Controller
             /** @var \App\Ulibier $dbUser */
             $dbUser=Ulibier::whereEmail($user->email)->first();
             if($dbUser===null) {
+
                 $dbUser=Ulibier::create([
                     'permission_id' => 1,
                     'username'      => $user->id,
                     'firstname'     => $this->getSocialField($provider,$user,'firstName'),
                     'lastname'      => $this->getSocialField($provider,$user,'lastName'),
-                    'sex'           => $this->getSocialField($provider,$user,'gender'),
-                    'birthday'      => new DateTime($this->getSocialField($provider,$user,'birthday')),
                     'email'         => $this->getSocialField($provider,$user,'email'),
-                    'phonenumber'   => '+841667578431',
-                    'password'      => Hash::make('123456'),
+                    'password'      => bcrypt('123456'),
                     'registered_with_social_account'    => true,
                 ]);
                 $dbUser->avatar_url=$this->getSocialField($provider,$user,'avatar');
+                $dbUser->profile()->create([
+                    'sex'           => $this->getSocialField($provider,$user,'gender'),
+                    'birthday'      => new DateTime($this->getSocialField($provider,$user,'birthday')),
+                    'phonenumber'   => '+841667578431',
+                ]);
             }
             return \View::make('pages.auth.redirect',['form' => [
                 'method'=>'POST',

@@ -19,7 +19,7 @@ class PhotoSeeder extends Seeder
             fgetcsv($handle);
             while (($line = fgetcsv($handle, 1000, ',')) !== FALSE){
                 Photo::create(array(
-                    'user_id'       => $line[0],
+                    'username'       => $line[0],
                     'des_id'        => $line[1],
                     'photo_like'    => $line[2],
                     'internal_url'  => $line[3],

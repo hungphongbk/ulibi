@@ -28,7 +28,7 @@ OLD TEMPLATE
         Rất hân hạnh được chào đón bạn đến với Ulibi - diễn đàn dành cho các bạn trẻ yêu phượt trên mọi miền đất nước <br>
         Chỉ còn một bước nữa thôi là bạn đã hoàn tất quá trình đăng kí của mình rồi đó. Hãy nhấn vào link "Xác nhận đăng kí" phía dưới đi nào :)
     </p>
-    <a href=" URL::to('/ulibier/activated?ulibier='.$user->user_id) ">Xác nhận đăng kí</a>
+    <a href=" URL::to('/ulibier/activated?ulibier='.$user->username) ">Xác nhận đăng kí</a>
 </div>
 </body>
 </html>
