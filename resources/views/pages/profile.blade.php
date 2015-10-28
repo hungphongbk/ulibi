@@ -1,69 +1,93 @@
 @extends('layouts.default')
 @section('title','Profile')
 @section('content')
-<div class="cover background" style="background-image: url(img/showcase-1.jpg);">
+
+<?php
+/** @var \App\Ulibier $ulibier */
+$myProfile=Auth::user()==$ulibier;
+?>
+
+<div class="cover background cover-ulibier-profile" style="background-image: url(img/showcase-1.jpg);">
     <div class="container">
         <div class="row">
             <div class="col-fixed-sm-200">
-                <div class="ratio-500-500 background img-circle shadow" style="background-image: url('{{ $ulibier->thumbnail_400 }}');"></div>
+                <div class="ratio-500-500 background img-circle shadow" style="background-image: url('{{ $ulibier->thumbnail_400 }}');">
+                    @if($myProfile)
+                        <div class="wrapper replace-image text-center">
+                            <span class="fa fa-2x fa-camera" style="top: 50%;position: relative;display: block;margin-top: -16px;"></span>
+                        </div>
+                    @endif
+                </div>
             </div>
             <div class="col-fixed-offset-sm-200">
                 <div class="divide20"></div>
-                <h3>{{ $ulibier->full_name }}</h3>
-                <p>Because life is a journey, not a destination... :)</p>
+                <h3 class="profile-item">
+                    {{ $ulibier->full_name }}
+                    @if($myProfile)
+                        <span class="replace-text-inline">
+                            <a href=""><i class="fa fa-pencil"></i></a>
+                        </span>
+                    @endif
+                </h3>
+                <p class="profile-item">
+                    <i class="fa fa-map-marker"></i>
+                    {{ $ulibier->profile->basicinfo_currentPlace }}
+                    @if($myProfile)
+                        <span class="replace-text-inline">
+                            <a href=""><i class="fa fa-pencil"></i></a>
+                        </span>
+                        @endif
+                </p>
+                <p class="profile-item">
+                    <i class="fa fa-birthday-cake"></i>
+                    {{ $ulibier->profile->birthday->formatLocalized('%d %B %Y') }}
+                    (<strong>{{ Carbon\Carbon::now()->diff($ulibier->profile->birthday)->y }}</strong> tuổi)
+                    @if($myProfile)
+                        <span class="replace-text-inline">
+                            <a href=""><i class="fa fa-pencil"></i></a>
+                        </span>
+                    @endif
+                </p>
             </div>
         </div>
-    </div>
-</div><!--breadcrumb light-->
-<div class="divide60"></div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6 margin30">
-            <h3 class="heading">Welcome to assan</h3>
-            <p>
-                Suspendisse et tincidunt ipsum, et dignissim urna. Vestibulum nisl tortor, gravida at magna et, suscipit vehicula massa.
-            </p>
-
-            <div class="divide50"></div>
-            <h3 class="heading">Follow us</h3>
-            <ul class="list-inline social-1 reg-social">
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-            </ul>
-        </div>
-        <div class="col-sm-6 sky-form-login-register v2">
-            <div class="margin40">
-                <h3 class="text-center">Information</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, tenetur maiores, quasi incidunt temporibus aspernatur explicabo nostrum odit tempore laborum ullam exercitationem. Aspernatur commodi, ratione excepturi nesciunt reiciendis voluptas quis amet inventore, in sint. Modi numquam aliquid vero illum maiores.</p>	
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque dolor nesciunt vero, recusandae qui est ut nemo quas! Pariatur, dolorum.</p>
-            </div><!--login form wrap end-->
-
-        </div>
-    </div>
-</div>
-<div class="social-login-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
-                <div class="row social-login">
-                    <div class="col-sm-12">
-                        <div class="border-rits">
-                            <span>or</span>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <button class="btn btn-lg btn-facebook"><i class="fa fa-facebook"></i> Signup with facebook</button>
-                    </div>
-                    <div class="col-sm-6">
-                        <button class="btn btn-lg btn-twitter"><i class="fa fa-twitter"></i> Signup with Twitter</button>
+        @if($myProfile)
+            <div style="position: absolute;right: 20px;bottom: 20px;">
+                <div class="replace-text">
+                    <div style="border: 2px solid #ffffff;border-radius: 4px;padding: 8px 15px;">
+                        <span><i class="fa fa-camera"></i> Thay đổi cover</span>
                     </div>
                 </div>
             </div>
-        </div>
+            @endif
     </div>
-</div><!--social login wrapper-->
+</div>
+<!--breadcrumb light-->
+<!--use it as tab navigation-->
+<div>
+    <ul class="list-inline profile-tabs">
+        <li {{ $tab=='info'?"class=selected":"" }}>
+            <a href="{{ url(Request::url()."?tab=info") }}">Thông tin Ulibier</a>
+        </li>
+        <li {{ $tab=='articles'?"class=selected":"" }}>
+            <a href="{{ url(Request::url()."?tab=articles") }}">Bài viết</a>
+        </li>
+        <li {{ $tab=='photos'?"class=selected":"" }}>
+            <a href="{{ url(Request::url()."?tab=photos") }}">Ảnh</a>
+        </li>
+        <li {{ $tab=='travels'?"class=selected":"" }}>
+            <a href="{{ url(Request::url()."?tab=travels") }}">Nhật kí du lịch</a>
+        </li>
+    </ul>
+</div>
+@include("pages.profile.$tab", ["ulibier" => $ulibier, "profile" => $profile]);
+@stop
+@section('head-page-scripts')
+    <style>
+        body{
+            background-color: #f2f4f8;
+        }
+        .profile-tabs {
+            background-color: #fff;
+        }
+    </style>
 @stop

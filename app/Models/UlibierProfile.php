@@ -15,6 +15,9 @@ class UlibierProfile extends Model
     protected $table = 'UlibierProfile';
     protected $primaryKey = 'username';
     public $timestamps = false;
+    protected $casts = [
+        'birthday' => 'date'
+    ];
 
     /**
      *

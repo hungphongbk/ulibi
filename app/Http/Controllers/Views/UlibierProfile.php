@@ -44,14 +44,17 @@ class UlibierProfile extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param \App\Models\UlibierProfile $profile
      * @return \Illuminate\Http\Response
      */
-    public function show($profile)
+    public function show(Request $request, $profile)
     {
+        $tab=$request->query('tab','info');
         return View::make('pages.profile',[
             'ulibier'   => $profile->ulibier,
-            'profile'   => $profile
+            'profile'   => $profile,
+            'tab'       => $tab
         ]);
     }
 

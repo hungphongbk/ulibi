@@ -170,6 +170,11 @@
       <column name="birthday" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
       <column name="phonenumber" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="nationality" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="aboutme_description" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="aboutme_quotes" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="basicinfo_currentPlace" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="basicinfo_job" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="basicinfo_hobbies" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="avatar_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="cover_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="username"/>

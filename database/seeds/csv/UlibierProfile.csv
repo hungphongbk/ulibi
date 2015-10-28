@@ -1,4 +1,7 @@
-sex,birthday,phonenumber,nationality,avatar_id,cover_id
-"male","1993-12-18","+841667578431","Vietnam",22,22
-"male","1993-01-10","+841667578431","Vietnam",23,23
-"female","1993-02-10","+841667578431","Vietnam",24,
+sex,birthday,phonenumber,nationality,avatar_id,cover_id,aboutme_description,aboutme_quotes,basicinfo_currentPlace,basicinfo_job,basicinfo_hobbies
+male,1993-12-18,+841667578431,Vietnam,22,22,"uhmmm...
+A stupid and paranoid guy, have a very-special love with coding, cats, Chinese language, various types of metal music (metalcore, folk, melodic death blah blah) - I always treat it like an important part of my spirit :) ...
+Not sure I'm an asshole or just a sarcastic person.. maybe both
+Ehhh... that's it",你可以短，但其他人仍然必须抬头,"quận 10, TPHCM, Việt Nam",Lập trình viên,Nghe nhạc
+male,1993-01-10,+841667578431,Vietnam,23,23,,,"quận 10, TPHCM, Việt Nam",Sinh viên,Nghe nhạc
+female,1993-02-10,+841667578431,Vietnam,24,,,,"quận 10, TPHCM, Việt Nam",Sinh viên,Nghe nhạc

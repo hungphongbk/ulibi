@@ -48,6 +48,12 @@ class CreateUsersTable extends Migration
             $table->string('phonenumber');
             $table->string('nationality');
 
+            $table->text('aboutme_description');
+            $table->text('aboutme_quotes');
+            $table->string('basicinfo_currentPlace');
+            $table->string('basicinfo_job');
+            $table->string('basicinfo_hobbies');
+
             $table->primary('username');
             $table->foreign('username')
                 ->references('username')
