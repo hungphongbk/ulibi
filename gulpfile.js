@@ -20,7 +20,8 @@ group.register('external',function(){
                 '../bower/bootstrap/dist/css/bootstrap.css',
                 '../bower/font-awesome/css/font-awesome.css',
                 '../bower/flexslider/flexslider.css',
-                '../bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
+                '../bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+                ''
             ])
             .scripts([
                 '../bower/angular/angular.js',
