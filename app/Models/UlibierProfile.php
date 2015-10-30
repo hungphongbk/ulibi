@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Photo|null avatar
  * @property Photo|null cover
  * @property Ulibier ulibier
+ * @property int avatar_id
  */
 class UlibierProfile extends Model
 {
@@ -18,6 +19,7 @@ class UlibierProfile extends Model
     protected $casts = [
         'birthday' => 'date'
     ];
+    protected $guarded=['username'];
 
     /**
      *

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Events\UlibierRegister;
 use App\Models\UlibierProfile;
 use App\Ulibier;
+use App\UlibierPermission;
 use App\UlibierSocialite;
 use DateTime;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -183,8 +184,7 @@ class AuthController extends Controller
             $dbUser=Ulibier::whereEmail($user->email)->first();
             if($dbUser===null) {
 
-                $dbUser=Ulibier::create([
-                    'permission_id' => 1,
+                $dbUser=UlibierPermission::getUsers()->members()->create([
                     'username'      => $user->id,
                     'firstname'     => $this->getSocialField($provider,$user,'firstName'),
                     'lastname'      => $this->getSocialField($provider,$user,'lastName'),
@@ -192,12 +192,13 @@ class AuthController extends Controller
                     'password'      => bcrypt('123456'),
                     'registered_with_social_account'    => true,
                 ]);
-                $dbUser->avatar_url=$this->getSocialField($provider,$user,'avatar');
                 $dbUser->profile()->create([
                     'sex'           => $this->getSocialField($provider,$user,'gender'),
                     'birthday'      => new DateTime($this->getSocialField($provider,$user,'birthday')),
                     'phonenumber'   => '+841667578431',
                 ]);
+                $dbUser->avatar_url=$this->getSocialField($provider,$user,'avatar');
+
             }
             return \View::make('pages.auth.redirect',['form' => [
                 'method'=>'POST',

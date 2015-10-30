@@ -107,15 +107,7 @@
                     </div>
                 </div>
             </div><!--sidebar-col-->
-        </div><!--row for blog post-->
-        <!--<div class="row">
-            <div class="col-md-10">
-                  <ul class="pager">
-                    <li class="previous"><a href="#">&larr; Previous Page</a></li>
-                    <li class="next"><a href="#">Next Page &rarr;</a></li>
-                </ul>
-            </div>
-        </div>-->
+        </div>
     </div><!--blog full main container-->
     <div class="divide60"></div>
 @stop
@@ -126,46 +118,13 @@
     @if(!Auth::guest())
         <script src="js/sweetalert.min.js" type="text/javascript"></script>
         <script>
-            $('[data-action="deleteItem"]').click(function(e){
-                var action= $(e.target).attr('data-href');
-                var title=$(e.target).attr('data-title');
-                function refresh(){
-                    location.reload(true);
-                }
-                swal({
-                    title: "Are you sure?",
-                    text: "Bạn có chắc chắn muốn xoá bài viết <strong>"+title+"</strong> không?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: '#DD6B55',
-                    confirmButtonText: 'Có, xoá nó đi :)',
-                    cancelButtonText: 'Không :(',
-                    closeOnConfirm: false,
-                    closeOnCancel: true,
-                    showLoaderOnConfirm: true,
-                    html: true
-                },
-                function () {
-                    $.ajax({
-                        url: action,
-                        type: 'DELETE',
-                        data: { '_token':'{{ csrf_token() }}' },
-                        success: function(){
-                            swal({
-                                title: 'Success',
-                                text: '',
-                                type: 'success'
-                            },refresh)
-                        },
-                        error: function(){
-                            swal({
-                                title: 'Failed',
-                                text: '',
-                                type: 'error'
-                            },refresh)
-                        }
-                    })
-                });
+            function refresh(){
+                location.reload(true);
+            }
+            $('[data-action="deleteItem"]').DeleteBlogArticle({
+                csrf_token: '{{ csrf_token() }}',
+                debug: true,
+                callback: refresh
             });
         </script>
     @endif

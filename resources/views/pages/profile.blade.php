@@ -7,14 +7,14 @@
 $myProfile=Auth::user()==$ulibier;
 ?>
 
-<div class="cover background cover-ulibier-profile" style="background-image: url(img/showcase-1.jpg);">
+<div class="cover background cover-ulibier-profile" style="background-size: cover; background: url('{{ $ulibier->cover }}') 50% 50%;">
     <div class="container">
         <div class="row">
             <div class="col-fixed-sm-200">
                 <div class="ratio-500-500 background img-circle shadow" style="background-image: url('{{ $ulibier->thumbnail_400 }}');">
                     @if($myProfile)
                         <div class="wrapper replace-image text-center">
-                            <span class="fa fa-2x fa-camera" style="top: 50%;position: relative;display: block;margin-top: -16px;"></span>
+                            <span id="changeAvatar" href="#selectImage" class="fa fa-2x fa-camera" style="top: 50%;position: relative;display: block;margin-top: -16px;"></span>
                         </div>
                     @endif
                 </div>
@@ -54,7 +54,7 @@ $myProfile=Auth::user()==$ulibier;
             <div style="position: absolute;right: 20px;bottom: 20px;">
                 <div class="replace-text">
                     <div style="border: 2px solid #ffffff;border-radius: 4px;padding: 8px 15px;">
-                        <span><i class="fa fa-camera"></i> Thay đổi cover</span>
+                        <span id="changeCover" href="#selectImage"><i class="fa fa-camera"></i> Thay đổi cover</span>
                     </div>
                 </div>
             </div>
@@ -79,9 +79,15 @@ $myProfile=Auth::user()==$ulibier;
         </li>
     </ul>
 </div>
-@include("pages.profile.$tab", ["ulibier" => $ulibier, "profile" => $profile]);
+@include("pages.profile.$tab", ["ulibier" => $ulibier, "profile" => $profile])
+<!-- dialogs -->
+<div id="selectImage" class="mfp-hide mfp-dialog-zoom-in select-image-dialog">
+    @include('dialogs.selectImage')
+</div>
+<!-- dialogs end -->
 @stop
 @section('head-page-scripts')
+    <link rel="stylesheet" href="css/sweetalert.css" type="text/css">
     <style>
         body{
             background-color: #f2f4f8;
@@ -90,4 +96,41 @@ $myProfile=Auth::user()==$ulibier;
             background-color: #fff;
         }
     </style>
+@stop
+@section('post-page-scripts')
+    <script src="js/sweetalert.min.js" type="text/javascript"></script>
+    <script>
+        function refresh(){
+            location.reload(true);
+        }
+        $('[data-action="deleteItem"]').DeleteBlogArticle({
+            csrf_token: '{{ csrf_token() }}',
+            debug: true,
+            callback: refresh
+        });
+        $('#changeAvatar').UlibiImageSelector({
+            debug: true,
+            html:{
+                parentId:'#selectFromExistingImages',
+                childrenSelector:'.selectable'
+            },
+            ajax:{
+                url:'{{ route('profile.update', [$profile]) }}',
+                method: 'PUT',
+                dataTemplate: '_token={{ csrf_token() }}&avatar_id={0}'
+            }
+        });
+        $('#changeCover').UlibiImageSelector({
+            debug: true,
+            html:{
+                parentId:'#selectFromExistingImages',
+                childrenSelector:'.selectable'
+            },
+            ajax:{
+                url:'{{ route('profile.update', [$profile]) }}',
+                method: 'PUT',
+                dataTemplate: '_token={{ csrf_token() }}&cover_id={0}'
+            }
+        });
+    </script>
 @stop

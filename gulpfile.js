@@ -26,6 +26,7 @@ group.register('external',function(){
                 '../bower/angular/angular.js',
                 '../bower/angular-ui-router/release/angular-ui-router.js',
                 '../bower/jquery/dist/jquery.js',
+                '../bower/jquery-ui/jquery-ui.js',
                 '../bower/bootstrap/dist/js/bootstrap.js',
                 '../bower/jquery.easing/js/jquery.easing.js',
                 '../bower/jquery-sticky/jquery.sticky.js',

@@ -54,7 +54,6 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
     protected $table = 'Ulibier';
     protected $primaryKey = 'username';
     public $incrementing = false;
-    protected $fillable = ['username', 'email'];
     protected $guarded = ['report'];
     protected $hidden = ['password', 'created_at', 'updated_at'];
     protected $appends = ['avatar_url','full_name'];
@@ -94,18 +93,25 @@ class Ulibier extends Model  implements AuthenticatableContract, CanResetPasswor
         return $this->avatar_url;
     }
 
+    public function getCoverAttribute() {
+        if($this->profile->cover==NULL) return Photo::samplePhotoUrl();
+        /** @var Photo|null $cover */
+        $cover = $this->profile->cover;
+        return $cover->src;
+    }
+
     /**
      * @param string $value
+     * @throws \ErrorException
      */
     public function setAvatarUrlAttribute($value)
     {
-        $photo=Photo::create([
-            'username'       => $this->username,
-            'des_id'        => null,
-            'photo_like'    => 0,
-            'internal_url'  => $value
-        ]);
-        $this->profile->avatar()->save($photo);
+        /** @var Photo $photo */
+        $photo=new Photo();
+        $photo->internal_url=$value;
+        $photo=$this->photos()->save($photo);
+        $this->profile->avatar_id = $photo->photo_id;
+        $this->profile->save();
     }
 
     public function getFullNameAttribute(){

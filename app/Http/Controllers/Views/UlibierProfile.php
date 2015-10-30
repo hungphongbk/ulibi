@@ -10,6 +10,8 @@ use View;
 
 class UlibierProfile extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -73,12 +75,23 @@ class UlibierProfile extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\UlibierProfile $profile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $profile)
     {
         //
+        if($request->ajax()){
+            try {
+                $profile->fill($request->except('_token'));
+                $profile->save();
+
+                return response()->json(["status" => "OK"]);
+            }
+            catch (\Exception $ex) {
+                return response()->json(["status" => "Error", "message" => $ex->getMessage()]);
+            }
+        }
     }
 
     /**

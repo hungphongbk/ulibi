@@ -47,6 +47,10 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 |
 */
 
+if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip'))
+    ob_start('ob_gzhandler');
+else ob_start();
+
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
 $response = $kernel->handle(

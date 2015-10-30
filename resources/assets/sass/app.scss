@@ -189,18 +189,6 @@ body {
 .ratio-1920-850 {
   @include fixed-ratio(850,1920);
 }
-.blog-post{
-  /*h2{
-    line-height: 30px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }*/
-  img {
-    position: relative;
-    display: block;
-    margin: 0 auto 20px;
-  }
-}
 .blog-date {
   width: 100px;
   -webkit-border-radius: 10px;
@@ -220,6 +208,51 @@ body {
     color: #337ab7;
   }
 
+}
+.blog-post{
+  /*h2{
+    line-height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }*/
+  img {
+    position: relative;
+    display: block;
+    margin: 0 auto 20px;
+  }
+  &.blog-profile {
+    margin-bottom: 0;
+    border-bottom: none;
+
+    .blog-profile-wrapper {
+      background-color: #fff;
+      border-radius: 4px;
+      overflow: hidden;
+      @include shadow;
+
+      > *:not(:first-child){
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+
+      .thumbnail {
+        border: none;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+      }
+
+      .post-detail {
+        margin-top: 15px;
+        border: none;
+      }
+
+      h2 {
+        font-size: 20px;
+        line-height: 26px;
+      }
+    }
+  }
 }
 [class*='mansory-']{
   -webkit-column-gap: 20px;
@@ -256,6 +289,9 @@ body {
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   border-radius: 3px;
+}
+.btn-disabled {
+  opacity: 0.4;
 }
 #adminPage{
   [class*='item-']{
@@ -730,6 +766,40 @@ ul.profile-tabs {
     &.panel-#{$class}>.panel-heading{
       color: $color;
       border-top: $heading-border-thickness solid $color;
+    }
+  }
+}
+.select-image-dialog {
+  @extend .article-preview-page;
+  @media screen and (min-width: 768px) {
+    max-width: 600px;
+  }
+  @media screen and (min-width: 992px) {
+    max-width: 800px;
+  }
+  @media screen and (min-width: 1200px) {
+    max-width: 1000px;
+  }
+  @media screen and (min-height: 600px) {
+    height: 500px;
+  }
+
+  .selectable {
+    .selectable-mark {
+      position: absolute;
+      right: 5px;
+      bottom: 5px;
+      opacity: 0;
+    }
+
+    &:hover, &.ui-selected {
+      .selectable-mark { opacity: 1; }
+    }
+    &:hover {
+      .selectable-mark { color: #BBB; }
+    }
+    &.ui-selected {
+      .selectable-mark { color: #ffd658; }
     }
   }
 }

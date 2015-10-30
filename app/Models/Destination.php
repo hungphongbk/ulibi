@@ -41,7 +41,7 @@ class Destination extends SpartialModel
             /** @var \App\Models\Photo $photo */
             $photo = $this->photos->random();
             return $photo;
-        } catch (\ErrorException $e){
+        } catch (\Exception $e){
             return null;
         }
     }

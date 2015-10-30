@@ -41,15 +41,7 @@ class Photo extends Model
     public $timestamps = false;
     protected $appends = [ 'src' ];
     protected $dates = ['deleted_at'];
-    protected $fillable = [
-        'username',
-        'des_id',
-        'photo_uptime',
-        'photo_hash',
-        'photo_extensions',
-        'photo_like',
-        'internal_url'];
-    protected $hidden = ['internal_url'];
+    protected $fillable = ['*'];
     use SoftDeletes;
 
     protected static function boot(){
@@ -109,6 +101,7 @@ class Photo extends Model
      * @param $url
      * @param $mimeType
      * @return string
+     * @throws ErrorException
      */
     private static function downloadPhoto($url,&$mimeType){
         $isUrl=(substr($url,0,4)==='http');
@@ -143,6 +136,8 @@ class Photo extends Model
 
         // return Photo::resize_photo($stream);
         // no need to resize photo when upload
+        if (empty($stream))
+            throw new \ErrorException();
         return $stream;
     }
 

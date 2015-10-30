@@ -7,6 +7,7 @@
  */
 
 namespace App\Models;
+use URL;
 
 /**
  * Class Thumbnail
@@ -74,6 +75,10 @@ trait Thumbnail
      * @return string
      */
     private function widthParam($width){
+        // check host
+        $host=parse_url($this->thumbnail)['host'];
+        $current=parse_url(url('/'))['host'];
+        if($host!==$current) return '';
         return '?w='.$width;
     }
 }
