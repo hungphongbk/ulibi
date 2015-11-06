@@ -3,8 +3,11 @@
         <div class="divide40"></div>
         <div class="col-sm-6 margin30">
             <div class="panel modern-panel panel-info">
-                <div class="panel-heading">
-                    <h4 class="panel-title">Về bản thân tôi</h4>
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title pull-left">Về bản thân tôi</h4>
+                    <div class="pull-right">
+                        {!! HTML::profileEditable($ulibier, 0) !!}
+                    </div>
                 </div>
                 <div class="panel-body">
                     <h5 class="text-muted">Giới thiệu</h5>
@@ -25,8 +28,11 @@
         </div>
         <div class="col-sm-6 sky-form-login-register v2">
             <div class="panel modern-panel panel-danger">
-                <div class="panel-heading">
-                    <h4 class="panel-title">Thông tin cá nhân</h4>
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title pull-left">Thông tin cá nhân</h4>
+                    <div class="pull-right">
+                        {!! HTML::profileEditable($ulibier, 1) !!}
+                    </div>
                 </div>
                 <div class="panel-body">
                     <div class="row">

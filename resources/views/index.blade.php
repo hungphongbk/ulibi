@@ -288,11 +288,12 @@
                         <img src="{{ $a->thumbnail_400 }}" class="img-responsive" alt="">
                     </div>
                     <div class="blog-date">
-                        <span>{{ $a->article_date->format('F') }}</span> {{ $a->article_date->format('j') }}
+                        <span class="month">{{ substr($a->article_date->format('F'), 0, 3) }}</span> <span class="date">{{ $a->article_date->format('j') }}</span>
                     </div>
                     <div class="l-news-desc">
                         <h4><a href="{{ $a->view_url }}">{{ $a->article_title }}</a></h4>
                         @include('includes.templates.postDetail',['article' => $a])
+                        <div class="divide10"></div>
                         <p>
                             {{ str_limit($a->content_as_plain_text,100) }}
                         </p>

@@ -15,9 +15,8 @@
 <script src="js/custom.js" type="text/javascript"></script>
 
 <!--revolution slider plugins-->
-<script src="rs-plugin/js/jquery.themepunch.tools.min.js" type="text/javascript"></script>
-<script src="rs-plugin/js/jquery.themepunch.revolution.min.js" type="text/javascript"></script>
-<script src="js/revolution-custom.js" type="text/javascript"></script>
+<script src="js/jquery.themepunch.tools.min.js" type="text/javascript"></script>
+<script src="js/jquery.themepunch.revolution.min.js" type="text/javascript"></script>
 <!--cube portfolio plugin-->
 <script src="cubeportfolio/js/jquery.cubeportfolio.min.js" type="text/javascript"></script>
 <script src="js/cube-portfolio.js" type="text/javascript"></script>

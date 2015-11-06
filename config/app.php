@@ -146,6 +146,8 @@ return [
         App\Providers\ArticlePostServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Illuminate\Html\HtmlServiceProvider::class,
+        App\Providers\MacroServiceProvider::class,
+        GrahamCampbell\Flysystem\FlysystemServiceProvider::class,
 
         /*
          * Plugins...
@@ -205,6 +207,7 @@ return [
         'Form'      => Illuminate\Html\FormFacade::class,
         'HTML'      => Illuminate\Html\HtmlFacade::class,
         'URLExt'    => App\Helpers\MyUrlHelper::class,
+        'Flysystem' => GrahamCampbell\Flysystem\Facades\Flysystem::class
     ],
 
 ];

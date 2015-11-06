@@ -83,7 +83,7 @@ class UlibierProfile extends Controller
         //
         if($request->ajax()){
             try {
-                $profile->fill($request->except('_token'));
+                $profile->fill($request->except('_*'));
                 $profile->save();
 
                 return response()->json(["status" => "OK"]);
@@ -91,6 +91,11 @@ class UlibierProfile extends Controller
             catch (\Exception $ex) {
                 return response()->json(["status" => "Error", "message" => $ex->getMessage()]);
             }
+        } else {
+            $profile->fill($request->except('_*'));
+            $profile->save();
+
+            return redirect()->route('profile.show', [ Auth::user() ]);
         }
     }
 

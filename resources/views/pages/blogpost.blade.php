@@ -178,7 +178,7 @@
         var destinationChoose=document.getElementById('destination-choose');
         if($('#cover_id').val()>0){
             $(destinationChoose).addClass('has-image')
-                    .css('background-image','url({{ $model->thumbnail_1200 }}})')
+                    .css('background-image','url({{ $model->thumbnail_1200 }})')
         }
         $(destinationChoose).click(function(){
             var content=$('[data-id="destination-choose"]').clone();

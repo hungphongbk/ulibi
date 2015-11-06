@@ -18,7 +18,8 @@ class PhotoSeeder extends Seeder
         if (($handle = fopen(dirname(__FILE__).'/csv/Photo.csv','r')) !== FALSE){
             fgetcsv($handle);
             while (($line = fgetcsv($handle, 1000, ',')) !== FALSE){
-                Photo::create(array(
+                $content=\App\Models\ContentBase::create([ "content_type" => 1 ]);
+                $content->photo()->create(array(
                     'username'       => $line[0],
                     'des_id'        => $line[1],
                     'photo_like'    => $line[2],

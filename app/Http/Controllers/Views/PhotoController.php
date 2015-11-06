@@ -6,11 +6,12 @@ use App\Models\Photo;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use View;
 
 class PhotoController extends Controller
 {
     use PaginateContent, \App\Http\Controllers\ConsoleHelper;
-    protected $perPage=6;
+    protected $perPage=12;
     protected $paginatorPath='photo';
     protected $command;
     /**
@@ -33,7 +34,10 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        //
+        $paginates=$this->createPaginator(Photo::all());
+        return View::make('pages.photos', [
+            'photos'        => $paginates
+        ]);
     }
 
     /**

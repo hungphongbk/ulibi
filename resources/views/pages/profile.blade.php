@@ -23,31 +23,25 @@ $myProfile=Auth::user()==$ulibier;
                 <div class="divide20"></div>
                 <h3 class="profile-item">
                     {{ $ulibier->full_name }}
-                    @if($myProfile)
-                        <span class="replace-text-inline">
-                            <a href=""><i class="fa fa-pencil"></i></a>
-                        </span>
-                    @endif
+                    {!! HTML::profileEditable($ulibier, 1) !!}
                 </h3>
+
+                @if(!empty($ulibier->profile->basicinfo_currentPlace))
                 <p class="profile-item">
                     <i class="fa fa-map-marker"></i>
                     {{ $ulibier->profile->basicinfo_currentPlace }}
-                    @if($myProfile)
-                        <span class="replace-text-inline">
-                            <a href=""><i class="fa fa-pencil"></i></a>
-                        </span>
-                        @endif
+                    {!! HTML::profileEditable($ulibier, 1) !!}
                 </p>
+                @endif
+
+                @if(!empty($ulibier->profile->birthday))
                 <p class="profile-item">
                     <i class="fa fa-birthday-cake"></i>
                     {{ $ulibier->profile->birthday->formatLocalized('%d %B %Y') }}
                     (<strong>{{ Carbon\Carbon::now()->diff($ulibier->profile->birthday)->y }}</strong> tuổi)
-                    @if($myProfile)
-                        <span class="replace-text-inline">
-                            <a href=""><i class="fa fa-pencil"></i></a>
-                        </span>
-                    @endif
+                    {!! HTML::profileEditable($ulibier, 1) !!}
                 </p>
+                @endif
             </div>
         </div>
         @if($myProfile)
@@ -84,9 +78,13 @@ $myProfile=Auth::user()==$ulibier;
 <div id="selectImage" class="mfp-hide mfp-dialog-zoom-in select-image-dialog">
     @include('dialogs.selectImage')
 </div>
+<div id="editInformation" class="mfp-hide mfp-dialog-zoom-in edit-information-dialog">
+    @include('dialogs.editProfileInformation')
+</div>
 <!-- dialogs end -->
 @stop
 @section('head-page-scripts')
+    <link href="sky-form/css/sky-forms.css" rel="stylesheet">
     <link rel="stylesheet" href="css/sweetalert.css" type="text/css">
     <style>
         body{
@@ -108,28 +106,38 @@ $myProfile=Auth::user()==$ulibier;
             debug: true,
             callback: refresh
         });
+        var debug=true;
         $('#changeAvatar').UlibiImageSelector({
-            debug: true,
+            debug: debug,
             html:{
                 parentId:'#selectFromExistingImages',
-                childrenSelector:'.selectable'
+                childrenSelector:'.selectable',
+                uploaderId:'#uploadImageFromPC'
             },
-            ajax:{
-                url:'{{ route('profile.update', [$profile]) }}',
-                method: 'PUT',
-                dataTemplate: '_token={{ csrf_token() }}&avatar_id={0}'
-            }
+            ajax: '{!! base64_encode(json_encode([
+                "url" => route("profile.update", [$profile]),
+                "method" => "PUT",
+                "dataTemplate" => "_token=".csrf_token()."&avatar_id={0}"
+            ])) !!}'
         });
         $('#changeCover').UlibiImageSelector({
-            debug: true,
+            debug: debug,
             html:{
                 parentId:'#selectFromExistingImages',
-                childrenSelector:'.selectable'
+                childrenSelector:'.selectable',
+                uploaderId:'#uploadImageFromPC'
             },
-            ajax:{
-                url:'{{ route('profile.update', [$profile]) }}',
-                method: 'PUT',
-                dataTemplate: '_token={{ csrf_token() }}&cover_id={0}'
+            ajax: '{!! base64_encode(json_encode([
+                "url" => route("profile.update", [$profile]),
+                "method" => "PUT",
+                "dataTemplate" => "_token=".csrf_token()."&cover_id={0}"
+            ])) !!}'
+        });
+        $(".edit-information").UlibiProfileInformationEditor({
+            debug: debug,
+            html: {
+                dialogSelector: '#editInformation',
+                formSelector: '#sky-form'
             }
         });
     </script>

@@ -25,41 +25,24 @@
 
 
                 <div id="grid" class="row">
-                    @for($i=0;$i<8;$i++)
+                    @foreach($photos as $photo)
                     <div class="mix col-sm-3 margin30">
-                        <div class="item-img-wrap ">
-                            <img src="img/img-1.jpg" class="img-responsive" alt="workimg">
+                        <div class="item-img-wrap ratio-500-333 thumbnail background" style="background-image: url('{{ $photo->src }}')">
                             <div class="item-img-overlay">
-                                <a href="img/img-1.jpg" class="show-image">
+                                <a href="{{ $photo->src }}" class="show-image">
                                     <span></span>
                                 </a>
                             </div>
                         </div> 
 
                     </div>
-                    @endfor
+                    @endforeach
                 </div><!--#grid-->
             </div>
         </div>
         <div class="row gallery-bottom">
             <div class="col-sm-6">
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
+                {!! $photos->render() !!}
             </div>
             <div class="col-sm-6 text-right">
                 <em>Displaying 1 to 8 (of 100 posts)</em>

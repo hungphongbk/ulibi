@@ -5,12 +5,12 @@
 <title>Ulibi - @yield('title')</title>
 
 <!-- Bootstrap -->
-<link href="css/all.css" rel="stylesheet">
+<link href="css/all.css" rel="stylesheet" media="screen">
 <!--google fonts-->
 <script type="text/javascript">
     WebFontConfig = {
         google: { families: [
-            'Source+Sans+Pro:400,900,700,600,400italic,300italic,300:latin,vietnamese,latin-ext'
+            'Open+Sans:400,700,600,500,400italic,300italic,300:latin,vietnamese,latin-ext'
         ] }
     };
     (function() {
@@ -24,23 +24,16 @@
     })();
 </script>
 <!-- custom css-->
-<link href="css/style.css" rel="stylesheet" type="text/css" media="screen">
 <link href="css/app.css" rel="stylesheet">
 <!-- animated css  -->
 <link href="css/animate.css" rel="stylesheet" type="text/css" media="screen"> 
-<!--Revolution slider css-->
+<!--Revolution slider css
 <link href="rs-plugin/css/settings.css" rel="stylesheet" type="text/css" media="screen">
-<link href="css/rev-style.css" rel="stylesheet" type="text/css" media="screen">
 
-<!--owl carousel css-->
-<link href="css/owl.carousel.css" rel="stylesheet" type="text/css" media="screen">
-<link href="css/owl.theme.css" rel="stylesheet" type="text/css" media="screen">
 <!--mega menu -->
 <link href="css/yamm.css" rel="stylesheet" type="text/css">
 <!--cube css-->
 <link href="cubeportfolio/css/cubeportfolio.min.css" rel="stylesheet" type="text/css">
-<!--jquery magnific popup css-->
-<link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>

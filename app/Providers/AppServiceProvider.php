@@ -2,10 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\View;
+use App;
 use Illuminate\Support\ServiceProvider;
-use Blade;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use View;
 
 class AppServiceProvider extends ServiceProvider
 {

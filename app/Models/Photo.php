@@ -5,11 +5,10 @@ namespace App\Models;
 use ErrorException;
 use finfo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\App;
-use Mockery\CountValidator\Exception;
 use Model;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Illuminate\Routing\UrlGenerator;
+use Flysystem;
+
 
 /**
  * App\Models\Photo
@@ -24,6 +23,7 @@ use Illuminate\Routing\UrlGenerator;
  * @property string $internal_url
  * @property integer $des_id
  * @property-read \App\Models\Destination $destination
+ * @property-read \App\Models\ContentBase $content
  * @property string src
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo wherePhotoId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo wherePhotoLike($value)
@@ -44,9 +44,15 @@ class Photo extends Model
     protected $fillable = ['*'];
     use SoftDeletes;
 
+    /**
+     *
+     */
     protected static function boot(){
         parent::boot();
         static::creating(function($photo){
+            /** @var \League\Flysystem\Sftp\SftpAdapter  $disk */
+            $disk=Flysystem::connection(env('FS_CONN'));
+
             if($photo['username']==null){
                 $photo['username']=\Auth::user()->username;
             }
@@ -60,7 +66,8 @@ class Photo extends Model
 
                 $stream=Photo::downloadPhoto($internalUrl,$img_ext);
                 $local_imgname=$hash.(strlen($img_ext)==0?'':'.'.$img_ext);
-                \Storage::put( '/imgtemp/' . $local_imgname, $stream );
+
+                $disk->put( '/imgtemp/' . $local_imgname, $stream );
 
                 $filename = $photo['photo_hash'] . '.' . $img_ext;
                 $photo['photo_awss3_url'] = url('/api/r/image/' . $filename);
@@ -77,14 +84,27 @@ class Photo extends Model
             }
         });
         static::deleting(function($photo){
+            /** @var \League\Flysystem\Sftp\SftpAdapter  $disk */
+            $disk=Flysystem::connection(env('FS_ROOT'));
+
             $filename=$photo['photo_hash'].'.'.$photo['photo_extensions'];
             $localPath='/imgtemp/'.$filename;
-            \Storage::delete($localPath);
+            $disk->delete($localPath);
 
             return parent::delete();
         });
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function content(){
+        return $this->belongsTo('App\Models\ContentBase', 'content_id', 'photo_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function destination(){
         return $this->belongsTo('App\Models\Destination');
     }

@@ -24,9 +24,6 @@ Route::get('/', function () {
         'users' => $users
     ]);
 });
-Route::get('/photo', function() {
-    return View::make('pages.photos');
-});
 Route::get('/register', function() {
     return View::make('pages.register');
 });
@@ -45,7 +42,7 @@ Route::model('photo',\App\Models\Photo::class);
 Route::model('blog',\App\Models\Article::class);
 Route::model('profile',\App\Models\UlibierProfile::class);
 
-Route::resource('profile', 'Views\UlibierProfile');
+Route::resource('profile', 'Views\UlibierProfile', ['only'=>['index', 'show', 'update']]);
 Route::get('ulibier/social/{provider}', 'Auth\AuthController@socialAuth');
 ROute::get('ulibier/social/callback/{provider}', 'Auth\AuthController@socialAuthCallback');
 Route::controller('ulibier', 'Auth\AuthController', [

@@ -18,7 +18,8 @@ class ArticleSeeder extends Seeder
         $csv=new CSV();
         $articles=$csv->fromFile(dirname(__FILE__).'/csv/Article.csv')->toArray();
         foreach ($articles as $a) {
-            Article::create($a);
+            $content=\App\Models\ContentBase::create([ "content_type" => 0 ]);
+            $content->article()->create($a);
         }
     }
 }

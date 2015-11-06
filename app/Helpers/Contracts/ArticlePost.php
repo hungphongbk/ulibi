@@ -10,6 +10,7 @@ namespace App\Helpers\Contracts;
 
 
 use App\Models\Article;
+use App\Models\ContentBase;
 use App\Models\Destination;
 use App\Models\Mapping\ArticleDestination;
 use App\Models\Mapping\ArticleTag;
@@ -28,19 +29,22 @@ class ArticlePost implements IArticlePost
     public function doPost(Request $request)
     {
         // TODO: Implement doPost() method.
-        $newArticle=Article::create($request->only($this->articleFields));
-        if($request->input('cover_id')!=0){
-            $newArticle->cover_id=$request->input('cover_id');
+        /** @var \App\Models\ContentBase $newContent */
+        $newContent = ContentBase::create(['content_type' => 0]);
+        $newArticle = $newContent->article()->create($request->only($this->articleFields));
+
+        if ($request->input('cover_id') != 0) {
+            $newArticle['cover_id'] = $request->input('cover_id');
             $newArticle->save();
         }
 
         // get all checked-in destinations
         /** @var array $dest */
-        $dest=array_map(function($item){
-            $rs=Destination::where('des_name',$item->des_name)->first();
+        $dest = array_map(function ($item) {
+            $rs = Destination::where('des_name', $item->des_name)->first();
             return $rs;
-        },(array)json_decode($request->input('destinations')));
-        foreach($dest as $d) {
+        }, (array)json_decode($request->input('destinations')));
+        foreach ($dest as $d) {
             /** @var Destination $d */
             $m = new ArticleDestination();
             $m->article_id = $newArticle->article_id;
@@ -49,14 +53,14 @@ class ArticlePost implements IArticlePost
         }
 
         // get all tagged tags
-        $tags=array_map(function($item){
-            return Tag::where('tag_name',$item->tag_name)->first();
-        },(array)json_decode($request->input('tagnames')));
+        $tags = array_map(function ($item) {
+            return Tag::where('tag_name', $item->tag_name)->first();
+        }, (array)json_decode($request->input('tagnames')));
         /** @var Tag $t */
-        foreach($tags as $t){
-            $m=new ArticleTag();
-            $m->article_id=$newArticle->article_id;
-            $m->tag_id=$t->tag_id;
+        foreach ($tags as $t) {
+            $m = new ArticleTag();
+            $m->article_id = $newArticle->article_id;
+            $m->tag_id = $t->tag_id;
             $m->save();
         }
 

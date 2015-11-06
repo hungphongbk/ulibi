@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
  * @property integer $view
  * @property int cover_id
  * @property-read \App\Ulibier $ulibier
+ * @property-read \App\Models\ContentBase $content
  * @property-read \Illuminate\Database\Eloquent\Collection|Comment[] $comments
  * @property-read mixed $first_related_destination
  * @property-read mixed $render_html
@@ -55,6 +56,10 @@ class Article extends ContentModel
      */
     public function ulibier() {
         return $this->belongsTo('App\Ulibier','username');
+    }
+
+    public function content(){
+        return $this->belongsTo('App\Models\ContentBase', 'content_id', 'article_id');
     }
 
     /**

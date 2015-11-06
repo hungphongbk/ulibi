@@ -18,12 +18,15 @@
       <w>blogitem</w>
       <w>blogpost</w>
       <w>blogs</w>
+      <w>bootstrapper</w>
+      <w>bootstrappers</w>
       <w>cafile</w>
       <w>clearfix</w>
       <w>consectetur</w>
       <w>counterup</w>
       <w>csrf</w>
       <w>cubeportfolio</w>
+      <w>datepicker</w>
       <w>datetimepicker</w>
       <w>dbal</w>
       <w>dest</w>
@@ -51,6 +54,7 @@
       <w>gzhandler</w>
       <w>hotkeys</w>
       <w>hoàn</w>
+      <w>hungphongbk</w>
       <w>imgname</w>
       <w>imgstream</w>
       <w>imgtemp</w>
@@ -71,6 +75,7 @@
       <w>mansory</w>
       <w>maxcdn</w>
       <w>minh</w>
+      <w>minify</w>
       <w>miễn</w>
       <w>monolog</w>
       <w>mssql</w>
@@ -89,6 +94,7 @@
       <w>pageview</w>
       <w>paginator</w>
       <w>phonenumber</w>
+      <w>photoid</w>
       <w>phpspec</w>
       <w>postgresql</w>
       <w>preloader</w>

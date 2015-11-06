@@ -9,13 +9,14 @@
         "laravel/framework": "5.1.*",
         "tymon/jwt-auth": "0.5.4",
         "barryvdh/laravel-cors": "^0.7.1",
-        "league/flysystem-aws-s3-v3": "1.0.4",
         "barryvdh/laravel-ide-helper": "^2.1",
         "doctrine/dbal": "~2.3",
         "mnshankar/csv": "1.8",
         "laravel/socialite": "^2.0",
         "guzzlehttp/guzzle": "^6.1",
-        "illuminate/html": "^5.0"
+        "illuminate/html": "^5.0",
+        "league/flysystem-sftp": "^1.0",
+        "graham-campbell/flysystem": "^3.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
