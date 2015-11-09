@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Views;
 
+use App\Models\ContentBase;
 use App\Models\Photo;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -63,26 +64,37 @@ class PhotoController extends Controller
             $newPhoto=new Photo();
             $newPhoto->des_id=null;
             $newPhoto->internal_url=$request->input('internal_url');
-            $newPhoto->save();
+
+            $content=new ContentBase();
+            $content->content_type=1;
+            $content->save();
+            $content->photo()->save($newPhoto);
 
             return response()->json(array(
                 'status' => 'succeeded',
                 'id' => $newPhoto->photo_id
             ));
         } else {
-
+            return response('OK', 200);
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param  Photo $photo
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$photo)
     {
         //
+        if($request->ajax()){
+            $uploader = $photo->owner->full_name;
+            $rs= $photo->toArray();
+            $rs['uploader'] = $uploader;
+            return json_encode($rs);
+        }
     }
 
     /**

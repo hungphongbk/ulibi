@@ -279,6 +279,58 @@ h4 {
     }
   }
 }
+.item-img-wrap {
+  $text-size: 12px;
+
+  .hover-info {
+    @include abs-full;
+
+    background: rgba(0,0,0,0.7);
+    opacity: 0;
+    -moz-transition: opacity 250ms linear;
+    -o-transition: opacity 250ms linear;
+    -webkit-transition: opacity 250ms linear;
+    transition: opacity 250ms linear;
+
+    padding: $text-size*1.5;
+    color: #ffffff;
+
+    p {
+      font-size: $text-size;
+      line-height: $text-size*1.5;
+      font-weight: 600 !important;
+      margin: $text-size/2 0;
+    }
+    hr {
+      margin: $text-size/2 0;
+      background: rgba(255,255,255,0.4);
+    }
+    * {
+      color: inherit;
+    }
+    > div {
+      position: relative;
+      height: 100%;
+      width: 100%;
+    }
+    .hover-info-content {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: left;
+
+      .fa {
+        margin-right: $text-size;
+        +.fa {
+          margin-left: $text-size*2;
+        }
+      }
+    }
+  }
+  &:hover .hover-info {
+    opacity: 1;
+  }
+}
 [class*='mansory-']{
   -webkit-column-gap: 20px;
   column-gap: 20px;
@@ -644,6 +696,30 @@ h4 {
       -moz-transform: scale($shownScale);
       -o-transform: scale($shownScale);
       transform: scale($shownScale);
+    }
+  }
+}
+.mfp-figure.image-show {
+  &:after {
+    background: #fff;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+  h5, p {
+    font-size: 13px;
+  }
+  .mfp-img {
+    padding: 0;
+  }
+  .img-content {
+    padding-right: 30px;
+    padding-left: 0;
+  }
+  .fa {
+    margin-right: 1em;
+    +.fa {
+      margin-left: 2em;
     }
   }
 }

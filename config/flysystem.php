@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'default' => 'local',
+    'default' => env('FS_CONN','local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -112,7 +112,7 @@ return [
 
         'local' => [
             'driver'     => 'local',
-            'path'       => storage_path('files'),
+            'path'       => env('FS_ROOT','/home/ubuntu/files/')
             // 'visibility' => 'public',
             // 'eventable'  => true,
             // 'cache'      => 'foo'
@@ -148,9 +148,9 @@ return [
 
         'sftp' => [
             'driver'     => 'sftp',
-            'host'       => env('FS_HOST'),
+            'host'       => env('FS_HOST',''),
             'port'       => 22,
-            'username'   => env('FS_USERNAME'),
+            'username'   => env('FS_USERNAME',''),
             'password'   => env('FS_PASSWORD',''),
             'privateKey' => base_path('hungphongbk-51202744.pem'),
             'root'       => env('FS_ROOT','/home/ubuntu/'),

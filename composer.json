@@ -16,7 +16,8 @@
         "guzzlehttp/guzzle": "^6.1",
         "illuminate/html": "^5.0",
         "league/flysystem-sftp": "^1.0",
-        "graham-campbell/flysystem": "^3.2"
+        "graham-campbell/flysystem": "^3.2",
+        "league/flysystem-aws-s3-v3": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

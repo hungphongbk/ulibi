@@ -7,5 +7,11 @@
       <schema-pattern>ulibi.*</schema-pattern>
       <default-schemas>ulibi.*</default-schemas>
     </data-source>
+    <data-source name="MySQL - ulibi@ulibi.cwvkylm2lmvh.ap-southeast-1.rds.amazonaws.com" uuid="8178d549-0a6b-4e7a-8bae-d619eae89f25">
+      <secret-storage>master_key</secret-storage>
+      <user-name>hungphongbk</user-name>
+      <schema-pattern>ulibi.*</schema-pattern>
+      <default-schemas>ulibi.*</default-schemas>
+    </data-source>
   </component>
 </project>

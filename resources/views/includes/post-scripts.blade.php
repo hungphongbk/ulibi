@@ -11,7 +11,7 @@
 <!--<script src="js/jquery.magnific-popup.min.js" type="text/javascript"></script>-->
 <!--you tube player-->
 <!--<script src="js/jquery.mb.YTPlayer.min.js" type="text/javascript"></script>-->
-<!--customizable plugin edit according to your needs-->
+<!--customizable plugin edit according to your needs
 <script src="js/custom.js" type="text/javascript"></script>
 
 <!--revolution slider plugins-->

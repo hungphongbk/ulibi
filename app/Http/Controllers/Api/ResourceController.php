@@ -8,6 +8,7 @@ use App\Models\Photo;
 use Exception;
 use Flysystem;
 use Illuminate\Http\Request;
+use Storage;
 
 /**
  * Class ResourceController
@@ -43,17 +44,16 @@ class ResourceController extends Controller
     {
         /** @var int $maxWidth */
         $maxWidth = $request->query('w', 600);
-
-        /** @var \League\Flysystem\Sftp\SftpAdapter $disk */
-        $disk=Flysystem::connection(env('FS_CONN'));
+        /** @var \Illuminate\Filesystem\FilesystemAdapter $disk */
+        $disk=Storage::disk();
 
         try {
-            $file = $disk->read('/imgtemp/' . $filename);
+            $file = $disk->get('/imgtemp/' . $filename);
             $file = Photo::resize_photo($file, $maxWidth);
         } catch (Exception $e) {
-            return response()->json(array("error" => $e->getMessage()), 404);
+            return response()->json((array)$disk, 404);
         }
-        $mime = $disk->getMimetype('/imgtemp/' . $filename);
+        $mime = $disk->mimeType('/imgtemp/' . $filename);
         $response = response()->make($file, 200,
             ["Content-Type" => $mime]
         );

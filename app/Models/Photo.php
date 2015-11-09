@@ -6,6 +6,7 @@ use ErrorException;
 use finfo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Model;
+use Storage;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Flysystem;
 
@@ -22,6 +23,7 @@ use Flysystem;
  * @property string $photo_awss3_url
  * @property string $internal_url
  * @property integer $des_id
+ * @property-read \App\Ulibier $owner
  * @property-read \App\Models\Destination $destination
  * @property-read \App\Models\ContentBase $content
  * @property string src
@@ -50,15 +52,15 @@ class Photo extends Model
     protected static function boot(){
         parent::boot();
         static::creating(function($photo){
-            /** @var \League\Flysystem\Sftp\SftpAdapter  $disk */
-            $disk=Flysystem::connection(env('FS_CONN'));
+            /** @var \Illuminate\Filesystem\FilesystemAdapter $disk */
+            $disk=Storage::disk();
 
             if($photo['username']==null){
                 $photo['username']=\Auth::user()->username;
             }
 
             $internalUrl=$photo['internal_url'];
-            $uploadtime = time(); $photo['photo_uptime']=$uploadtime;
+            $uploadtime = time();
             $hash=uniqid($uploadtime,true); $photo['photo_hash']=$hash;
 
             $img_ext='';
@@ -70,7 +72,7 @@ class Photo extends Model
                 $disk->put( '/imgtemp/' . $local_imgname, $stream );
 
                 $filename = $photo['photo_hash'] . '.' . $img_ext;
-                $photo['photo_awss3_url'] = url('/api/r/image/' . $filename);
+                $photo['photo_awss3_url'] = '/api/r/image/' . $filename;
                 $photo['internal_url'] = '';
             } catch (ErrorException $e){
                 $console=new ConsoleOutput();
@@ -84,8 +86,8 @@ class Photo extends Model
             }
         });
         static::deleting(function($photo){
-            /** @var \League\Flysystem\Sftp\SftpAdapter  $disk */
-            $disk=Flysystem::connection(env('FS_ROOT'));
+            /** @var \Illuminate\Filesystem\FilesystemAdapter $disk */
+            $disk=Storage::disk();
 
             $filename=$photo['photo_hash'].'.'.$photo['photo_extensions'];
             $localPath='/imgtemp/'.$filename;
@@ -98,8 +100,15 @@ class Photo extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    public function owner(){
+        return $this->belongsTo('App\Ulibier', 'username', 'username');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function content(){
-        return $this->belongsTo('App\Models\ContentBase', 'content_id', 'photo_id');
+        return $this->belongsTo('App\Models\ContentBase', 'photo_id', 'content_id');
     }
 
     /**

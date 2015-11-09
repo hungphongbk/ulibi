@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\Storage;
 
 class CreateUsersTable extends Migration
 {
@@ -141,14 +140,15 @@ class CreateUsersTable extends Migration
         // Create photo table
         Schema::create('Photo', function (Blueprint $table) {
             $table->integer('photo_id')->unsigned();
+            $table->string('photo_description')->default('');
             $table->integer('photo_like')->unsigned();
             $table->string('username');
-            $table->dateTime('photo_uptime');
             $table->string('photo_hash');
             $table->string('photo_extensions');
             $table->string('photo_awss3_url');
             $table->text('internal_url');
             $table->softDeletes();
+            $table->timestamps();
 
             $table->primary('photo_id');
             $table->foreign('username')
@@ -307,15 +307,15 @@ class CreateUsersTable extends Migration
         });
 
         // Photo Like
-        Schema::create('PhotoLike', function (Blueprint $table) {
-            $table->integer('photo_id')->unsigned();
+        Schema::create('ContentLike', function (Blueprint $table) {
+            $table->integer('content_id')->unsigned();
             $table->string('username');
             $table->timestamps();
 
-            $table->primary(array('photo_id', 'username'));
-            $table->foreign('photo_id')
-                ->references('photo_id')
-                ->on('Photo')
+            $table->primary(array('content_id', 'username'));
+            $table->foreign('content_id')
+                ->references('content_id')
+                ->on('ContentBase')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreign('username')
@@ -335,9 +335,9 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        //First, delete folder 'photo' in S3 bucket
-        $local = Storage::disk('local');
-        $local->deleteDirectory('/imgtemp');
+        /** @var \Illuminate\Filesystem\FilesystemAdapter $disk */
+        $disk=\Storage::disk();
+        $disk->deleteDirectory('/imgtemp');
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         $tables=['UlibierPermission','Ulibier','UlibierProfile','ContentBase','Article','ArticlePhotoMapping','ArticleDestinationMapping','Comment','Blog','BlogPhotoMapping', 'Photo','Destination','Rate','Tag','ArticleTag', 'PhotoLike'];
