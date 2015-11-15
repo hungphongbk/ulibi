@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Views;
 
 use App\Models\ContentBase;
 use App\Models\Photo;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -123,11 +124,19 @@ class PhotoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param \App\Models\Photo $photo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($photo)
     {
-        //
+        try {
+            $result = $photo->content->delete();
+            if (!$result)
+                return response('error: cannot delete photo', 500)->json();
+            else
+                return response()->json();
+        } catch (Exception $e) {
+            return response("error: ".$e->getMessage(), 500)->json();
+        }
     }
 }

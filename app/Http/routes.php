@@ -39,6 +39,7 @@ Route::get('/test/email', function(){
 
 Route::model('destination',\App\Models\Destination::class);
 Route::model('photo',\App\Models\Photo::class);
+Route::model('comment',\App\Models\Comment::class);
 Route::model('blog',\App\Models\Article::class);
 Route::model('profile',\App\Models\UlibierProfile::class);
 
@@ -47,7 +48,8 @@ Route::get('ulibier/social/{provider}', 'Auth\AuthController@socialAuth');
 ROute::get('ulibier/social/callback/{provider}', 'Auth\AuthController@socialAuthCallback');
 Route::controller('ulibier', 'Auth\AuthController', [
     'postLogin' => 'ulibier.postLogin',
-    'getRegister' => 'ulibier.getRegister'
+    'getRegister' => 'ulibier.getRegister',
+    'postLike' => 'ulibier.like'
 ]);
 
 //Views Controller
@@ -57,6 +59,7 @@ Route::get('blog/manage',array(
 ));
 Route::resource('blog','Views\BlogController');
 Route::resource('photo','Views\PhotoController');
+Route::resource('photo.comment','Views\PhotoCommentController');
 
 //APIs Controller
 Route::group(['prefix' => 'api'], function(){

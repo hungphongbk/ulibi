@@ -16,6 +16,23 @@
                     ])
                     <h2>{{ $article->article_title }}</h2>
                     {!! $article->content_as_html !!}
+                    <div class="divide20">
+                    </div>
+                    <div class="blog-like">
+
+                        {!! Form::open(array('route'=>'ulibier.like', 'id'=>'likeForm')) !!}
+                        {!! Form::hidden('content_id', $article->content->content_id) !!}
+
+                        <p>
+                            <a class='blog-like-btn' href='javascript:document.getElementById("likeForm").submit()'>
+                                <i class="fa {{ ($article->content->liked)?'fa-heart':'fa-heart-o' }}"></i>
+                            </a>
+                            <span class='like-count'>{{ $article->content->like_count }}</span> lượt thích
+                        </p>
+
+                        {!! Form::close() !!}
+
+                    </div>
                 </div><!--about author-->
                 <div class="comment-post">
                     <h3>3 Comments</h3>
@@ -155,4 +172,7 @@
         </div><!--row for blog post-->
     </div><!--blog full main container-->
     <div class="divide60"></div>
+@stop
+@section('head-page-scripts')
+    <meta name="author" content="{{ $article->ulibier->full_name }}">
 @stop

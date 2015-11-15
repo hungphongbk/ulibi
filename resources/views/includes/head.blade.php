@@ -22,6 +22,9 @@
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(wf, s);
     })();
+    @if(Auth::user())
+        window.authToken = '{{  }}'
+    @endif
 </script>
 <!-- custom css-->
 <link href="css/app.css" rel="stylesheet">

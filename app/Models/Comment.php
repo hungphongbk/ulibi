@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Ulibier;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $comment_content
  * @property string $username
  * @property integer $article_id
+ * @property-read \App\Models\ContentBase $content
+ * @property int content_id
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Comment whereCommentId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Comment whereCommentTime($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Comment whereCommentContent($value)
@@ -23,4 +26,22 @@ class Comment extends Model
     protected $table='Comment';
     protected $primaryKey = 'comment_id';
     public $timestamps = false;
+    protected $appends = ['author_name', 'author_avatar'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function content(){
+        return $this->belongsTo('App\Models\ContentBase', 'photo_id', 'content_id');
+    }
+
+    public function getAuthorNameAttribute(){
+        $author=Ulibier::find($this->username);
+        return $author->full_name;
+    }
+
+    public function getAuthorAvatarAttribute(){
+        $author=Ulibier::find($this->username);
+        return $author->thumbnail_400;
+    }
 }

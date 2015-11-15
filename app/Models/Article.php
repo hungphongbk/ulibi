@@ -59,7 +59,7 @@ class Article extends ContentModel
     }
 
     public function content(){
-        return $this->belongsTo('App\Models\ContentBase', 'content_id', 'article_id');
+        return $this->belongsTo('App\Models\ContentBase', 'article_id', 'content_id');
     }
 
     /**

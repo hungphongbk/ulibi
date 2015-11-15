@@ -149,16 +149,25 @@ class AuthController extends Controller
 
         /** @var \App\Models\ContentBase $content */
         /** @var \App\Models\ContentLike|null $likeData */
-        $content = ContentBase::find($id);
-        $likeData = $content->like()->find('username', Auth::user()->username);
+        $content = ContentBase::findOrFail($id);
+        $likeData = $content->like()->where('username', Auth::user()->username)->first();
+        $action = '';
         if ($likeData == null) {
             $likeData = new ContentLike();
             $likeData->username = Auth::user()->username;
             $content->like()->save($likeData);
+            $action = 'like';
         } else {
-            $content->delete();
+            $likeData->delete();
+            $action = 'unlike';
         }
-        return response()->json(["like_count", $content->like_count]);
+        if ($request->ajax()){
+            return response()->json([
+                "like_count" => $content->like_count,
+                "action" => $action]);
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**

@@ -23,13 +23,15 @@
                     <div class="mix col-sm-3 margin10">
                         <div class="item-img-wrap ratio-500-333 thumbnail background" style="background-image: url('{{ $photo->src }}')">
                             <div class="item-img-overlay">
-                                <a href="{{ $photo->src }}" class="show-img" data-encoded="{{ base64_encode(json_encode($photo)) }}" data-author-encoded="{{ base64_encode(json_encode($photo->owner)) }}" data-content-encoded="{{ base64_encode(json_encode($photo->content)) }}">
+                                <a href="{{ $photo->src }}" class="show-img" data-encoded="{{ base64_encode(json_encode($photo)) }}" data-author-encoded="{{ base64_encode(json_encode($photo->owner)) }}" data-content-encoded="{{ base64_encode(json_encode($photo->content)) }}" data-comment-encoded="{{ base64_encode(json_encode($photo->content->comments)) }}" data-own="{{ (Auth::user()==null | Auth::user()->username!=$photo->owner->username)?'0':'1' }}">
                                     <div class="hover-info">
                                         <div>
                                             <div class="hover-info-content">
                                                 <p><i class="fa fa-user"></i> {{ $photo->owner->lastname }}</p>
                                                 <hr>
-                                                <p><i class="fa fa-heart"></i>120 <i class="fa fa-comment"></i>4</p>
+                                                <p>
+                                                    <i class="fa fa-heart"></i>{{ $photo->content->like_count }}
+                                                    <i class="fa fa-comment"></i>{{ $photo->content->comment_count }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -72,7 +74,7 @@
             ajax: '{!! base64_encode(json_encode([
                 "url" => route("photo.store"),
                 "method" => "POST",
-                "dataTemplate" => "_token=".csrf_token()."&avatar_id={0}"
+                "dataTemplate" => "avatar_id={0}"
             ])) !!}',
             uploadCallback: function(){
                 location.reload(true);

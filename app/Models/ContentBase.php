@@ -7,12 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class ContentBase
  * @package App\Models
- * @property-read \App\Models\Article $article
- * @property-read \App\Models\Photo $photo
+ * @property-read \App\Models\Article|null $article
+ * @property-read \App\Models\Photo|null $photo
+ * @property-read \App\Models\Comment|null $comment
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ContentLike[] $like
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
  * @property-read boolean $liked
  * @property-read int $like_count
+ * @property-read int $comment_count
  * @property int content_type
+ * @property int content_id
  */
 class ContentBase extends Model
 {
@@ -20,6 +24,7 @@ class ContentBase extends Model
     protected $primaryKey = 'content_id';
     public $timestamps = true;
     public $appends = ['liked', 'like_count'];
+    protected $fillable = ['content_type'];
 
     /**
      * Save a new model and return the instance.
@@ -51,6 +56,22 @@ class ContentBase extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function comment()
+    {
+        return $this->hasOne('\App\Models\Comment', 'comment_id', 'content_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany('\App\Models\Comment', 'content_id', 'content_id');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function like()
@@ -64,6 +85,14 @@ class ContentBase extends Model
     public function getLikeCountAttribute()
     {
         return $this->like->count();
+    }
+
+    /**
+     * @return int
+     */
+    public function getCommentCountAttribute()
+    {
+        return $this->comments->count();
     }
 
     /**

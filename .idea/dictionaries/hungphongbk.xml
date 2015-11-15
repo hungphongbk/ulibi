@@ -25,6 +25,7 @@
       <w>consectetur</w>
       <w>counterup</w>
       <w>csrf</w>
+      <w>csrftoken</w>
       <w>cubeportfolio</w>
       <w>datepicker</w>
       <w>datetimepicker</w>
@@ -46,6 +47,7 @@
       <w>flexslider</w>
       <w>flysystem</w>
       <w>formatters</w>
+      <w>fullname</w>
       <w>fzaninotto</w>
       <w>geofields</w>
       <w>glyphicon</w>
@@ -60,6 +62,7 @@
       <w>imgtemp</w>
       <w>infobar</w>
       <w>ipsum</w>
+      <w>isowner</w>
       <w>jsonb</w>
       <w>jssdk</w>
       <w>khoản</w>
