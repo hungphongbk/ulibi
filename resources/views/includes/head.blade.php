@@ -23,7 +23,7 @@
         s.parentNode.insertBefore(wf, s);
     })();
     @if(Auth::user())
-        window.authToken = '{{  }}'
+        window.authToken = '{{ base64_encode(Auth::user()->username) }}';
     @endif
 </script>
 <!-- custom css-->

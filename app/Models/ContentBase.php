@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ContentLike[] $like
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
  * @property-read boolean $liked
+ * @property-read boolean $is_comment
  * @property-read int $like_count
  * @property-read int $comment_count
  * @property int content_type
@@ -104,5 +105,13 @@ class ContentBase extends Model
         if ($this->like->count() == 0) return false;
         $rs = $this->like->where('username', \Auth::user()->username)->first();
         return $rs != null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsCommentAttribute()
+    {
+        return $this->content_type == 2;
     }
 }

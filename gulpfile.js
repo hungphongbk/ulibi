@@ -1,5 +1,10 @@
 var elixir = require('laravel-elixir');
 var group = require('laravel-elixir-group');
+var gulp = require('gulp'),
+    obfuscate = require('gulp-obfuscate'),
+    coffee = require('gulp-coffee'),
+    rename = require('gulp-rename');
+var Task = elixir.Task;
 
 group.register('external',function(){
     elixir(function(mix){
@@ -43,7 +48,9 @@ group.register('external',function(){
             ]);
     });
 });
+
 group.register('view',function(){
+
     elixir(function(mix){
         mix
             .sass('app.scss')

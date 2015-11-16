@@ -282,7 +282,7 @@ h4 {
     font-weight: 600;
     .fa {
       margin-right: 0.7em;
-      &+.fa {
+      +.fa {
         margin-left: 1em;
       }
     }

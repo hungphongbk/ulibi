@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Helper\CommentList;
 use ErrorException;
 use finfo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -26,6 +27,7 @@ use Flysystem;
  * @property-read \App\Ulibier $owner
  * @property-read \App\Models\Destination $destination
  * @property-read \App\Models\ContentBase $content
+ * @property-read \App\Models\Comment[] $comments
  * @property string src
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo wherePhotoId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo wherePhotoLike($value)
@@ -44,7 +46,7 @@ class Photo extends Model
     protected $appends = [ 'src' ];
     protected $dates = ['deleted_at'];
     protected $fillable = ['*'];
-    use SoftDeletes;
+    use SoftDeletes, CommentList;
 
     /**
      *

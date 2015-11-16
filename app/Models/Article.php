@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Helper\CommentList;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\App;
-use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -22,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
  * @property int cover_id
  * @property-read \App\Ulibier $ulibier
  * @property-read \App\Models\ContentBase $content
- * @property-read \Illuminate\Database\Eloquent\Collection|Comment[] $comments
+ * @property-read \App\Models\Comment[] $comments
  * @property-read mixed $first_related_destination
  * @property-read mixed $render_html
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Article whereArticleId($value)
@@ -35,11 +33,11 @@ use Illuminate\Support\Facades\Auth;
  */
 class Article extends ContentModel
 {
-    protected $table='Article';
+    protected $table = 'Article';
     protected $primaryKey = 'article_id';
     public $timestamps = false;
-    protected $hidden = ['username','article_id','article_content'];
-    protected $guarded=[];
+    protected $hidden = ['username', 'article_id', 'article_content'];
+    protected $guarded = [];
     protected $casts = [
         'article_date' => 'date'
     ];
@@ -48,33 +46,31 @@ class Article extends ContentModel
     protected $contentField = 'article_content';
     protected $contentFieldType = 'article_content_type';
 
-    use Thumbnail, SoftDeletes;
+    use Thumbnail, SoftDeletes, CommentList;
 
     /**
      * Get the user that wrote this article
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function ulibier() {
-        return $this->belongsTo('App\Ulibier','username');
-    }
-
-    public function content(){
-        return $this->belongsTo('App\Models\ContentBase', 'article_id', 'content_id');
+    public function ulibier()
+    {
+        return $this->belongsTo('App\Ulibier', 'username');
     }
 
     /**
-     * Get all comments of this article
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function comments() {
-        return $this->hasMany(Comment::class, 'article_id', 'article_id');
+    public function content()
+    {
+        return $this->belongsTo('App\Models\ContentBase', 'article_id', 'content_id');
     }
 
     /**
      * Get all destinations related to this article
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    protected function destinations() {
+    protected function destinations()
+    {
         $list = $this->hasMany(Mapping\ArticleDestination::class, 'article_id', 'article_id');
         return $list->getResults();
     }
@@ -83,13 +79,14 @@ class Article extends ContentModel
      * Get all destinations related to this article
      * @return \App\Models\Destination
      */
-    public function getFirstRelatedDestinationAttribute() {
+    public function getFirstRelatedDestinationAttribute()
+    {
         try {
             /** @var \App\Models\Destination $destination */
             $destination = $this->destinations()->first()->destination;
             $destination->append('avatar');
             return $destination;
-        } catch (\ErrorException $e){
+        } catch (\ErrorException $e) {
             return null;
         }
     }
@@ -98,7 +95,8 @@ class Article extends ContentModel
      * If an article not have cover, replace by its tagged destination's image
      * @return string URL of article cover image
      */
-    public function getThumbnailAttribute(){
+    public function getThumbnailAttribute()
+    {
         /** @var Photo $thumbPhoto */
         try {
             $thumbPhoto = ($this->cover_id != null) ? Photo::find($this->cover_id) : $this->first_related_destination->avatar;
@@ -109,16 +107,19 @@ class Article extends ContentModel
         }
     }
 
-    public function getViewUrlAttribute() {
-        return url('/blog/'.$this->article_id);
+    public function getViewUrlAttribute()
+    {
+        return url('/blog/' . $this->article_id);
     }
 
-    public function getEditUrlAttribute() {
-        return url('/blog/'.$this->article_id.'/edit');
+    public function getEditUrlAttribute()
+    {
+        return url('/blog/' . $this->article_id . '/edit');
     }
 
-    public function enterMode($mode){
-        switch($mode){
+    public function enterMode($mode)
+    {
+        switch ($mode) {
             case 'trending-destination-photo':
                 $this->append('first_related_destination');
                 break;
@@ -130,20 +131,22 @@ class Article extends ContentModel
         }
     }
 
-    public function getRenderHtmlAttribute(){
-        return '/api/article/toHtml?id='.$this->article_id;
+    public function getRenderHtmlAttribute()
+    {
+        return '/api/article/toHtml?id=' . $this->article_id;
     }
 
     /**
      * @param int $number
      * @return Collection
      */
-    public static function renderAll($number=0){
+    public static function renderAll($number = 0)
+    {
         /** @var Collection $all */
-        $all=Article::all();
-        if($number>0)
-            $all=$all->random($number);
-        foreach ($all as $i){
+        $all = Article::all();
+        if ($number > 0)
+            $all = $all->random($number);
+        foreach ($all as $i) {
             /** @var Article $i */
             $i->append([
                 'first_related_destination',
@@ -161,10 +164,10 @@ class Article extends ContentModel
         /**
          * @param $article
          */
-            function($article){
-            if($article['username']==null){
-                $article['username']=Auth::user()->username;
-            }
-        });
+            function ($article) {
+                if ($article['username'] == null) {
+                    $article['username'] = Auth::user()->username;
+                }
+            });
     }
 }

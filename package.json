@@ -23,6 +23,9 @@
   },
   "homepage": "https://github.com/hungphongbk/ulibi#readme",
   "devDependencies": {
+    "gulp-coffee": "^2.3.1",
+    "gulp-obfuscate": "^0.2.9",
+    "gulp-rename": "^1.2.2",
     "laravel-elixir": "^3.2.8",
     "laravel-elixir-group": "0.0.5"
   }

@@ -60,6 +60,7 @@ Route::get('blog/manage',array(
 Route::resource('blog','Views\BlogController');
 Route::resource('photo','Views\PhotoController');
 Route::resource('photo.comment','Views\PhotoCommentController');
+Route::resource('blog.comment','Views\ArticleCommentController');
 
 //APIs Controller
 Route::group(['prefix' => 'api'], function(){

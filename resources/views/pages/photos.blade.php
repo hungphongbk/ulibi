@@ -23,7 +23,7 @@
                     <div class="mix col-sm-3 margin10">
                         <div class="item-img-wrap ratio-500-333 thumbnail background" style="background-image: url('{{ $photo->src }}')">
                             <div class="item-img-overlay">
-                                <a href="{{ $photo->src }}" class="show-img" data-encoded="{{ base64_encode(json_encode($photo)) }}" data-author-encoded="{{ base64_encode(json_encode($photo->owner)) }}" data-content-encoded="{{ base64_encode(json_encode($photo->content)) }}" data-comment-encoded="{{ base64_encode(json_encode($photo->content->comments)) }}" data-own="{{ (Auth::user()==null | Auth::user()->username!=$photo->owner->username)?'0':'1' }}">
+                                <a href="{{ $photo->src }}" class="show-img" data-encoded="{{ base64_encode(json_encode($photo)) }}" data-author-encoded="{{ base64_encode(json_encode($photo->owner)) }}" data-content-encoded="{{ base64_encode(json_encode($photo->content)) }}">
                                     <div class="hover-info">
                                         <div>
                                             <div class="hover-info-content">
@@ -62,7 +62,7 @@
 @section('post-page-scripts')
     <script>
         $('.show-img').UlibiShowImage({
-            debug: true
+            debug: false
         });
         $('#uploadNewPhoto').UlibiImageSelector({
             debug: true,

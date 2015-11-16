@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $username
  * @property integer $article_id
  * @property-read \App\Models\ContentBase $content
+ * @property-read \App\Models\ContentBase $parent
+ * @property-read int|null $parent_comment
  * @property int content_id
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Comment whereCommentId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Comment whereCommentTime($value)
@@ -23,25 +25,44 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Comment extends Model
 {
-    protected $table='Comment';
+    protected $table = 'Comment';
     protected $primaryKey = 'comment_id';
-    public $timestamps = false;
-    protected $appends = ['author_name', 'author_avatar'];
+    public $timestamps = true;
+    protected $appends = ['author_name', 'author_avatar', 'parent_comment'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function content(){
-        return $this->belongsTo('App\Models\ContentBase', 'photo_id', 'content_id');
+    public function content()
+    {
+        return $this->belongsTo('App\Models\ContentBase', 'comment_id', 'content_id');
     }
 
-    public function getAuthorNameAttribute(){
-        $author=Ulibier::find($this->username);
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parent(){
+        return $this->belongsTo('App\Models\ContentBase', 'content_id', 'content_id');
+    }
+
+    public function getAuthorNameAttribute()
+    {
+        $author = Ulibier::find($this->username);
         return $author->full_name;
     }
 
-    public function getAuthorAvatarAttribute(){
-        $author=Ulibier::find($this->username);
+    public function getAuthorAvatarAttribute()
+    {
+        $author = Ulibier::find($this->username);
         return $author->thumbnail_400;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getParentCommentAttribute()
+    {
+        if ($this->parent->is_comment) return $this->content_id;
+        return null;
     }
 }
